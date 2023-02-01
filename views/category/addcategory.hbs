@@ -1,0 +1,160 @@
+{{breadcrums 'Home' title}}
+
+<div class="app-content center-layout mt-2 mx-md-3 px-1">
+	<div class="content-wrapper">
+	<div class="row">
+	<div class="col-md-12">
+	<div class="card">
+	<div class="card-header p-0 border-bottom border-light">
+		<a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+	</div>
+	<div class="card-content collpase show">
+	<div class="card-body">
+		<form method="POST" id="formID" action="/category/addcategory"  class="needs-validation form form-horizontal" novalidate>	
+	{{#each data as |result|}}	
+		<p class="form-section text-bold-600 font-medium-2"><i class="ft-user font-medium-2 mr-1"></i>{{#with ..}}{{__ "Category Information" setlang}}{{/with}}</p>
+			<div class="form-body user_form">
+			<div class="row">
+			<div class="col-md-6">
+			<div class="form-group input">
+			<div class=""> 
+			<label class="custom-control-label-date ml-2" style="z-index:99">{{#with ..}}{{__ "Category Type" setlang}}{{/with}} <span class="required red">*</span></label>
+			 <select class="select2 form-control export cate_type" id="export" maxlength="50" data-validation-required-message="Category type is required" name="categorytypes" aria-hidden="true" aria-invalid="true"> 
+			 
+						<option value="">{{#with ..}}{{__ "Category Type" setlang}}{{/with}}</option>
+						
+						<option value="service" {{#ifCond result.categorytypes '==' "service"}} selected {{/ifCond}}>{{#with ..}}{{__ "Service" setlang}}{{/with}}</option>
+						
+						<option value="product" {{#ifCond result.categorytypes '==' "product"}} selected {{/ifCond}}>{{#with ..}}{{__ "Product" setlang}}{{/with}}</option>
+						
+						<option value="product_unit" {{#ifCond result.categorytypes '==' "product_unit"}} selected {{/ifCond}}>{{#with ..}}{{__ "Product_unit" setlang}}{{/with}}</option>
+						
+						<option value="event" {{#ifCond result.categorytypes '==' "event"}} selected {{/ifCond}}>{{#with ..}}{{__ "Event" setlang}}{{/with}}</option>
+						
+						{{#each ../types as |type|}}
+							<option {{#ifCond type.category_type '==' result.categorytypes}} selected {{/ifCond}} value="{{type.category_type}}">{{type.category_type}}</option>
+						{{/each}}
+				</select>
+				
+			</div><div class="help-block"></div>
+			</div>
+			</div>
+			<div class="col-md-6 mb-2">
+				<button type="button" id="addCate" class="btn btn-primary">{{#with ..}}{{__ "Add Category Type" setlang}}{{/with}}</button>
+			</div>
+			<div class="col-md-6">
+			<div class="form-group input">
+			<div class="col-md-12 form-control border-light">
+			<input type="hidden" id="userinput1" name="id" {{#if this._id}} value="{{this._id}}"{{/if}} />
+				<input type="text" id="userinput1" data-validation-required-message="Category name is required" data-validation-regex-regex="(^[a-zA-Z][a-zA-Z _ ,`'.^-]{0,16})" data-validation-regex-message="No numbers and No special characters." name="categoryname" {{#if this.categoryname}} value="{{this.categoryname}}"{{/if}}>
+				<label for="userinput1">{{#with ..}}{{__ "Category Name" setlang}}{{/with}}<span class="required red">*</span></label>
+			</div><div class="help-block"></div>
+			</div>
+			</div>
+		{{/each}}
+			<!-- Modal -->
+		<div class="modal fade" id="myModal2" role="dialog" >
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content" >
+					<div class="modal-header">
+						<h4 class="modal-title">{{__ "Add Category Type"}}</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label>{{__ "Enter Category Type"}}</label>
+							<input  class="form-control" name="cate_type_ajax" id="cateType" >
+							<p><span class="emsg hidden" style="color:#e30b0b">{{__ "The category type name may only contain alphabets, space and _ ,`'.^-"}}</span></p>
+						</div>
+						<div class="form-group">
+							<button type="button" class="btn btn-success submit_cate">{{__ "Add"}}</button>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">{{__ "Close"}}</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--modal over-->
+		</div>
+			<div class="form-actions left">
+				<button type="submit" class="btn btn-secondary">
+					<i class="fa fa-check-square-o"></i> {{__ "Submit"}}
+				</button>
+			</div>
+			
+	</div>
+	</form>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+</div>
+<script>
+$(document).ready(function(){
+	//open modal
+	$("body").on("click", "#addCate", function (e) {
+		e.preventDefault();
+		$("#myModal2").modal();
+		
+	});
+	
+	$('#cateType').on('keyup', function() {
+		var text = $(this).val();
+		if(text!=''){
+			$('.cate_name-error').remove();
+			$("#cateType").css('border-color','#2b542c');			
+		}
+	});
+
+//add category type
+	$("body").on("click", ".submit_cate", function (e) {
+		
+		e.preventDefault();
+		var check=$('#cateType').closest('div').hasClass('has-error');
+		if(!check){
+			$('.cate_name-error').remove();			
+			var name=$("#cateType").val();
+			if(name!=''){
+				$("#cateType").css('border-color','#2b542c');
+				$("#cateType").val('');
+				$(".cate_type").append("<option value='"+name.toLowerCase()+"'>"+name+"</option>");
+				$("#myModal2").modal("toggle");			
+			}else{
+				$("#cateType").css('border-color','#a94442');
+				$('<span class="invalid-feedback cate_name-error"> This field is required.</span>" ').insertAfter("#cateType");
+			} 
+		}	
+	});
+
+//ajax for category type
+$('.submit_cate').click(function() {
+	var type = $('#cateType').val();
+	if(type != ""){
+	$.ajax({
+		type: "POST",
+		url: '/ajxfun/addcategorytype',
+		data: {'cat_type': type},
+	});
+	}
+});
+// modal validation
+var $regexname=/^(^[a-zA-Z][a-zA-Z _ ,`'.^-]{0,16})$/;
+    $('#cateType').on('keypress keydown keyup',function(){
+	 if (!$(this).val().match($regexname)) {
+	  // there is a mismatch, hence show the error message
+		 $('.emsg').removeClass('hidden');
+		 $('.emsg').show();
+		 $(this).val('');
+	 }
+   else{
+		// else, do not display message
+		$('.emsg').addClass('hidden');
+	   }
+});	
+});
+</script>

@@ -1,0 +1,332 @@
+{{breadcrums 'Home' 'User details'}}
+
+<div class="app-content center-layout mt-2 mx-md-3 px-1">
+<div class="content-wrapper">
+	<div class="content-body">
+	<section id="simple-user-cards" class="row pb-2">
+		<div class="col-xl-2 col-md-6 col-sm-12">
+		<div class="card-content123">
+			{{#each data}}
+				<input type="hidden" id="userinput1"name="id" {{#if this._id}} value="{{this._id}}"{{/if}} >
+					<div class="col-12"><img class="img-fluid" src="/images/upload/{{this.photo}}" style="border-radius:50%;"alt="User image" data-pagespeed-url-hash="3236208173" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></div>
+					<!-- <i class="fa fa-camera fa-2x upload_btn_css" data-toggle="modal" data-target="#image_upload" aria-hidden="true"></i> -->
+				<div class="card-body text-center p-0 pt-1 pb-1">
+					<h5 class="card-title"></h5>
+					<h6 class="card-subtitle text-muted">{{this.firstname}}</h6>
+				</div>
+		</div>
+		</div>
+		<div class="col-xl-10 col-md-7 col-sm-12" style="padding-top: 2%;">
+			<div id="card-drag-area">
+			<h5 class="card-title"></h5>
+			<p><h1 class="card-subtitle text-muted">{{this.firstname}} {{this.middlename}} {{this.lastname}}</h1></p>
+				<!-- <div class="row"> -->
+					<div class="col-md-12 col-sm-12 align-self-start profile_user leftDiv border-light">
+						<div class="row">
+							<div class="col-xl-12 col-md-12 col-12 col-sm-12 col-xs-12">
+								<div class="row">
+								<div class="col-xl-4 col-md-4 col-12 col-sm-12 col-xs-12 card-content collapse show">
+										<h5 class="card-text text-truncate">
+										<i class="fa fa-envelope"></i> {{this.email}}
+										</h5>
+								</div>
+								<div class="col-xl-3 col-md-4 col-12 col-sm-12 col-xs-12 card-content collapse show">
+										 <h5>
+										<i class="fa fa-phone"> </i> {{this.mobile}}
+										</h5>
+								</div>
+								<div class="col-xl-5 col-md-4 col-12 col-sm-12 col-xs-12 card-content collapse show">
+										<h5 class="card-text">
+											<i class="fa fa-map-marker"> </i> {{this.address}},
+											<span>{{getcitybyid this.city}},</span>
+											<span>{{getstatebyid this.state}},</span>
+											<span>{{getcountrybyid this.country}}.</span>
+										</h5>
+								</div>
+								</div>
+								</div>
+								<!--View more and View less-->
+								 
+									<div class=" col-10 text-center p-1  ">
+										 <button onclick="myFunction()" id="myBtn" type="button" class="viewbtn bg-transparent border-0" style="outline:none;">View more<br/><i class="fa fa-2x">&#xf107;</i> 
+										 </button>   
+									</div>
+							 
+						</div>
+					</div>
+				</div>
+	       </div>
+	    </div>
+      </div>
+				<div class="row">	
+					<span id="dots"></span>
+					<span class="col-xl-12 col-sm-12 col-12 app-content center-layout mt-2" id="more" style="display:none;"> 
+					<div class=" col-12  bg-white p-0">
+					<div class="h3 p-1 font-weight-bolder"><i class="fa fa-user " aria-hidden="true"></i> Personal Information
+					</div>
+					  <table class="table table-borderless table-sm ">
+							<tbody> 							
+									<tr class=""> 
+										 <td class="font-weight-bold pl-4">First Name</td> 
+										 <td  class="tabletd"><span class="colon">:</span>
+										 <div class="tabletext">{{this.firstname}}</div></td>  
+										 <td class="font-weight-bold pl-4">Middle Name</td>
+										 <td  class="tabletd"  value=""><span class="colon">:</span> <div class="tabletext">{{this.middlename}}</div></td>	 
+									 </tr> 
+									 <tr> 
+										<td class="font-weight-bold pl-4">Last Name</td>
+										 <td  class="tabletd"  ><span class="colon">:</span>
+										 <div class="tabletext">{{this.lastname}}</div></td>	 
+										<td class="font-weight-bold pl-4">Occupation</td>
+										 <td class="tabletd"><span class="colon">:</span><div class="tabletext"> {{this.occupation}}</div></td>	 
+									 </tr>  
+							         <tr> 
+										 <td class="font-weight-bold pl-4">Birth Date</td>
+										 <td class="tabletd"><span class="colon">:</span><div class="tabletext"> {{this.birthdate}}</div></td> 
+										 <td class="font-weight-bold pl-4">Gender</td>
+										 <td class="tabletd"><span class="colon">:</span><div class="tabletext"> {{this.gender}}</div></td>	 
+									 </tr> 
+							         <tr> 
+										 <td class="font-weight-bold pl-4">Email</td>
+										 <td class="tabletd"><span class="colon">:</span><div class="tabletext"> {{this.email}}</div></td>	  
+										  <td class="font-weight-bold pl-4">Contact</td>
+										 <td class="tabletd" ><span class="colon">:</span> 
+										 <div class="tabletext"><i class="ft-plus"></i>{{this.ccode}} {{this.mobile}}</div></td>
+									 </tr> 
+							         <!--<tr>   
+										  <td name="" class="font-weight-bold pl-5">Country Code</td>
+										 <td class="tabletd">:  {{this.ccode}}
+										  
+										 </td> 
+									 </tr>--> 							 
+							</tbody>
+						 </table>
+						 <!-- contact information--->
+						  <div class="h3 p-1 font-weight-bolder ">
+					         <i class="fa fa-home" aria-hidden="true"></i>  Residential Address
+					      </div>
+					      <table class="table table-borderless">
+							<tbody>	 	  							
+									<tr> 
+										<td class="font-weight-bold pl-4">Address</td>
+										 <td class="tabletd"><span class="colon">:</span><div class="tabletext"> {{this.address}} </div>  
+									   </td>
+										 <td class="font-weight-bold pl-4">Pin Code</td>
+										 <td  class="tabletd"><span class="colon">:</span>
+										 <div class="tabletext"> {{this.pincode}}</div></td>	
+									 </tr> 
+									 <tr>  
+									      <!--<td class="font-weight-bold pl-5">Country</td>
+										 <td class="tabletd">: <span>{{getcountrybyid this.country}}.</span></td>-->
+										 <td class="font-weight-bold pl-4">City</td>
+										 <td class="tabletd"><span class="colon">:</span><div class="tabletext"><span>{{getcitybyid this.city}}.</span></div></td>
+										 
+										 <td class="font-weight-bold pl-4">State</td>
+										 <td class="tabletd"><span class="colon">:</span>
+										 <div class="tabletext"> <span>{{getstatebyid this.state}}.</span></div></td> 
+									 </tr>
+									 <tr>
+									 <td class="font-weight-bold pl-4">Country</td>
+								     <td class="tabletd"><span class="colon">:</span>
+									 <div class="tabletext"><span>{{getcountrybyid this.country}}.</span></div></td>
+									 </tr>
+							</tbody>
+						  </table>
+						  <!-- other information -->
+					<div class="h3 p-1 font-weight-bolder">
+						  <i class="fa fa-sign-in  " aria-hidden="true"></i> Login Information
+					</div>
+					
+					<table class="table table-borderless">
+							<tbody>
+								<tr>
+									<td class="font-weight-bold pl-4">User Name </td>
+									 <td class="tabletd" value="{{this.username}}"><span class="colon">:</span>
+									 <div class="tabletext"> {{this.username}}</div></td>
+									<td class="font-weight-bold pl-4">Role</td>
+									 <td class="tabletd"><span class="colon">:</span>
+									 <div class="tabletext">{{getrolename this.role}}</div></td>
+								</tr>
+							</tbody>
+						  </table> 
+						  {{/each}}
+					<!-- Family Information--->
+					
+						  <div class="h3 p-1 font-weight-bolder">
+					         <i class="icon-users  " aria-hidden="true"></i> Family Information
+					      </div>	  
+						 
+						    <table class="table table-borderless table-responsive-sm">
+							{{#each family}}
+							<tbody>	
+							
+                                      
+									  	
+									 <tr>  						 
+										<td class="font-weight-bold pl-4">Family Member Name</td>  
+										 <td class="tabletd" value=""><span class="colon">:</span> <div class="tabletext">{{this.familymember}}</div></td>	  
+										 
+										  <td class="font-weight-bold pl-4">Occupation</td>
+										 <td class="tabletd" value=""><span class="colon">:</span> <div class="tabletext">{{this.famoccupation}}</div></td> 
+                                     </tr>										 
+									  
+									 
+									  	
+									 <tr>   
+										 <td class="font-weight-bold pl-4">Relationship</td>
+										 <td class="tabletd" value=""><span class="colon">:</span> <div class="tabletext">{{this.relationship}}</div></td> 
+										 
+										 <td class="font-weight-bold pl-4">Contact</td>
+										 <td class="tabletd" value=""><span class="colon">:</span> <div class="tabletext">{{this.famcontact}}</div></td>
+									 </tr> 
+									 <tr>   
+										 <td class="font-weight-bold pl-4">Income</td>
+										 <td class="tabletd" value=""><span class="colon">:</span>
+										 <div class="tabletext">{{this.income}}</div></td> 
+									 </tr> 
+							</tbody>
+							{{/each}}
+						  </table>
+                           						  
+					  </div>  
+                    </span>    
+                 </div>  
+			</div>
+			 
+		 
+		<script>
+function myFunction() {
+  var dots = document.getElementById("dots");
+  var moreText = document.getElementById("more");
+  var btnText = document.getElementById("myBtn");
+  var viewbtn = document.getElementById("myviewbtn");
+  
+  if (dots.style.display === "none") {
+    dots.style.display = "inline";
+    btnText.innerHTML = "View more <br/><i class='fa fa-2x'>&#xf107;</i>"; 
+    moreText.style.display = "none";
+	viewbtn.style.display = "View more";
+  } else {
+    dots.style.display = "none";
+    btnText.innerHTML = "View less <br/><i class='fa fa-2x'>&#xf106;</i>"; 
+    moreText.style.display = "inline";
+	viewbtn.style.display = "View less";
+  }
+}
+
+</script>
+	</section>
+	<!-- <div class="col-xl-6 col-md-6 col-12 custom_second_div"> -->
+		<!-- <div class="card123"> -->
+			<!-- <div class="card-header pl-0 pr-0 pt-0 pb-1 "> -->
+										<!-- <p class="card-title text-bold-700 border-bottom border-light">Location.</p> -->
+										<!-- <div class="form-control-position"> -->
+											<!-- <a title="Edit Profile" {{#if this._id}} href="../adduser/{{this._id}}"{{/if}}"><i class="fa fa-pencil"></i></a> -->
+										<!-- </div> -->
+											
+										
+									<!-- </div> -->
+								<!-- </div> -->
+								<!-- <div class="card-content collapse show"> -->
+									<!-- <div class="card-body p-0"> -->
+										<!-- <p class="card-text" style="word-wrap:break-word;"><span class="text-bold-600">Address</span><br> -->
+										<!-- {{this.address}}																<!--<i class="text-grey"><a class="text-grey" href="../"> -->
+																																				<!-- Edit 	Profile</a></i></p> -->
+										<!-- <p></p> -->
+										<!-- <p class="card-text"><span class="text-bold-600">City</span><br> -->
+										 <!-- {{this.city}} -->
+										 <!-- </p> -->
+										 <!-- <p class="card-text"><span class="text-bold-600">State </span><br> -->
+										<!-- {{this.state}} -->
+										<!-- </p> -->
+										 <!-- <p class="card-text"><span class="text-bold-600">Country</span><br> -->
+										 <!-- {{this.country}} -->
+										 <!-- </p> -->
+										
+									<!-- </div> -->
+								<!-- </div> -->
+							<!-- </div> -->
+						<!-- </div> -->
+					<!-- </div> -->
+					<!-- <div class="col-md-6 col-sm-12 align-self-start px-3 py-2 profile_user rightDiv"> -->
+						<!-- <div class="row"> -->
+							 
+							<!-- <div class="col-xl-6 col-md-6 col-12 custom_second_div"> -->
+												
+									<!-- <div class="card-header pl-0 pr-0 pt-0 pb-1 "> -->
+										<!-- <p class="card-title text-bold-700 border-bottom border-light">Loan Information</p> -->
+									<!-- </div> -->
+									<!-- <div class="card-content collapse show"> -->
+										<!-- <div class="card-body p-0 scroll-to"> -->
+												
+											<!-- <p class="card-text"><span class="text-bold-600">Status</span><br>  -->
+												<!-- Active -->
+											<!-- </p> -->
+											<!-- <p class="card-text"><span class="text-bold-600">Customer Since</span><br> -->
+												<!-- 22-07-2019 -->
+											<!-- </p> -->
+										<!-- </div> -->
+									<!-- </div> -->
+								<!-- </div> -->
+								 
+								<!-- <div class="col-xl-6 col-md-6 col-12 custom_second_div"> -->
+									<!-- <div class="card-header pl-0 pr-0 pt-0 pb-1 "> -->
+										<!-- <p class="card-title text-bold-700 border-bottom border-light">EMI Information.</p> -->
+										
+									<!-- </div> -->
+									<!-- <div class="card-content collapse show"> -->
+										<!-- <div class="card-body p-0"> -->
+																																					<!-- <p class="card-text"> -->
+											<!-- NiftyISO, 1 day ty,	22-07-2019 -->
+												 <!-- to 24-07-2019</p> -->
+											<!-- <br> -->	
+			 
+		 
+		  <div class="row1 match-height" id="calendar">
+          <div class="app-content center-layout mt-2 mx-md-3 px-1" id="user_list">
+            <div class="card">
+              <div class="card-content">
+                <div class="card-body px-0">
+                    <ul class="nav nav-tabs nav-top-border no-hover-bg">
+                      <li class="nav-item">
+                        <a class="nav-link active" id="baseIcon-tab11" data-toggle="tab" aria-controls="tabIcon11"
+                        href="#tabIcon11" aria-expanded="true"><i class="fa fa-play"></i> Loan Information</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="baseIcon-tab12" data-toggle="tab" aria-controls="tabIcon12"
+                        href="#tabIcon12" aria-expanded="false"><i class="fa fa-flag"></i>EMI Information</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="baseIcon-tab13" data-toggle="tab" aria-controls="tabIcon13"
+                        href="#tabIcon13" aria-expanded="false"><i class="fa fa-cog"></i>Alert Details</a>
+                      </li>
+                    </ul>
+                    <div class="tab-content px-1 pt-1">
+                      <div role="tabpanel" class="tab-pane active" id="tabIcon11" aria-expanded="true"
+                      aria-labelledby="baseIcon-tab11">
+                        <p>Oat cake marzipan cake lollipop caramels wafer pie jelly
+                          beans. Icing halvah chocolate cake carrot cake. Jelly beans
+                          carrot cake marshmallow gingerbread chocolate cake. Gummies
+                          cupcake croissant.</p>
+                      </div>
+                      <div class="tab-pane" id="tabIcon12" aria-labelledby="baseIcon-tab12">
+                        <p>Sugar plum tootsie roll biscuit caramels. Liquorice brownie
+                          pastry cotton candy oat cake fruitcake jelly chupa chups.
+                          Pudding caramels pastry powder cake soufflé wafer caramels.
+                          Jelly-o pie cupcake.</p>
+                      </div>
+                      <div class="tab-pane" id="tabIcon13" aria-labelledby="baseIcon-tab3">
+                        <p>Biscuit ice cream halvah candy canes bear claw ice cream
+                          cake chocolate bar donut. Toffee cotton candy liquorice.
+                          Oat cake lemon drops gingerbread dessert caramels. Sweet
+                          dessert jujubes powder sweet sesame snaps.</p>
+                      </div>
+                    </div>
+                  </div>
+				</div>
+            </div>
+          </div>
+          </div>
+           
+	</div>
+</div>

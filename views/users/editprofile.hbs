@@ -1,0 +1,445 @@
+{{breadcrums 'Home' 'Edit Profile'}}
+<div class="app-content center-layout mt-2 mx-md-3 px-1">
+    <div class="content-wrapper">
+	<div class="row">
+	<div class="col-md-12">
+	<div class="card">
+	<div class="card-header pb-0 border-bottom border-light">
+		
+		<a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+	</div>
+	<div class="card-content collpase show">
+	<div class="card-body">
+		<form id="formID" class="needs-validation form form-horizontal" novalidate method="post" action="/users/editprofile" enctype="multipart/form-data">
+		{{#each data as |result|}}
+		
+		<script>
+		$(document).ready(function(){
+	$('.brithdate').data("DateTimePicker").maxDate(new Date());
+	// Edit time
+	var countryId= $('#country').val();
+	<!-- alert(countryId); -->
+			if(countryId!=''){
+			var state_id= {{result.state}} ;
+			<!-- alert(countryId); -->
+			$.ajax({
+						type: 'POST',
+						url: '/ajxfun/state/',
+						headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+						data : {countryId:countryId },
+						success: function (response)
+						{		 
+							var state = response.state;
+							$('#state').empty().append("<option value=''>Select state</option>");
+							
+							for(i = 0 ; i < state.length ; i++ ){
+							if(state_id == state[i].id){
+							$('#state').append("<option selected value='"+state[i].id+"'>"+state[i].name+"</option>");
+							}
+							else{
+								$('#state').append("<option value='"+state[i].id+"'>"+state[i].name+"</option>");
+								}
+							}
+							$('#city').empty().append("<option value=''>Select state first</option>");
+							<!-- console.log(response.state); -->
+							
+							
+							var stateId= $("#state").val();
+			if(stateId!=''){
+			var city_id= {{result.city}} ;
+			 <!-- alert(city_id);  -->
+			$.ajax({
+						type: 'POST',
+						url: '/ajxfun/city/',
+						headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+						data : {stateId:stateId},
+						success: function (response)
+						{		 
+							var city = response.city;
+							
+							$('#city').empty().append("<option value=''>Select city</option>");
+							
+							for(i = 0 ; i < city.length ; i++ ){
+								if(city_id == city[i].id){
+								$('#city').append("<option selected value='"+city[i].id+"'>"+city[i].name+"</option>");
+							}
+							$('#city').append("<option value='"+city[i].id+"'>"+city[i].name+"</option>");
+							}
+							<!-- console.log(response); -->
+						},
+						error: function(e) 
+						{
+							alert("An error occurred: " + e.responseText);
+							console.log(e);
+						}
+					});
+			}else{
+				$('#city').empty().append("<option value=''></option>");
+				$('#state').empty().append("<option value=''></option>");
+			}
+			},
+						error: function(e) 
+						{
+							alert("An error occurred: " + e.responseText);
+							console.log(e);
+						}
+					});
+			}else{
+				$('#city').empty().append("<option value=''></option>");
+				$('#state').empty().append("<option value=''></option>");
+			}
+	});
+	</script>
+		
+		<p class="form-section text-bold-600 font-medium-2"><i class="ft-user font-medium-2 mr-1"></i>  {{#with ..}}{{__ "Personal Information" setlang}}{{/with}}</p>
+			<div class="form-body user_form">
+			<div class="row">
+			<div class="col-md-6">
+			<div class="form-group input">
+			<div class="col-md-12 form-control border-light">
+				<input type="hidden" id="userinput_1" name="id" {{#if this._id}} value="{{this._id}}"{{/if}} > 
+				<input type="text" id="userinput1" data-validation-regex-regex="([A-Za-z_,`.'^-]{1,50})" data-validation-regex-message="Only Characters, no numbers" data-validation-required-message="Firstname is required" name="firstname"{{#if this.firstname}} value="{{this.firstname}}"{{/if}} >
+				<label for="userinput1">{{#with ..}}{{__ "First Name" setlang}}{{/with}}<span class="required red">*</span></label> 
+			</div><div class="help-block"></div>
+			</div>
+			</div>
+			<div class="col-md-6">
+			<div class="form-group input">
+			<div class="col-md-12 form-control border-light"> 
+				<input type="text"id="userinput__1"name="middlename" data-validation-regex-regex="([A-Za-z_ ,`.'^-]{1,50})" data-validation-regex-message="Only Characters, no numbers" data-validation-required-message="Middlename is required" {{#if this.middlename}} value="{{this.middlename}}"{{/if}} >
+				<label for="userinput2">{{#with ..}}{{__ "Middle Name" setlang}}{{/with}}<span class="required red">*</span></label> 
+			</div><div class="help-block"></div>
+			</div>
+			</div>
+			<div class="col-md-6">
+			<div class="form-group input">
+			<div class="col-md-12 form-control border-light"> 
+				<input type="text" id="userinput21" class="" name="lastname" data-validation-regex-regex="([A-Za-z_ ,`.'^-]{1,50})" data-validation-regex-message="Only Characters, no numbers" data-validation-required-message="Lastname is required" {{#if this.lastname}} value="{{this.lastname}}"{{/if}}>
+				<label for="userinput21">{{#with ..}}{{__ "Last Name" setlang}}{{/with}}<span class="required red">*</span></label> 
+			</div><div class="help-block"></div>
+			</div>
+			</div>
+			<div class="col-md-6">
+			<div class="form-group row">
+			<div class="col-md-12">
+				<label class="custom-control-label-date ml-2">{{#with ..}}{{__ "Image" setlang}}{{/with}}<span class="required red">*</span></label>
+				<input class="form-control border-light imageUpload"  name="photo" {{#if this.photo}} value="{{this.photo}}" {{else}} data-validation-required-message="{{__ 'Profile Image is required'}}" {{/if}} type="file" id="userinput5" >
+				<span class="required red notice"></span>
+				{{#if this.photo}} <img class="existing_user_image update_time_team_image" src="/images/upload/{{this.photo}}">
+				<input class="form-control border-light"  name="photo_old" value="{{this.photo}}" type="hidden"  placeholder="" id="userinput_5" > {{/if}}
+			</div><div class="help-block"></div>
+			</div>
+			</div>
+			</div>
+			<div class="row">
+			<div class="col-md-6">
+			<div class="form-group input">
+			<div class="col-md-12 form-control border-light"> 
+				<input type="text" id="userinput3" class="form-control" required=""  name="email" data-validation-regex-regex="([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})" data-validation-regex-message="Enter Valid Email" data-validation-required-message="Email is required"  aria-invalid="true" {{#if this.email}} value="{{this.email}}"{{/if}}>
+				<label for="userinput3">{{#with ..}}{{__ "Email" setlang}}{{/with}}<span class="required red">*</span></label> 
+			</div>	<div class="help-block"></div>	
+			</div>
+			</div>	
+				<div class="col-md-2">
+				<div class="form-group input">
+					<div class="pos_mobile plusi form-control-position style='float:left'">
+						<i class="ft-plus"></i>
+					</div>
+					<div class="col-md-12 form-control border-light"> 
+						<input type="text" name="ccode" style="margin-left:12px" class="form-control" minlength="2" maxlength="5" required="" data-validation-containsnumber-regex="(\d)+" data-validation-containsnumber-message="No Characters, Only Numbers" aria-invalid="false" {{#if this.ccode}} value="{{this.ccode}}"{{/if}}>
+						<label for="userinput4" style="margin-left:12px">{{#with ..}}{{__ "Country code" setlang}}{{/with}}<span class="required red">*</span></label> 
+					<div class="help-block"></div>
+					</div>
+				</div>
+				</div>
+				<div class="col-md-4">
+				<div class="form-group input">
+				<div class="col-md-12 form-control border-light"> 
+					<input type="text" name="mobile" class="form-control"  minlength="10" maxlength="16" required="" data-validation-containsnumber-regex="(\d)+" data-validation-containsnumber-message="No Characters, Only Numbers" aria-invalid="false" {{#if this.mobile}} value="{{this.mobile}}"{{/if}}>
+					<label for="userinput4">{{#with ..}}{{__ "Contact Number" setlang}}{{/with}}<span class="required red">*</span></label> 
+				</div><div class="help-block"></div>
+				</div>
+			</div>
+			<div class="col-md-6">
+			<div class="form-group input">
+			<div class="col-md-12 form-control border-light"> 
+				<input type="text" id="userinput23" class="" name="occupation" data-validation-regex-regex="([A-Za-z_ ,`.'^-]{1,50})" data-validation-regex-message="Only Characters, no numbers" data-validation-required-message="Occupation is required" {{#if this.occupation}} value="{{this.occupation}}"{{/if}}>
+				<label for="userinput23">{{#with ..}}{{__ "Occupation" setlang}}{{/with}}<span class="required red">*</span></label> 
+			</div><div class="help-block"></div>
+			</div>
+			</div>
+			<div class="col-md-6">
+			<div class="form-group row">
+			<div class="col-md-12"> 
+			<label class="custom-control-label-date ml-2">{{#with ..}}{{__ "Birth Date" setlang}}{{/with}}<span class="required red">*</span></label>
+			<input type='text'  class="form-control  brithdate dateformat" data-validation-required-message="Birth Date is required" name="birthdate" {{#if this.birthdate}} value="{{getdate this.birthdate ../session.generaldata.date_format}}" {{else}} value="{{getdate '' ../session.generaldata.date_format}}" {{/if}} aria-invalid="false" > 
+
+				<i class="ft-calendar icon-care"></i> 
+            </div><div class="help-block"></div>
+			</div>
+			</div>
+
+			
+			<div class="col-md-6">
+			<div class="form-group">
+			<div class="col-md-12 form-control">
+			<div class="skin skin-flat row ">
+			<div class="input-group">
+			<label class="custom-control-label custom-top-label ml-2">{{#with ..}}{{__ "Gender" setlang}}{{/with}}<span class="required red">*</span></label>
+				&nbsp;&nbsp;&nbsp;
+				<div class="d-inline-block custom-control custom-radio mr-1">
+			
+					<input type="radio" name="gender" class="custom-control-input" {{#ifCond this.gender '==' 'Male'}} checked="" {{/ifCond}} value="Male" id="yes">
+					<label class="custom-control-label mr-1" for="yes">{{#with ..}}{{__ "Male" setlang}}{{/with}}</label>
+					<input type="radio" name="gender" class="custom-control-input" {{#ifCond this.gender '==' 'Female'}} checked="" {{/ifCond}}  value="Female" id="no">
+					<label class="custom-control-label" for="no">{{#with ..}}{{__ "Female" setlang}}{{/with}}</label>
+					&nbsp; &nbsp;&nbsp; &nbsp;
+					&nbsp; &nbsp;&nbsp; &nbsp;
+				</div>
+			</div>
+			</div>
+			</div>
+			</div>
+			</div>
+			</div>
+				
+			<p class="form-section text-bold-600 font-medium-2 border-light"><i class="ft-home font-medium-2 mr-1"></i> {{#with ..}}{{__ "Residential Address" setlang}}{{/with}}</p>
+						
+			<div class="row">
+			<div class="col-md-6">	
+			<div class="form-group input">
+			<div class="col-md-12" style="border: 1px solid #ddd;">
+			<div class="form-field">	
+
+			<textarea name="address"  data-validation-regex-regex="([A-Za-z0-9_,` .'^-]{1,150})" data-validation-regex-message="{{__ 'Only Characters, no numbers'}}" data-validation-required-message="{{__ 'Address is required'}}" {{#if this.address}} value="{{this.address}}"{{/if}}>{{this.address}}</textarea>
+				<span class="txt-title-label"></span>
+				<label class="text-area address ">{{#with ..}}{{__ "Address" setlang}}{{/with}}</label>
+			</div><div class="help-block"></div>
+			</div>
+			</div>
+			</div>
+			<div class="col-md-6">
+			<div class="form-group input">
+			<a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+				<div class="heading-elements "> 
+					 <select class="select2 form-control export" data-validation-required-message="country is required" name="country" maxlength="50" id="country" {{#if this.country}} value="{{this.country}}"{{/if}}> 
+						<option value="">Select Country</option>
+
+						{{#each ../country as |id| }}
+						<option {{#ifCond this.id '===' result.country}} selected {{/ifCond}} value="{{this.id}}" >{{this.name}}</option>
+							{{/each}}
+						</select>
+					 
+				</div>
+			</div>
+			<div class="help-block"></div>
+			</div>
+			<div class="col-md-6 notCustomerBlock">
+				<div class="form-group input">
+				<a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+				<div class="heading-elements "> 
+					 	<select class="select2 form-control export" maxlength="50" data-validation-required-message="State is required" name="state" id="state" {{#if this.state}} value="{{this.state}}"{{/if}} >
+						<option value="">Select State</option> 
+						</select>
+				</div>
+				</div>
+				<div class="help-block"></div>
+			</div>
+			<div class="col-md-6 notCustomerBlock">
+				<div class="form-group input">
+				<div class="heading-elements "> 
+					<select class="select2 form-control export" maxlength="50" data-validation-required-message="City name is required" name="city" id="city" {{#if this.city}} value="{{this.city}}"{{/if}} >
+						<option value="">Select City</option> 
+						</select>
+				</div>
+				</div>
+				<div class="help-block"></div>
+			</div>
+			<div class="col-md-6 notCustomerBlock">
+				<div class="form-group input">
+				<div class="col-md-12 form-control border-light"> 
+					<input type="text" id="pincode" class="" name="pincode" data-validation-required-message="Address is required" data-validation-regex-regex="([0-9]{1,50})" data-validation-regex-message="Only numbers, no characters" {{#if this.pincode}} value="{{this.pincode}}"{{/if}}>
+					<label for="pincode" class="pincode">{{#with ..}}{{__ "Pincode" setlang}}{{/with}}</label> 
+				</div>
+				</div>
+			</div>
+			</div>
+			<p class="form-section text-bold-600 font-medium-2 border-light"><i class="icon-login font-medium-2 mr-1"></i>{{#with ..}}{{__ "Login Information" setlang}}{{/with}}</p>
+			<div class="row">
+			<div class="col-md-6">
+			<div class="form-group input">
+			<div class="col-md-12 form-control border-light"> 
+				<input type="text" id="userinput32" class="form-control" required=""  name="username" data-validation-regex-regex="([a-z0-9_\.-]+)" data-validation-regex-message="Enter Valid username" aria-invalid="true" {{#if this.username}} value="{{this.username}}"{{/if}}>
+				<label for="userinput32">{{#with ..}}{{__ "Username" setlang}}{{/with}}<span class="required red">*</span></label> 
+			</div>	<div class="help-block"></div>	
+			</div>
+			</div>
+			<div class="col-md-6">
+			<div class="form-group input">
+			<a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+				<div class="heading-elements "> 
+					<select class="select2 form-control export" data-validation-required-message="role name is required" name="role" {{#ifCond ../session.admin_access "==" 0}}disabled{{/ifCond}}>
+						<option value="">Select Role</option> 
+						{{#each ../role as |role_nm| }}
+							<option {{#if this.id_d}}{{#ifCond this.id_d '==' result.id_d}} selected {{/ifCond}} {{/if}} value="{{this._id}}" >{{this.role_nm}}</option>
+						{{/each}}
+						</select>					
+				</div>
+			</div>
+			<div class="help-block"></div>
+			</div>
+			
+			<div class="col-md-6">
+			<div class="form-group input">
+			<div class="col-md-12 form-control border-light"> 
+				<input type="password" id="userinput_2" class="" name="password" data-validation-regex-regex="([A-Za-z0-9_@]{6,12})" data-validation-regex-message="Password must be of 6 to 12 digits" {{#if this.password}} {{else}} required data-validation-required-message="This field is required"  {{/if}}>
+				<label for="userinput2">{{#with ..}}{{__ "Password" setlang}}{{/with}}<span class="required red">*</span></label> 
+				
+				{{#if this.password}} 
+				<input class="form-control border-light"  name="password_old" value="{{this.password}}" type="hidden"  placeholder="" id="userinput24" > {{/if}}
+				
+			</div><div class="help-block"></div>
+			</div>
+			</div>
+			<div class="col-md-6">
+			<div class="form-group input">
+				<div class="col-md-12 form-control border-light">
+					<input type="password" id="userinput25" class="" name="confirmpassword"  data-validation-match-match="password"  {{#if this.confirmpassword}} {{/if}}>
+					<label for="userinput2">{{#with ..}}{{__ "Confirm Password" setlang}}{{/with}}<span class="required red">*</span></label>
+				</div><div class="help-block"></div>
+			</div>
+			</div>
+			</div>
+			{{/each}}
+			
+			<div class="form-actions left">
+				<button type="submit" class="btn btn-secondary" onclick="return ValidateExtension()">
+					<i class="fa fa-check-square-o"></i> {{__ "Submit"}}
+				</button>
+				<button type="reset" class="btn btn-warning">
+					<i class="ft-refresh-cw"></i> {{__ "Reset"}}
+				</button>
+			</div>
+		</form>
+	</div>
+	</div>
+	</div>
+	</div>
+    </div>
+</div>
+</div>
+</div>
+<script>
+<!-- for state -->
+	$(document).ready(function(){
+	
+	
+	$("body").on("change", "#country", function (e) {
+			
+			var countryId= $(this).val()
+			if(countryId!=''){
+			$.ajax({
+						type: 'POST',
+						url: '/ajxfun/state/',
+						headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+						data : {countryId:countryId},
+						success: function (response)
+						{		 
+							var state = response.state;
+							$('#state').empty().append("<option value=''>Select country first </option>");
+							
+							for(i = 0 ; i < state.length ; i++ ){
+
+								$('#state').append("<option value='"+state[i].id+"'>"+state[i].name+"</option>");
+							}
+							$('#city').empty().append("<option value=''>Select state first</option>");
+							<!-- console.log(response.state); -->
+						},
+						error: function(e) 
+						{
+							alert("An error occurred: " + e.responseText);
+							console.log(e);
+						}
+					});
+			}else{
+				$('#city').empty().append("<option value=''></option>");
+				$('#state').empty().append("<option value=''></option>");
+			}   
+		});
+		});
+		
+<!-- for city -->
+	$(document).ready(function(){
+	$("body").on("change", "#state", function (e) {
+			
+			var stateId= $(this).val()
+			if(stateId!=''){
+			<!-- alert(stateId); -->
+			$.ajax({
+						type: 'POST',
+						url: '/ajxfun/city/',
+						headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+						data : {stateId:stateId},
+						success: function (response)
+						{		 
+							var city = response.city;
+							
+							$('#city').empty().append("<option value=''>Select city</option>");
+							
+							for(i = 0 ; i < city.length ; i++ ){
+
+								$('#city').append("<option value='"+city[i].id+"'>"+city[i].name+"</option>");
+							}
+							
+							<!-- console.log(response); -->
+						},
+						error: function(e) 
+						{
+							alert("An error occurred: " + e.responseText);
+							console.log(e);
+						}
+					});
+			}else{
+				$('#city').empty().append("<option value=''></option>");
+				$('#state').empty().append("<option value=''></option>");
+			}   
+		});
+		});
+</script>
+{{#each setting as |geninfom|}}
+<script type="text/javascript">
+        function ValidateExtension(){
+		<!-- alert("123"); -->
+		m=0;
+		$('.imageUpload').each(function(){
+			if($(this).val() != '') {
+				var imageUpload=$(this).val();
+				var allowedFiles = [];
+				var jpeg="{{geninfom.imgtype_jpeg}}";
+				var jpg="{{geninfom.imgtype_jpg}}";
+				var png="{{geninfom.imgtype_png}}";
+				if(jpeg!=''){
+					allowedFiles.push('{{geninfom.imgtype_jpeg}}');
+				}
+				if(jpg!=''){
+					allowedFiles.push('{{geninfom.imgtype_jpg}}');
+				}
+				if(png!=''){
+					allowedFiles.push('{{geninfom.imgtype_png}}');
+				}
+				var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + allowedFiles.join('|') + ")$");
+				if (!regex.test(imageUpload.toLowerCase())) {
+					$(this).siblings('.notice').html("Please upload files having extensions: <b>" + allowedFiles.join(', ') + "</b> only.");
+					m++;
+				}
+				else{
+					$(this).siblings('.notice').html();
+				}
+			}
+		});
+			if(m>0){
+			return false;
+			}
+        }
+</script>
+{{/each}}

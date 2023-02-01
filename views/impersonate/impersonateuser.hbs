@@ -1,0 +1,43 @@
+{{breadcrums 'Home' 'Impersonate'}}
+
+<div class="app-content center-layout mt-2 mx-md-3 px-1">
+	<div class="content-wrapper">
+	<div class="row">
+	<div class="col-md-12">
+	<div class="card">
+	<div class="card-header p-0 border-bottom border-light">
+		<a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+	</div>
+	<div class="card-content collpase show">
+	<div class="card-body">
+	{{#if messages.error}}
+	<script>
+		toastr.error("{{messages.error}}","Error!" , {"showMethod": "fadeIn", "hideMethod": "fadeOut", timeOut: 5000});
+	</script>
+	{{/if}}
+		<form method="POST" id="formID" action="/impersonate/impersonateuser"  class="needs-validation form form-horizontal" novalidate>
+		<p class="form-section text-bold-600 font-medium-2"><i class="ft-user font-medium-2 mr-1"></i>{{__ "User Email"}}</p>
+			<div class="form-body user_form">
+			<div class="col-md-6">
+			<div class="form-group input">
+			<div class="col-md-12 form-control border-light">
+				<input type="text" id="userinput3" class="form-control" required=""  name="email" data-validation-regex-regex="([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})" data-validation-regex-message="{{__ 'Enter Valid Email'}}" data-validation-required-message="{{__ 'Email is required'}}"  aria-invalid="true">
+				<label for="userinput3">{{__ "Email"}}<span class="required red">*</span></label>
+			</div>	<div class="help-block"></div>
+			</div>
+			</div>
+			</div>
+			<div class="form-actions left">
+				<button type="submit" class="btn btn-secondary">
+					<i class="fa fa-check-square-o"></i> {{__ "Submit"}}
+				</button>
+			</div>
+			</div>
+		</form>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+</div>

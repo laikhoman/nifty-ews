@@ -1,0 +1,178 @@
+{{breadcrums 'Home' 'Add Re-Payment'}}
+<div class="app-content center-layout mt-2 mx-md-3 px-1">
+    <div class="content-wrapper">
+	<div class="row">
+	<div class="col-md-12">
+	<div class="card">
+	<div class="card-header pb-0 border-bottom border-light">
+		
+		<a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+	</div>
+	<div class="card-content collpase show">
+	<div class="card-body">  
+     <form id="formID" class="needs-validation form form-horizontal" novalidate method="POST" action="/loan/repayment" >  
+	   <!-- <input type="" id="userinput1" name="id" {{#if this.loan_id}} value="{{this.loan_id}}"{{/if}} > -->
+			<!-- <p>{{this._id}}</p> -->
+			 
+               <p class="form-section text-bold-600 font-medium-3"><i class="ft-user font-medium-2 mr-1"></i>Re-Payment</p> 
+			   
+    <div class="form-body user_form">
+	<div class="row"> 
+			 <!-- <div class="col-xl-6 col-lg-6 col-md-12" style="float:right"> -->
+               <!-- <div class="card"> -->
+               <!-- <div class="card-content"> -->
+                    <!-- <fieldset> -->
+					<!-- <label>Total EMI Months<span class="required red">*</span></label> -->
+                      <!-- <div class="input-group bootstrap-touchspin touchspincolor"> -->
+                       <!-- <input type="text" class="touchspin form-control" name="paymentemimonth" data-validation-required-message="{{__ 'Total EMI Months is required'}}"  {{#if this.paymentemimonth}} value="{{this.paymentemimonth}}"{{/if}} value="1" style="display: block;"><div class="input-group-append"><span class="input-group-text bootstrap-touchspin-postfix" style="display: none;"></span></div> -->
+                      <!-- </div> -->
+                    <!-- </fieldset> -->
+                  <!-- </div> -->
+                  <!-- </div> -->
+              <!-- </div> -->
+		   
+		<div class="col-xl-6 col-lg-6 col-md-12" style="float:right">
+            <div class="card">
+                <div class="card-content">
+                    <fieldset>
+					<label>{{__ "Actual Number Of Payments"}}<span class="required red">*</span></label>
+                      <div class="input-group bootstrap-touchspin touchspincolor">
+                       <input type="text" class="touchspin form-control" name="repayments" {{#if this.repayments}} value="{{this.repayments}}"{{/if}} value="1" style="display: block;"><div class="input-group-append"><span class="input-group-text bootstrap-touchspin-postfix" style="display: none;"></span></div>
+                      </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>	  
+		<div class="col-xl-6 col-lg-6 col-md-12" style="float:right">
+            <div class="card">
+               <div class="card-content">
+                 <!-- <div class="card-body"> -->
+				<fieldset>
+				<label>{{{currencyList session.generaldata.currency}}} {{__ "Extra Payment Of Amount"}}<span class="required red">*</span></label> 
+                     <div class="input-group touchspincolor">
+					  <input type="text" id="repaymentamount" value="0" class="touchspin "  name="repaymentamount" data-validation-required-message="{{__ 'Interest rate is required'}}" data-bts-step="1000" {{#if this.paymentamount}} value="{{this.repaymentamount}}"{{/if}} />
+                     </div>
+                </fieldset>
+                </div>
+            </div>
+        </div>
+		<div class="col-md-6">
+			<div class="form-group row">
+			   <div class="col-md-12"> 
+			    <label class="custom-control-label-date ml-2">{{__ "Payment Date"}}<span class="required red">*</span></label>
+			    <input autocomplete="off" type='text'  class="form-control  brithdate dateformat" data-validation-required-message="Birth Date is required" name="date" {{#if this.date}} value="{{getdate this.date ../session.generaldata.date_format}}" {{else}} value="{{getdate '' ../session.generaldata.date_format}}" {{/if}} aria-invalid="false" >
+				<i class="ft-calendar icon-care"></i>
+               </div><div class="help-block"></div>
+			</div>
+		</div> 
+    </div>
+	<p class="form-section text-bold-600 font-medium-2"><i class="ft-user font-medium-2 mr-1"></i>{{__ "Payment Method"}}</p>  
+	<div class="form-body user_form">
+		<div class="row">
+			<div class="col-md-6 notCustomerBlock">
+				<div class="form-group input">
+					<div class="heading-elements ">
+					<ul class="list-inline mb-0">
+					<li class="col-md-12 p-0 form-control" id="export">
+					<label class="ml-1 custom-top-label top" style="z-index:99" for="type">Select your payment mode<span class="required red">*</span></label>
+					<select id="payment_type" class="select2 form-control dropdown_change"  name="payment_type" >
+						<option value="">Select Input Type</option>
+						<option value="cash" name="payment_type" {{#ifCond this.payment_type '==' 'cash'}} selected {{/ifCond}}>Cash</option>
+						<option value="creditcard" name="payment_type" {{#ifCond this.payment_type '==' 'creditcard'}} selected {{/ifCond}}>Credit Card</option>
+						<option value="debitcard" name="payment_type" {{#ifCond this.payment_type '==' 'debitcard'}} selected {{/ifCond}}>Debit Card</option>
+						<option value="netbanking" name="payment_type" {{#ifCond this.payment_type '==' 'netbanking'}} selected {{/ifCond}}>Net Banking</option>
+						<option value="cheque" name="cheque_detail" {{#ifCond this.cheque_detail '==' 'cheque'}} selected {{/ifCond}}>Cheque</option>
+					</select>
+					</li>	
+					</ul>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div> 
+		     <div class="row cheque_cat" style="display:none;">
+				<div class="col-md-6">
+					<div class="form-group input">
+						<div class="col-md-12 form-control border-light">
+							<input type="text" maxlength="30"  class=" c_label" name="cheque_name" {{#if this.cheque_name}} value="{{this.cheque_name}}" {{else}} {{/if}} data-validation-regex-regex="([A-Za-z_, `.'^-]{1,50})" data-validation-regex-message='{{__ "Only Characters, no numbers"}}' aria-invalid="false">
+							<label>{{__ "Name of the pay"}}</label>
+						</div> 
+					</div>
+					<div class="form-group input">
+					    <div class="col-md-12 form-control border-light">
+							<input type="text" maxlength="30"  class="form-control c_label" name="cheque_accountno" {{#if this.cheque_accountno}} value="{{this.cheque_accountno}}" {{else}}  {{/if}}  data-validation-containsnumber-regex="(\d)+" data-validation-containsnumber-message="No Characters, Only Numbers" aria-invalid="false">
+							<label>{{__ "Account number"}}</label>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6"> 
+				  <div class="form-group row">
+					 <div class="col-md-12"> 
+					 <label class="custom-control-label-date ml-2">{{__ "Payment Date"}}<span class=""></span></label>
+					 <input type='text' class="form-control  dateformat"  name="cheque_date" {{#if this.cheque_date}} value="{{this.cheque_date}}" {{else}}  {{/if}} aria-invalid="false"> 
+					<i class="ft-calendar icon-care"></i> 
+					</div>
+			      </div><div class="help-block"></div>
+				</div> 
+				<div class="col-md-6">
+				  <div class="form-group row">
+					<div class="col-md-12 border-light">
+							<!-- <input type="text" maxlength="30"  class="form-control c_label" > -->
+							<!-- <label>Amount</label> --> 
+					  <fieldset>
+				      <label>{{{currencyList session.generaldata.currency}}} {{__ "Cheque Amount"}}<span class=""></span></label> 
+                      <div class="input-group touchspincolor">
+					  <input type="text" id="paymentamount" class="touchspin " data-bts-postfix="{{{currencyList session.generaldata.currency}}}"  name="paymentamount"  data-bts-step="1000" {{#if this.paymentamount}} value="{{this.paymentamount}}"{{/if}} />
+                      </div>
+                      </fieldset> 
+				    </div>
+				  </div>
+				</div> 	
+			</div>  
+		    <div class="form-actions left">
+				<button type="submit" class="btn btn-secondary">
+					<i class="fa fa-check-square-o"></i> {{__ "Submit"}}
+				</button>
+				<button type="reset" class="btn btn-warning mr-1 btn-outline-light text-muted">
+					<i class="ft-refresh-cw"></i>{{__ "Reset"}}
+				</button>
+			</div>
+			</div> 
+		   </form>  
+		 </div>
+	  </div>
+	</div>
+   </div>
+ </div>
+ </div>
+ <script>
+$(document).ready(function () 
+{
+$('body').on('change', '.dropdown_change', function () 
+	{
+		var dropdwon_data = $(".dropdown_change option:selected").val();
+
+		if (dropdwon_data == 'text' || dropdwon_data == 'textarea') 
+		{    
+			$('.cheque_cat').fadeOut(1000);
+			 
+
+		} 
+		else if (dropdwon_data == 'cheque') 
+		{
+			<!-- $('.only_number,.only_char,.char_space,.char_num,.email,.url,.date').iCheck('disable'); -->
+			<!-- $('.only_number,.only_char,.char_space,.char_num,.email,.url,.date').attr('disabled', true); -->
+			 
+			$('.cheque_cat').fadeIn(1000);
+		} 
+		else 
+		{
+			<!-- $('.only_number,.only_char,.char_space,.char_num,.email,.url,.date').iCheck('disable'); -->
+			<!-- $('.only_number,.only_char,.char_space,.char_num,.email,.url,.date').attr('disabled', false); -->
+			  
+			$('.cheque_cat').fadeOut(1000); 
+			 
+		}
+	}); 
+});  
+</script>

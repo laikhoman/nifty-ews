@@ -1,0 +1,441 @@
+{{breadcrums 'Home' title}}
+
+<div class="app-content center-layout mt-2 mx-md-3 px-1">
+<div class="row" style="">
+		<div class="col-lg-2 col-md-2 mb-2 custom_select">
+		
+		</div>
+		<div class="col-lg-2 col-md-2 mb-2">
+			
+		</div>
+		<div class=" col-lg-7 col-md-7 mb-7">
+		</div>
+		<div class=" col-lg-12 col-md-12 mb-1 pr-2 heading-elements p-0 text-right" >
+		<a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+				<div class="heading-elements ews-heading">
+					<ul class="list-inline mb-0">
+					<li id="export">
+						<select class="select2 form-control export">
+							<option value="">{{__ "Export"}}</option>
+							<option value="csv">{{__ "XLSX"}}</option>
+							<option value="pdf">{{__ "PDF"}}</option>
+						</select>
+					</li>	
+					</ul>
+				</div>
+		</div>
+		</div>
+    <div class="content-wrapper">
+	<div class="row">
+	<div class="col-md-12">
+	<div class="card">
+	 
+	<div class="card-content collpase show">
+	 
+		<!-- Zero configuration table -->
+        <section id="configuration">
+        <div class="row">
+            <div class="col-12">
+             <div class="card">
+                
+                <div class="card-content collapse show">
+				
+				<!--{{log messages}}-->
+				{{#if messages.error  }}
+			<script>
+					toastr.error("{{messages.error}}","{{__ 'Error!'}}" , {"showMethod": "fadeIn", "hideMethod": "fadeOut", timeOut: 5000});
+				</script>
+			{{/if}}
+			{{#if messages.success }}
+				<script>
+					toastr.success("{{messages.success}}", "{{__ 'Sucess!'}}", {"showMethod": "fadeIn", "hideMethod": "fadeOut", timeOut: 5000});
+				</script>
+			{{/if}}
+                <div class="card-body card-dashboard card-design">
+					
+					<section id="horizontal">
+						<div class="row">
+						<div class="col-12">
+						<div class="card">
+							
+							<!--<div class="card-header">
+								<a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+								<div class="heading-elements">
+									 
+									<ul class="list-inline mb-0">
+									<li id="export">
+										<select class="select2 form-control export">
+											<option value="">Export</option>
+											<option value="csv">XLSX</option>
+											<option value="pdf">PDF</option>
+										</select>
+									</li>	
+									 
+								</ul>
+								</div>
+							</div>-->
+							<div class="card-content collapse show" id="NF-datatable">
+							<div class="card-body p-0">
+								<div id="grid"></div>
+								<div id="window"></div>
+								
+							</div>
+						</div>
+							
+							<div class="card-content collapse show">
+							<div class="card-body card-dashboard">
+							
+
+							<script type="x/kendo-template" id="page-template">
+								 <div class="page-template">
+									<div class="header">
+									   <div style="float: right"></div>
+									  Custom Field List 
+									</div>
+									<div class="footer">
+									 
+									</div>
+								</div>
+							</script>
+							<script type="text/x-kendo-template" id="windowTemplate">
+								
+								
+								<div class="swal-modal">
+									<span class="swal-icon--warning__body">
+										<span class="swal-icon--warning__dot"></span>
+									</span>
+								</div>
+								<div class="swal-title">{{{__ "Delete !"}}}</div>
+								<div class="swal-text">{{{__ "Are You sure you want to delete this custom field ?"}}}</div>
+								<div class="swal-footer">
+								<div class="swal-button-container nobutton">
+									<button class="swal-button swal-button--confirm btn btn-secondary" id="noButton">{{{__ "NO"}}}</button>
+								</div>
+								<div class="swal-button-container yesbutton">
+									<button class="swal-button swal-button--cancel btn" id="yesButton">{{{__ "YES"}}}</button>
+								</div>
+								</div>  
+							</script> 
+    <script >
+       jQuery(document).ready(function() {
+	var windowTemplate = kendo.template($("#windowTemplate").html());//for delete popup
+		$('body').on('change', '.export', function() {
+		var value = $(this).val();
+		if(value == 'csv')
+		{
+			$("#grid").getKendoGrid().saveAsExcel();
+		}else if(value == 'pdf')
+		{
+			$("#grid").getKendoGrid().saveAsPDF();
+		}
+	});
+		
+		
+		 var window1 = $("#window").kendoWindow({
+            title: "{{__ 'Warning !'}}",
+			resizable: false,
+            visible: false, //the window will not appear before its .open method is called
+           
+        }).data("kendoWindow");
+		
+		
+		var element=$("#grid").kendoGrid({
+			//var path='{{path}}';
+					
+				pdf: {
+					
+		allPages: true,
+		template: $("#page-template").html(),
+		avoidLinks: true,
+		fileName: "Custom_field-list.pdf",// Bug 277	
+		paperSize: "A4",
+		margin: { top: "2cm", left: "1cm", right: "1cm", bottom: "1cm" },
+		landscape: true,
+		repeatHeaders: true,
+		scale: 0.8,
+		
+		},
+		excel: {
+		fileName: "Custom_field-list.xlsx",// Bug 277
+		allPages:true
+		},
+		scrollable: true,
+		pdfExport: function(e) {
+				
+                  var grid = $("#grid").data("kendoGrid");
+                  <!-- grid.hideColumn(0); -->
+                  grid.hideColumn(6);
+                  e.promise
+                  .done(function() {
+                      <!-- grid.showColumn(0); -->
+                      grid.showColumn(6);
+                  });
+                },
+				
+				dataSource: {
+				serverPaging: false,
+			    serverSorting: false,
+				 transport: {
+					read: {  
+						url: '/ajxfun/customfields',
+						dataType: "json",					
+					},
+					destroy:{
+							url: '/ajxfun/customfield/delete',
+							dataType: "json",
+							type:'get',
+							complete: function(e) {
+								$("#grid").data("kendoGrid").dataSource.read(); 
+								console.log(e.responseText);
+								if(e.responseText=="true"){
+									
+									toastr.success("{{__ "Deleted! Custom field deleted successfully!"}}", {"showMethod": "fadeIn", "hideMethod": "fadeOut", timeOut: 5000}); 
+									
+								}else{
+									
+									 toastr.error("{{__ " Error! Custom Field can not be deleted!"}}", {"showMethod": "fadeIn", "hideMethod": "fadeOut", timeOut: 5000}); 
+									 
+								}
+							}
+						},
+					
+				 }, 
+				schema: {
+                        model: {
+							id: "_id",
+                            fields: {
+                                _id: { validation: { required: true } },
+                                reminder_nm: { validation: { required: true } },
+                                reminder_template: { validation: { required: true } },
+                                reminder_desc: { validation: { required: true } },
+                                reminder_will_send: { validation: { required: true } },	 
+                            }
+                        }
+                    },  
+                    pageSize: 10,
+					batch: false,
+					requestEnd: function (e) {
+								if (e.type == "create" && e.response) {
+									enablefilter();
+							}
+						}
+                },
+                
+                sortable: true,
+                reorderable: true,
+                groupable: true,
+                resizable: true,
+                filterable: {
+					mode: "row"
+				},
+                columnMenu: true,
+				pageable: {
+					input: true,
+					numeric: false,
+					pageSize: 10,
+					pageSizes: [10, 20, 25, 50, 100]
+				},
+                noRecords: true,
+                columns: [
+					
+					{
+                        field: "module_name" ,
+                        title: '{{__ "Module Name"}}',
+						width: 150
+                    },
+					{
+                        field: "label" ,
+                        title: '{{__ "Label"}}',
+						width: 150
+                    },
+					{
+                        field: "field_type",
+                         title: '{{__ "Field Type"}}',
+                        width: 150
+                    },
+					{
+                        field: "valids",
+                         title: '{{__ "Validations"}}',
+                        width: 150
+                    },	
+					{
+                        field: "field_visibility",
+                         title: '{{__ "Field Visibility"}}',
+						 hidden:true,
+                        width: 150
+                    },
+					 {
+                         field: "d_label",
+                          title: '{{__ "Dropdown labels"}}',
+						  hidden:true,
+						 width: 150
+                     },
+					// {
+                        // field: "recurense",
+                         // title: "Recurense",
+                        // width: 150
+                    // },	 
+					{{#ifCond session.admin_access "==" 0}}
+					 {{#ifCondition accessrightdata.add "||" accessrightdata.delete "||" accessrightdata.update}}
+					{
+						width: "200px",
+						command:
+						[
+							{
+								template : "<center>" 
+							},
+							
+							  /* { 
+								name: "pageview", text:"", className: "btn btn-icon btn-outline-light",iconClass:"ft-eye",
+								click:function(e) 
+								{
+								  var clickedRow = this.dataItem($(e.currentTarget).closest("tr"));
+								 
+								  var id = clickedRow._id;
+								  window.location.href = "addrole/"+id;
+								  return false;
+								} 
+							},   */
+							{template : "&nbsp;" },
+							
+							/* Edit action start */
+							{{#if accessrightdata.update }}
+							 { 
+								name: "pageEdit", text:"", className: "btn btn-icon btn-outline-light",iconClass:"fa fa-pencil",
+								click:function(e) 
+								{ 
+								  var clickedRow = this.dataItem($(e.currentTarget).closest("tr"));
+								 
+								  var id = clickedRow._id; 
+								  window.location.href = "addcustomfields/"+id;
+								  return false;
+								} 
+							},
+							{{/if}}
+							{template : "&nbsp;" },
+							{{#if accessrightdata.delete}}
+							{ 
+								name: "Delete", text:"", className: "btn btn-icon color-red delete_role btn-outline-light",iconClass:"fa fa-trash",
+								click: function(e){  //add a click event listener on the delete button
+									e.preventDefault(); //prevent page scroll reset
+									var tr = $(e.target).closest("tr"); //get the row for deletion
+									var data = this.dataItem(tr); //get the row data so it can be referred later
+									window1.content(windowTemplate(data)); //send the row data object to the template and render it
+									window1.center().open();
+									var clickedRow = this.dataItem($(e.currentTarget).closest("tr"));
+									$("#yesButton").click(function(){
+										var grid = $("#grid").data("kendoGrid");
+										grid.dataSource.remove(data)  //prepare a "destroy" request
+										grid.dataSource.sync();  //actually send the request (might be ommited if the autoSync option is enabled in the dataSource)
+										<!-- alert('Delete'); -->
+										window1.close();
+									})
+									$("#noButton").click(function(){
+										window1.close();
+									})
+								}	
+							},
+							{{/if}}
+							
+							/* Delete action end */
+							
+							{template : "</center>" },
+							 
+							],
+							{{#if accessrightdata.add }}
+							title: "{{__ "Action"}}", 
+							headerTemplate: "<center><b><a href='javascript:void(0)' class='enable_filter'><i class='fa fa-search light'>&nbsp;&nbsp;</i></a></b><a href='addcustomfields'><button type='button' class='btn addnew btn-sm'><i class='fa fa-plus'></i> New</button></a></center>"
+							{{/if}}
+					}
+					{{/ifCondition}}
+					{{else}}
+						{
+						width: "200px",
+						command:
+						[
+							{
+								template : "<center>" 
+							},
+							
+							  /* { 
+								name: "pageview", text:"", className: "btn btn-icon btn-outline-light",iconClass:"ft-eye",
+								click:function(e) 
+								{
+								  var clickedRow = this.dataItem($(e.currentTarget).closest("tr"));
+								 
+								  var id = clickedRow._id;
+								  window.location.href = "addrole/"+id;
+								  return false;
+								} 
+							},   */
+							{template : "&nbsp;" },
+							
+							/* Edit action start */
+							 { 
+								name: "pageEdit", text:"", className: "btn btn-icon btn-outline-light",iconClass:"fa fa-pencil",
+								click:function(e) 
+								{ 
+								  var clickedRow = this.dataItem($(e.currentTarget).closest("tr"));
+								 
+								  var id = clickedRow._id; 
+								  window.location.href = "addcustomfields/"+id;
+								  return false;
+								} 
+							},
+							{template : "&nbsp;" },
+							{ 
+								name: "Delete", text:"", className: "btn btn-icon color-red delete_role btn-outline-light",iconClass:"fa fa-trash",
+								click: function(e){  //add a click event listener on the delete button
+									e.preventDefault(); //prevent page scroll reset
+									var tr = $(e.target).closest("tr"); //get the row for deletion
+									var data = this.dataItem(tr); //get the row data so it can be referred later
+									window1.content(windowTemplate(data)); //send the row data object to the template and render it
+									window1.center().open();
+									var clickedRow = this.dataItem($(e.currentTarget).closest("tr"));
+									$("#yesButton").click(function(){
+										var grid = $("#grid").data("kendoGrid");
+										grid.dataSource.remove(data)  //prepare a "destroy" request
+										grid.dataSource.sync();  //actually send the request (might be ommited if the autoSync option is enabled in the dataSource)
+										<!-- alert('Delete'); -->
+										window1.close();
+									})
+									$("#noButton").click(function(){
+										window1.close();
+									})
+								}	
+							},
+							
+							/* Delete action end */
+							
+							{template : "</center>" },
+							 
+							],
+							title: "{{__ "Action"}}", 
+							headerTemplate: "<center><b><a href='javascript:void(0)' class='enable_filter'><i class='fa fa-search light'>&nbsp;&nbsp;</i></a></b><a href='addcustomfields'><button type='button' class='btn addnew btn-sm'><i class='fa fa-plus'></i> New</button></a></center>"
+					}
+					{{/ifCond}}
+                ],
+				editable: {
+                mode: "inline"
+            }
+            }); 
+        });
+        </script>  
+							</div>
+							</div>
+						</div>
+						</div>
+						</div>
+					</section>
+				</div>
+				</div>
+			</div>
+			</div>
+		</div>
+		</section>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div> 

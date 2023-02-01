@@ -1,0 +1,110 @@
+{{breadcrums 'Home' 'Notification Template'}}
+
+<div class="app-content center-layout mt-2 mx-md-3 px-1">
+
+    <div class="content-wrapper">
+	<div class="row">
+	<div class="col-md-12">
+	<div class="card">
+	
+	<div class="card-content collpase show">
+	<div class="card-body">
+		<form method="POST" id="formID" action="/notification/addnotificationtemplate"  class="needs-validation form form-horizontal" novalidate>
+		{{#each data}}
+		<p class="form-section text-bold-600 font-medium-2"><i class="ft-user font-medium-2 mr-1"></i>{{#with ..}}{{__ "Notification Information" setlang}}{{/with}}</p>
+			<div class="form-body user_form">
+			<div class="row">
+			<div class="col-md-6">
+			<div class="form-group input">
+				<div class="">
+				<label class="custom-control-label-date ml-2" id="export" style="z-index:99">{{#with ..}}{{__ "Notification Type" setlang}}{{/with}}<span class="required red">*</span></label>	
+						<input type="hidden" id="userinput1" name="id" {{#if this._id}} value="{{this._id}}"{{/if}} /> 
+						<select id="loantype" class="select2 form-control export" data-validation-required-message="Notification Type is required" name="notificationtype" >
+						<option value="">Notification Type</option>
+						<option value="email" {{#ifCond this.notificationtype '==' 'email'}} selected {{/ifCond}}>E-Mail</option>
+						<option value="sms" {{#ifCond this.notificationtype '==' 'sms'}} selected {{/ifCond}}>Short Term SMS</option> 
+						</select> 
+				</div><div class="help-block"></div>
+			</div>
+			</div>
+			<div class="col-md-6">
+			<div class="form-group input">
+			<div class="col-md-12 form-control border-light">
+				<!--<input type="hidden" id="userinput1"name="id" {{#if this._id}} value="{{this._id}}"{{/if}} >--> 
+				<input type="text" id="userinput1"  data-validation-regex-regex="([A-Za-z_, `.'^-]{1,50})" data-validation-regex-message="Only Characters, no numbers" data-validation-required-message="Slug is required" name="slug" {{#if this.slug}} value="{{this.slug}}"{{/if}} >
+				<label for="userinput1">{{#with ..}}{{__ "Slug" setlang}}{{/with}}<span class="required red">*</span></label> 
+			</div><div class="help-block"></div>
+			</div>
+			</div>		
+			<div class="col-md-6">
+			<div class="form-group input">
+			<div class="col-md-12 form-control border-light">
+				<!--<input type="hidden" id="userinput1"name="id" {{#if this._id}} value="{{this._id}}"{{/if}} >--> 
+				<input type="text" id="userinput1"  data-validation-regex-regex="([A-Za-z_, `.'^-]{1,50})" data-validation-regex-message="Only Characters, no numbers" data-validation-required-message="Teamplate Title is required" name="templatetitle" {{#if this.templatetitle}} value="{{this.templatetitle}}"{{/if}} >
+				<label for="userinput1">{{#with ..}}{{__ "Teamplate Title" setlang}}{{/with}}<span class="required red">*</span></label> 
+			</div><div class="help-block"></div>
+			</div>
+			</div>
+			</div>
+			</div>
+			<p class="form-section text-bold-600 font-medium-2"><i class="ft-user font-medium-2 mr-1"></i>{{#with ..}}{{__ "Notification Information" setlang}}{{/with}}</p>	
+			<div class="form-body user_form">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group input">
+					<div class="col-md-12 form-control border-light">
+						<!--<input type="hidden" id="userinput1"name="id" {{#if this._id}} value="{{this._id}}"{{/if}} >--> 
+						<input type="text" id="userinput1"  data-validation-regex-regex="([A-Za-z_, `.'^-]{1,100})" data-validation-regex-message="Only Characters, no numbers" data-validation-required-message="Subject is required" name="subject" {{#if this.subject}} value="{{this.subject}}"{{/if}} >
+						<label for="userinput1">{{#with ..}}{{__ "Subject" setlang}}{{/with}}<span class="required red">*</span></label> 
+					</div><div class="help-block"></div>
+					</div>
+				</div>
+				<div class="col-md-12">
+			<div class="form-group input">
+			<div class="col-md-12 form-control textarea_css border-light">
+			<div class="form-field">
+
+			<textarea name="content" style="resize: vertical;" data-validation-regex-regex="([A-Za-z0-9_,` .'^-|\n]{1,500})" data-validation-regex-message="{{__ 'Only Characters, no numbers and no special character'}}" data-validation-required-message="{{__ 'Content is required'}}" {{#if this.content}} value="{{this.content}}"{{/if}}>{{this.content}}</textarea>
+				<span class="txt-title-label"></span>
+				<label class="text-area address ">{{#with ..}}{{__ "Content" setlang}}{{/with}}<span class="required red">*</span></label>
+			</div>
+			</div><div class="help-block"></div>
+			</div>
+			</div>	
+			</div>
+			</div>
+		{{/each}}
+		<div class="form-group">
+		<label>{{__ "You can use following variables in the notification template."}}</label>
+			<br>
+				<!-- <span><b> _USER_ </b> User</span><br> -->
+				<!-- <span><b> [ACCOUNT_URL] </b> Account Url</span><br> -->
+				<span><b> {{__ "_ROLENAME_"}} </b> {{__ "Role"}}</span><br>
+				<span><b>{{__ "_USERFIRSTNAME_"}} {{__ "_USERLASTNAME_"}} </b> {{__ "User Name"}}</span><br>
+				<span><b> {{__ "_LOANTYPE_"}} </b> {{__ "Loan Type"}}</span><br>
+				<span><b> {{__ "_EVENTNAME_"}} </b> {{__ "Event Name"}}</span><br>
+				<span><b> {{__ "_EVENTDURATION_"}} </b> {{__ "Event Duration"}}</span><br>
+				<span><b> {{__ "_EVENTVENUE_"}} </b> {{__ "Event Venue"}}</span><br>
+				<span><b> {{__ "_EVENTSTARTDATE_"}} </b> {{__ "Event start date"}}</span><br>
+				<span><b> {{__ "_EVENTENDDATE_"}} </b> {{__ "Event end date"}}</span><br>
+				<span><b> {{__ "_newline_"}} </b> {{__ "for new line"}}</span><br>
+				<span><b> {{__ "_tab_"}} </b> {{__ "for tab space"}}</span><br>
+		</div>
+		<div class="form-actions left">
+				<button type="submit" class="btn btn-secondary">
+					<i class="fa fa-check-square-o"></i> {{__ "Submit"}}
+				</button>
+				<button type="reset" class="btn btn-warning mr-1 btn-outline-light text-muted">
+					<i class="ft-refresh-cw"></i> {{__ "Reset"}}
+				</button>
+			</div>
+			
+		</form>
+	</div>
+	</div>
+	</div>
+	</div>
+    </div>
+</div>
+</div>
+</div> 

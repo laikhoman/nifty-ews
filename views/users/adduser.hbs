@@ -1,0 +1,936 @@
+{{breadcrums 'Home' title}}
+<div class="app-content center-layout mt-2 mx-md-3 px-1">
+<!-- <h1>{{__ "text to test"}}</h1> -->
+    <div class="content-wrapper">
+	<div class="row">
+	<div class="col-md-12">
+	<div class="card">
+	<div class="card-header pb-0 border-bottom border-light">
+		<a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+	</div>
+	<div class="card-content collpase show">
+	<div class="card-body">
+		<form autocomplete="off" id="formID" class="needs-validation form form-horizontal" novalidate method="post" action="/users/adduser" enctype="multipart/form-data">
+		{{#each data as |result|}}
+		<script>
+		$(document).ready(function(){
+		$('.beforedate').each(function(){
+		$(this).data("DateTimePicker").maxDate(new Date());
+		});
+		$('.afterdate').each(function(){
+		$(this).data("DateTimePicker").minDate(new Date());
+		});
+		$('.today').each(function(){
+		$(this).data("DateTimePicker").minDate(new Date());
+		$(this).data("DateTimePicker").maxDate(new Date());
+		});
+		
+	// Edit time
+	var countryId= $('#country').val();
+			if(countryId!=''){
+			var state_id= '{{result.state}}' ;
+			$.ajax({
+						type: 'POST',
+						url: '/ajxfun/state/',
+						headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+						data : {countryId:countryId },
+						success: function (response)
+						{
+							var state = response.state;
+							$('#state').empty().append("<option value=''>Select state</option>");
+
+							for(i = 0 ; i < state.length ; i++ ){
+							if(state_id == state[i].id){
+							$('#state').append("<option selected value='"+state[i].id+"'>"+state[i].name+"</option>");
+							}
+							else{
+								$('#state').append("<option value='"+state[i].id+"'>"+state[i].name+"</option>");
+								}
+							}
+							$('#city').empty().append("<option value=''>Select state first</option>");
+							<!-- console.log(response.state); -->
+
+
+							var stateId= $("#state").val();
+			if(stateId!=''){
+			var city_id= '{{result.city}}' ;
+			 <!-- alert(city_id);  -->
+			$.ajax({
+						type: 'POST',
+						url: '/ajxfun/city/',
+						headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+						data : {stateId:stateId},
+						success: function (response)
+						{
+							var city = response.city;
+
+							$('#city').empty().append("<option value=''>Select city</option>");
+
+							for(i = 0 ; i < city.length ; i++ ){
+								if(city_id == city[i].id){
+								$('#city').append("<option selected value='"+city[i].id+"'>"+city[i].name+"</option>");
+							}
+							$('#city').append("<option value='"+city[i].id+"'>"+city[i].name+"</option>");
+							}
+							<!-- console.log(response); -->
+						},
+						error: function(e)
+						{
+							
+							console.log(e);
+						}
+					});
+			}else{
+				$('#city').empty().append("<option value=''></option>");
+				$('#state').empty().append("<option value=''></option>");
+			}
+			},
+						error: function(e)
+						{
+							
+							console.log(e);
+						}
+					});
+			}
+			else{
+				$('#city').empty().append("<option value='Select city'>Select city</option>");
+				$('#state').empty().append("<option value='Select state'>Select state</option>");
+			}
+	});
+	</script>
+	<p class="form-section text-bold-600 font-medium-2"><i class="ft-user font-medium-2 mr-1"></i>{{#with ..}}{{__ "Personal Information" setlang}}{{/with}}</p>
+			<div class="form-body user_form">
+			<div class="row">
+			<div class="col-md-6">
+			<div class="form-group input">
+			<div class="col-md-12 form-control border-light">
+				<input type="hidden" id="userinput" name="id" {{#if this._id}} value="{{this._id}}"{{/if}} >
+				<input type="text" id="userinput1" data-validation-regex-regex="([A-Za-z_,`.'^-]{1,25})" data-validation-regex-message="{{#with ..}}{{__ 'Only Characters, no numbers and no space' setlang}}{{/with}}" data-validation-required-message="{{#with ..}}{{__ 'Firstname is required' setlang}}{{/with}}" name="firstname"{{#if this.firstname}} value="{{this.firstname}}"{{/if}} >
+				<label for="userinput1">{{#with ..}}{{__ "First Name" setlang}}{{/with}}<span class="required red">*</span></label>
+
+			</div><div class="help-block"></div>
+			</div>
+			</div>
+			<div class="col-md-6">
+			<div class="form-group input">
+			<div class="col-md-12 form-control border-light">
+				<input type="text"id="userinput_1"name="middlename" maxlength="25" data-validation-regex-regex="([A-Za-z_ ,`.'^-]{1,25})" data-validation-regex-message="{{#with ..}}{{__ 'Only Characters, no numbers and no space' setlang}}{{/with}}" data-validation-required-message="{{__ 'Middlename is required'}}" {{#if this.middlename}} value="{{this.middlename}}"{{/if}} >
+				<label for="userinput_1">{{#with ..}}{{__ "Middle Name" setlang}}{{/with}}<span class="required red">*</span></label>
+			</div><div class="help-block"></div>
+			</div>
+			</div>
+			<div class="col-md-6">
+			<div class="form-group input">
+			<div class="col-md-12 form-control border-light">
+				<input type="text" id="userinput2" class="" name="lastname" data-validation-regex-regex="([A-Za-z_ ,`.'^-]{1,25})" data-validation-regex-message="{{__ 'Only Characters, no numbers and no space'}}" data-validation-required-message="{{__ 'Lastname is required'}}" {{#if this.lastname}} value="{{this.lastname}}"{{/if}}>
+				<label for="userinput2">{{#with ..}}{{__ "Last Name" setlang}}{{/with}}<span class="required red">*</span></label>
+			</div><div class="help-block"></div>
+			</div>
+			</div>
+			<div class="col-md-6">
+			<div class="form-group row">
+			<div class="col-md-12">
+				<label class="custom-control-label-date ml-2">{{#with ..}}{{__ "Image" setlang}}{{/with}}<span class="required red">*</span></label>
+				<input class="form-control border-light imageUpload"  name="photo" {{#if this.photo}} value="{{this.photo}}" {{else}} data-validation-required-message="{{__ 'Profile Image is required'}}" {{/if}} type="file" id="userinput5" >
+				<span class="required red notice"></span>
+				{{#if this.photo}} <img class="existing_user_image update_time_team_image" src="/images/upload/{{this.photo}}">
+				<input class="form-control border-light"  name="photo_old" value="{{this.photo}}" type="hidden"  placeholder="" id="userinput57" > {{/if}}
+			</div><div class="help-block"></div>
+			</div>
+			</div>
+			</div>
+			<div class="row">
+			<div class="col-md-6">
+			<div class="form-group input">
+			<div class="col-md-12 form-control border-light">
+				<input type="text" id="userinput3" class="form-control dupemail" required=""  name="email" data-validation-regex-regex="([a-z0-9_+\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})" data-validation-regex-message="{{__ 'Enter Valid Email'}}" data-validation-required-message="{{__ 'Email is required'}}"  aria-invalid="true" {{#if this.email}} value="{{this.email}}"{{/if}}>
+				<label for="userinput3">{{#with ..}}{{__ "Email Address" setlang}}{{/with}}<span class="required red">*</span></label>
+
+			</div><span class="required red dupemail" style="font-size:11px"></span><div class="help-block dupemail"></div>
+			</div>
+			</div>
+				<div class="col-md-2">
+				<div class="form-group input">
+					<div class="pos_mobile plusi form-control-position style='float:left'">
+						<i class="ft-plus"></i>
+					</div>
+					<div class="col-md-12 form-control border-light">
+						<input type="text" name="ccode" style="margin-left:12px" class="form-control" minlength="2" maxlength="5" data-validation-required-message="Country code is required" data-validation-containsnumber-regex="(\d)+" data-validation-containsnumber-message="Only Numbers" aria-invalid="false" {{#if this.ccode}} value="{{this.ccode}}"{{/if}}>
+						<label for="userinput4" style="margin-left:12px">{{#with ..}}{{__ "Country code" setlang}}{{/with}}<span class="required red">*</span></label>
+					</div><div class="help-block"></div>
+				</div>
+				</div>
+				<div class="col-md-4">
+				<div class="form-group input">
+				<div class="col-md-12 form-control border-light">
+					<input type="text" name="mobile" class="form-control phoneno"  minlength="10" maxlength="16" data-validation-required-message="Contact Number is required" data-validation-containsnumber-regex="(\d)+" data-validation-containsnumber-message="No Characters, Only Numbers" aria-invalid="false" {{#if this.mobile}} value="{{this.mobile}}"{{/if}}>
+					<label for="userinput4">{{#with ..}}{{__ "Contact Number" setlang}}{{/with}}<span class="required red">*</span></label>
+				</div><span class="required red phonenodup" style="font-size:11px"></span><div class="help-block"></div>
+				</div>
+			</div>
+			<div class="col-md-6">
+			<div class="form-group input">
+			<div class="col-md-12 form-control border-light">
+				<input type="text" id="userinput_21" class="" name="occupation" data-validation-regex-regex="([A-Za-z_ ,`.'^-]{1,50})" data-validation-regex-message="Only Characters, no numbers" data-validation-required-message="Occupation is required" {{#if this.occupation}} value="{{this.occupation}}"{{/if}}>
+				<label for="userinput_21">{{#with ..}}{{__ "Occupation" setlang}}{{/with}}<span class="required red">*</span></label>
+			</div><div class="help-block"></div>
+			</div>
+			</div>
+			<div class="col-md-6">
+			<div class="form-group row">
+			<div class="col-md-12">
+
+			<label class="custom-control-label-date ml-2">{{#with ..}}{{__ "Birth Date" setlang}}{{/with}}<span class="required red">*</span></label>
+			<input autocomplete="off" type='text'  class="form-control  beforedate dateformat" data-validation-required-message="Birth Date is required" name="birthdate" {{#if this.birthdate}} value="{{getdate this.birthdate ../session.generaldata.date_format}}" {{else}} value="{{getdate '' ../session.generaldata.date_format}}" {{/if}} aria-invalid="false" >
+				<i class="ft-calendar icon-care"></i>
+            </div><div class="help-block"></div>
+			</div>
+			</div>
+			<div class="col-md-6">
+			<div class="form-group">
+			<div class="col-md-12 form-control">
+			<div class="skin skin-flat row ">
+			<div class="input-group">
+			<label class="custom-control-label custom-top-label ml-2">{{#with ..}}{{__ "Gender" setlang}}{{/with}}</label>
+				&nbsp;&nbsp;&nbsp;
+				<div class="d-inline-block custom-control custom-radio mr-1">
+			
+					<input type="radio" name="gender" class="custom-control-input" {{#ifCond this.gender '==' 'Male'}} checked="" {{/ifCond}} value="Male" id="yes">
+					<label class="custom-control-label mr-1" for="yes">{{#with ..}}{{__ "Male" setlang}}{{/with}}</label>
+					<input type="radio" name="gender" class="custom-control-input" {{#ifCond this.gender '==' 'Female'}} checked="" {{/ifCond}}  value="Female" id="no">
+					<label class="custom-control-label" for="no">{{#with ..}}{{__ "Female" setlang}}{{/with}}</label>
+					&nbsp; &nbsp;&nbsp; &nbsp;
+					&nbsp; &nbsp;&nbsp; &nbsp;
+				</div>
+			</div>
+			</div>
+			</div>
+			</div>
+			</div>
+			</div>
+
+			<p class="form-section text-bold-600 font-medium-2 border-light"><i class="ft-home font-medium-2 mr-1"></i>{{#with ..}}{{__ "Residential Address" setlang}}{{/with}}</p>
+
+			<div class="row">
+			<div class="col-md-6">
+			<div class="form-group input">
+			<div class="col-md-12" style="border: 1px solid #ddd;">
+			<div class="form-field">
+
+			<textarea name="address"  data-validation-regex-regex="([A-Za-z0-9_,` .'^-|\n]{1,150})" data-validation-regex-message="{{__ 'allow letter,number and special character'}}" data-validation-required-message="{{__ 'Address is required'}}" {{#if this.address}} value="{{this.address}}"{{/if}}>{{this.address}}</textarea>
+				<span class="txt-title-label"></span>
+				<label class="text-area address ">{{#with ..}}{{__ "Address" setlang}}{{/with}}<span class="required red">*</span></label>
+			</div>
+			</div><div class="help-block"></div>
+			</div>
+			</div>
+			<div class="col-md-6">
+			<div class="form-group input">
+			<!-- <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+				<div class="heading-elements "> -->
+					<ul class="list-inline mb-0">
+					<li class="col-md-12 p-0 form-control" id="export">
+						<label class="custom-control-label-date ml-2" style="z-index:99">{{#with ..}}{{__ "Country" setlang}}{{/with}}<span class="required red">*</span></label>
+						<select class="select2 form-control export" data-validation-required-message="Country is required" name="country" maxlength="50" id="country" {{#if this.country}} value="{{this.country}}"{{/if}}>
+						<option value="">{{#with ..}}{{__ "Select Country" setlang}}{{/with}}</option>
+						{{#each ../country as |id| }}
+						<option {{#ifCond this.id '===' result.country}} selected {{/ifCond}} value="{{this.id}}" >{{this.name}}</option>
+							{{/each}}
+						</select>
+                     </li>
+					 </ul>
+				<!-- </div> -->
+				<div class="help-block"></div>
+			</div>
+			</div>
+			<div class="col-md-6 notCustomerBlock">
+				<div class="form-group input">
+				<!-- <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+				<div class="heading-elements"> -->
+					<ul class="list-inline mb-0">
+					<li class="col-md-12 p-0 form-control" id="export">
+					<label class="custom-control-label-date ml-2" style="z-index:99">{{#with ..}}{{__ "State" setlang}}{{/with}}<span class="required red">*</span></label>
+						<select class="select2 form-control export" maxlength="50" data-validation-required-message="State is required" name="state" id="state" {{#if this.state}} value="{{this.state}}"{{/if}} >
+						<option value="">{{#with ..}}{{__ "Select State" setlang}}{{/with}}</option>
+						</select>
+					</li>
+					</ul>
+				<!-- </div> -->
+				<div class="help-block"></div>
+				</div>
+
+			</div>
+			<div class="col-md-6 notCustomerBlock">
+				<div class="form-group input">
+				<!-- <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+				<div class="heading-elements "> -->
+					<ul class="list-inline mb-0">
+					<li class="col-md-12 p-0 form-control" id="export">
+					<label class="custom-control-label-date ml-2" style="z-index:99">{{#with ..}}{{__ "City" setlang}}{{/with}}<span class="required red">*</span></label>
+						<select class="select2 form-control export" maxlength="50" data-validation-required-message="City name is required" name="city" id="city" {{#if this.city}} value="{{this.city}}"{{/if}} >
+						<option value="">{{#with ..}}{{__ "Select City" setlang}}{{/with}}</option>
+						</select>
+					</li>
+					</ul>
+				<!-- </div> -->
+				<div class="help-block"></div>
+				</div>
+
+			</div>
+			<div class="col-md-6 notCustomerBlock">
+				<div class="form-group input">
+				<div class="col-md-12 form-control border-light">
+					<input type="text" id="pincode" class="form-control pincode" name="pincode" data-validation-regex-regex="([0-9]{1,50})" data-validation-regex-message="Only numbers, no characters" aria-invalid="true" {{#if this.pincode}} value="{{this.pincode}}"{{/if}}>
+					<label for="pincode" class="pincode">{{#with ..}}{{__ "Pincode" setlang}}{{/with}}</label>
+				</div>	<span class="required red" style="font-size:11px"></span><div class="help-block pincode"></div>
+				</div>
+			</div>
+			</div>
+			<p class="form-section text-bold-600 font-medium-2 border-light"><i class="icon-login font-medium-2 mr-1"></i>{{#with ..}}{{__ "Login Information" setlang}}{{/with}}</p>
+			<div class="row">
+			<div class="col-md-6">
+			<div class="form-group input">
+			<div class="col-md-12 form-control border-light">
+				<input type="text" id="userinput_3" class="form-control username" data-validation-required-message="User name is required" name="username" data-validation-regex-regex="([a-z0-9_\.-]+)" data-validation-regex-message="Enter Valid username" aria-invalid="true" {{#if this.username}} value="{{this.username}}"{{/if}}>
+				<label for="userinput_3">{{#with ..}}{{__ "Username" setlang}}{{/with}}<span class="required red">*</span></label>
+			</div>	<span class="required red username" style="font-size:11px"></span><div class="help-block username"></div>
+			</div>
+			</div>
+			<div class="col-md-6">
+			<div class="form-group input">
+				<div class="">
+					<ul class="list-inline mb-0">
+
+					<li class="col-md-12 p-0 form-control" id="export">
+					    <label class="ml-1 custom-top-label top" style="z-index:9">{{#with ..}}{{__ "Select Role" setlang}}{{/with}}<span class="red">*</span></label>
+						<select class="select2 form-control export" data-validation-required-message="Role name is required" name="role" {{#ifCond ../session.admin_access "==" 0}} disabled {{/ifCond}}>
+							<option value="">{{#with ..}}{{__ "Select Role" setlang}}{{/with}}</option>
+							{{#each ../role as |role_nm| }}
+								<option {{#if this.id_d}}{{#ifCond this.id_d '==' result.id_d}} selected {{/ifCond}} {{/if}} value="{{this._id}}" >{{this.role_nm}}</option>
+							{{/each}}
+						</select>
+					</li>
+					
+
+					</ul>
+				</div><div class="help-block"></div>
+			</div>
+
+			</div>
+
+			<div class="col-md-6">
+			<div class="form-group input">
+			<div class="col-md-12 form-control border-light">
+				<input type="password" id="userinput_2" class="password" name="password" data-validation-regex-regex="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,16})" data-validation-regex-message="Must contain at least one number and one uppercase and lowercase letter , one special symbols in the list '@#$%' and length must be of 8 to 16 digits" {{#if this.password}} {{else}} required data-validation-required-message="Password is required"  {{/if}}>
+				
+				
+				
+				<label for="userinput_2">{{#with ..}}{{__ "Password" setlang}}{{/with}}<span class="required red">*</span></label>
+				{{#if this.password}}
+				<input class="form-control border-light"  name="password_old" value="{{this.password}}" type="hidden"  placeholder="" id="userinput52" > {{/if}}
+				
+			</div><div class="help-block"></div>
+			</div>
+			</div>
+			<div class="col-md-6">
+			<div class="form-group input">
+				<div class="col-md-12 form-control border-light">
+					<input type="password" id="userinput21" class="" name="confirmpassword"  data-validation-match-match="password"  {{#if this.confirmpassword}} {{/if}}>
+					<label for="userinput21">{{#with ..}}{{__ "Confirm Password" setlang}}{{/with}}<span class="required red">*</span></label>
+				</div><div class="help-block"></div>
+			</div>
+			</div>
+			</div>
+		<p class="form-section text-bold-600 font-medium-2 border-light"><i class="fa fa-address-card-o" aria-hidden="true"></i>{{#with ..}} {{__ "Bank Account Details" setlang}} {{/with}}</p>
+		<div class="row">
+			<div class="col-md-6">
+			<div class="form-group input">
+			<div class="col-md-12 form-control border-light">
+				<input autocomplete="off" type="text" id="userinput22" class="" name="accountnumber" data-validation-regex-regex="([0-9]{1,18})" minlength="9" maxlength="18" data-validation-regex-message="Enter valid Account Number" data-validation-required-message="Account Number is required" {{#if this.accountnumber}} value="{{this.accountnumber}}"{{/if}}>
+				<label for="userinput22">{{#with ..}}{{__ "Account Number" setlang}}{{/with}}<span class="required red">*</span></label>
+			</div><div class="help-block"></div>
+			</div>
+			</div>
+			<div class="col-md-6">
+			<div class="form-group input">
+			<div class="col-md-12 form-control border-light">
+				<input autocomplete="off" type="text" id="userinput33" class="form-control" name="pannumber" data-validation-regex-regex="([A-Z]{5}[0-9]{4}[A-Z]{1})" maxlength="10" data-validation-regex-message="{{__ 'Enter Valid pan number'}}" data-validation-required-message="Pan Number is required" aria-invalid="true" {{#if this.pannumber}} value="{{this.pannumber}}"{{/if}}>
+				<label for="userinput33">{{#with ..}}{{__ "Pan Number" setlang}}{{/with}}<span class="required red">*</span></label>
+			</div><div class="help-block"></div>
+			</div>
+		</div>
+		</div>
+{{/each}}
+
+<!-- Custome fields Start--> 
+{{#if newfield}}
+<p class="form-section text-bold-600 font-medium-2 border-light"><i class="fa fa-address-card-o" aria-hidden="true"></i> {{__ "Custom fields"}} </p>
+<div class="row">
+{{#each newfield as |datafield|}}
+{{#ifCond datafield.field_type "==" "text"}}
+	<div class="col-md-6 notCustomerBlock">
+	<div class="form-group input">
+		<div class="col-md-12 form-control border-light">
+			<input type="text" name="customfields[{{datafield._id}}]" 
+				{{#ifEqual datafield.validation "nullable"}}{{/ifEqual}}
+				{{#ifEqual datafield.validation "required"}} data-validation-required-message="{{datafield.label}} is required" {{/ifEqual}}
+				{{#ifEqual datafield.validation "numeric"}} data-validation-regex-regex="([0-9_, .-]{{regexlimit}})" {{/ifEqual}}
+				{{#ifEqual datafield.validation "alpha"}} data-validation-regex-regex="([A-Za-z_, .-]{{regexlimit}})" {{/ifEqual}}
+				{{#ifEqual datafield.validation "alpha_space"}} data-validation-regex-message="{{__ 'Only Characters, no numbers'}}" data-validation-regex-regex="([A-Za-z_, .-]{{regexlimit}})" {{/ifEqual}}
+				{{#ifEqual datafield.validation "alpha_num"}} data-validation-regex-regex="([A-Za-z0-9_, .-]{{regexlimit}})" {{/ifEqual}}
+				{{#ifEqual datafield.validation "email"}} data-validation-regex-regex="([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})"  {{/ifEqual}}
+				{{#ifEqual datafield.validation "url"}}  data-validation-regex-regex="^((ftp|http|https):\/\/)?(www.)?(?!.*(ftp|http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+((\/)[\w#]+)*(\/\w+\?[a-zA-Z0-9_]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?$" {{/ifEqual}}
+				{{#ifEqual datafield.validation "before_or_equal:today"}} {{/ifEqual}}
+				{{#ifEqual datafield.validation "date_equals:today"}} {{/ifEqual}}
+				{{#ifEqual datafield.validation "after_or_equal:today"}} {{/ifEqual}}			
+				{{#if datafield.minival}} minlength={{datafield.minival}} {{/if}}
+				{{#if datafield.maxival}} maxlength={{datafield.maxival}}{{/if}}
+			{{#each ../customfield_value as |custome_value| }}
+				{{#ifCond  custome_value.id_d "==" datafield.id_d}}
+					value="{{custome_value.customfield_value}}"  {{/ifCond}}
+			{{/each}}
+			>
+			<label>{{datafield.label}}{{#ifEqual datafield.validation "required"}}<span class="required red">*</span>{{/ifEqual}}</label>
+		</div><div class="help-block"></div>
+	</div>
+	</div>
+{{/ifCond}}
+{{#ifCond datafield.field_type "==" "textarea"}}
+<div class="col-md-6">
+<div class="form-group input">
+<div class="col-md-12" style="border: 1px solid #ddd;">
+<div class="form-field">
+<textarea name="customfields[{{datafield._id}}]"
+	{{#ifEqual datafield.validation "nullable"}}{{/ifEqual}}
+	{{#ifEqual datafield.validation "required"}} data-validation-required-message="{{datafield.label}} is required" {{/ifEqual}}
+	{{#ifEqual datafield.validation "numeric"}} data-validation-regex-regex="([0-9_, .-]{{regexlimit}})" {{/ifEqual}}
+	{{#ifEqual datafield.validation "alpha"}} data-validation-regex-regex="([A-Za-z_, .-]{{regexlimit}})" {{/ifEqual}}
+	{{#ifEqual datafield.validation "alpha_space"}} data-validation-regex-message="{{__ 'Only Characters, no numbers'}}" data-validation-regex-regex="([A-Za-z_, .-]{{regexlimit}})" {{/ifEqual}}
+	{{#ifEqual datafield.validation "alpha_num"}} data-validation-regex-regex="([A-Za-z0-9_, .-]{{regexlimit}})" {{/ifEqual}}
+	{{#ifEqual datafield.validation "email"}} data-validation-regex-regex="([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})"  {{/ifEqual}}
+	{{#ifEqual datafield.validation "url"}}  data-validation-regex-regex="^((ftp|http|https):\/\/)?(www.)?(?!.*(ftp|http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+((\/)[\w#]+)*(\/\w+\?[a-zA-Z0-9_]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?$" {{/ifEqual}}
+	{{#ifEqual datafield.validation "before_or_equal:today"}} {{/ifEqual}}
+	{{#ifEqual datafield.validation "date_equals:today"}} {{/ifEqual}}
+	{{#ifEqual datafield.validation "after_or_equal:today"}} {{/ifEqual}}			
+	{{#if datafield.minival}} minlength={{datafield.minival}} {{/if}}
+	{{#if datafield.maxival}} maxlength={{datafield.maxival}}{{/if}}
+	{{#each ../customfield_value as |custome_value| }}
+		{{#ifCond  custome_value.id_d "==" datafield.id_d}}	
+			value="{{custome_value.customfield_value}}"  {{/ifCond}}
+	{{/each}}
+>{{#each ../customfield_value as |custome_value| }}{{#ifCond  custome_value.id_d "=="datafield.id_d}}{{custome_value.customfield_value}}{{/ifCond}}{{/each}}</textarea>
+	<span class="txt-title-label"></span>
+	<label class="text-area address ">{{datafield.label}}{{#ifEqual datafield.validation "required"}}<span class="required red">*</span>{{/ifEqual}}</label>
+</div>
+</div><div class="help-block"></div>
+</div>
+</div>
+{{/ifCond}}					
+{{#ifCond datafield.field_type "==" "checkbox"}}
+	<div class="col-md-6">
+	<div class="form-group">
+		<div class="col-md-12 form-control">
+			<div class="skin skin-flat row">
+				<div class="input-group">
+					<label class="ml-1 custom-top-label">{{datafield.label}}{{#ifEqual datafield.validation "required"}}<span class="required red">*</span>{{/ifEqual}}</label>
+					{{#each datafield.c_label as |datafile_data|}}
+					<div class="d-inline-block custom-control custom-checkbox mr-1">
+						<input type="checkbox" class="custom-control-input hideattar" name="customfields[{{datafield._id}}]" value="{{this}}"
+							{{#ifEqual datafield.validation "nullable"}}{{/ifEqual}}
+							{{#ifEqual datafield.validation "required"}} data-validation-required-message="{{datafield.label}} is required" {{/ifEqual}}
+							{{#each ../../customfield_value as |custome_value| }}
+								{{#ifCond  custome_value.id_d "==" datafield.id_d}}
+									 {{#ifCond datafile_data "==" custome_value.customfield_value}}
+										checked
+									{{/ifCond}} 
+								{{/ifCond}}
+							{{/each}}
+						>
+						<label class="custom-control-label" for="colorCheck1">{{this}}</label>
+					</div>
+					{{/each}}
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+{{/ifCond}}
+{{#ifCond datafield.field_type "==" "dropdown"}}
+	<div class="col-md-6">
+	<div class="form-group input">
+		<div class="heading-elements ">
+			<ul class="list-inline mb-0">
+			<li class="col-md-12 p-0 form-control" id="export">
+				<label class="ml-1 custom-top-label top" style="z-index:9">{{datafield.label}}{{#ifEqual datafield.validation "required"}}<span class="required red">*</span>{{/ifEqual}}</label> 
+				<select class="select2 form-control export" name="customfields[{{datafield._id}}]"
+					{{#ifEqual datafield.validation "nullable"}}{{/ifEqual}}
+					{{#ifEqual datafield.validation "required"}} data-validation-required-message="{{datafield.label}} is required" {{/ifEqual}}
+					{{#each ../customfield_value as |custome_value| }}
+						{{#ifCond  custome_value.id_d "==" datafield.id_d}}			
+							value="{{custome_value.customfield_value}}"  {{/ifCond}}
+					{{/each}}
+				>
+					<option value="">Select {{datafield.label}}</option>
+					{{#each datafield.d_label as |datafile_data|}}
+					<option value="{{this}}" 
+						{{#each ../../customfield_value as |custome_value| }}
+						{{#ifCond  custome_value.id_d "==" datafield.id_d}}			
+							{{#ifCond datafile_data "==" custome_value.customfield_value}}
+								selected
+							{{/ifCond}}
+					{{/ifCond}}
+					{{/each}}>{{this}}</option>
+					{{/each}}
+				</select>
+			</li>
+			</ul>
+		</div><div class="help-block"></div>
+	</div>
+	</div>
+{{/ifCond}}
+{{#ifCond datafield.field_type "==" "date"}}
+	<div class="col-md-6">
+	<div class="form-group row">
+	<div class="col-md-12">
+		<label class="custom-control-label-date ml-2">{{datafield.label}}{{#ifEqual datafield.validation "required"}}<span class="required red">*</span>{{/ifEqual}}</label>
+		{{#ifEqual datafield.validation "before_or_equal:today"}}
+			<input type='text' class="form-control beforedate dateformat" name="customfields[{{datafield._id}}]" aria-invalid="false"
+			{{#ifEqual datafield.validation "nullable"}}{{/ifEqual}}
+			{{#ifEqual datafield.validation "required"}} data-validation-required-message="{{datafield.label}} is required" {{/ifEqual}}
+			{{#each ../customfield_value as |custome_value| }}
+					{{#ifCond  custome_value.id_d "==" datafield.id_d}}			
+						value="{{custome_value.customfield_value}}"  {{/ifCond}}
+			{{/each}}>
+		{{/ifEqual}}
+		{{#ifEqual datafield.validation "after_or_equal:today"}}
+		<input type='text' class="form-control afterdate dateformat" name="customfields[{{datafield._id}}]" aria-invalid="false"
+		{{#ifEqual datafield.validation "nullable"}}{{/ifEqual}}
+		{{#ifEqual datafield.validation "required"}} data-validation-required-message="{{datafield.label}} is required" {{/ifEqual}}
+		{{#each ../customfield_value as |custome_value| }}
+				{{#ifCond  custome_value.id_d "==" datafield.id_d}}			
+					value="{{custome_value.customfield_value}}"  {{/ifCond}}
+		{{/each}}>
+		{{/ifEqual}}
+		{{#ifEqual datafield.validation "date_equals:today"}}
+		<input type='text' class="form-control today dateformat" name="customfields[{{datafield._id}}]" aria-invalid="false" 
+		{{#ifEqual datafield.validation "nullable"}}{{/ifEqual}}
+		{{#ifEqual datafield.validation "required"}} data-validation-required-message="{{datafield.label}} is required" {{/ifEqual}}
+		{{#each ../customfield_value as |custome_value| }}
+				{{#ifCond  custome_value.id_d "==" datafield.id_d}}			
+					value="{{custome_value.customfield_value}}"  {{/ifCond}}
+		{{/each}}>
+		{{/ifEqual}}
+		<i class="ft-calendar icon-care"></i>
+	</div><div class="help-block"></div>
+	</div>
+	</div>
+{{/ifCond}}
+{{#ifCond datafield.field_type "==" "radio"}}
+	<div class="col-md-6">
+	<div class="form-group">
+	<div class="col-md-12 form-control">
+	<div class="skin skin-flat row ">
+	<div class="input-group">
+	<label class="custom-control-label custom-top-label ml-2">{{datafield.label}}{{#ifEqual datafield.validation "required"}}<span class="required red">*</span>{{/ifEqual}}</label>
+		&nbsp;&nbsp;&nbsp;
+		{{#each datafield.r_label as |datafile_data|}}
+		<div class="d-inline-block custom-control custom-radio mr-1">			
+			<input type="radio" name="customfields[{{datafield._id}}]" value="{{datafile_data}}"
+			{{#ifEqual datafield.validation "nullable"}}{{/ifEqual}}
+			{{#ifEqual datafield.validation "required"}} data-validation-required-message="{{datafield.label}} is required" {{/ifEqual}}
+				{{log datafile_data}}
+				{{log "hbsssssssssssss"}}
+			{{#each ../../customfield_value as |custome_value| }}
+		
+				{{#ifCond  custome_value.id_d "==" datafield.id_d}}
+					{{#ifCond datafile_data "==" custome_value.customfield_value}}
+					checked
+					{{/ifCond}}
+				{{/ifCond}}
+			{{/each}}
+			>
+			<label class="custom-control-label">{{this}}</label>
+			&nbsp; &nbsp;&nbsp; &nbsp;
+			&nbsp; &nbsp;&nbsp; &nbsp;
+		</div>
+		{{/each}}
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+{{/ifCond}}
+{{#ifCond datafield.field_type "==" "file"}}
+	<div class="col-md-6">
+	<div class="form-group row">
+	<div class="col-md-12">
+		<label class="custom-control-label-date ml-2">{{datafield.label}}{{#ifEqual datafield.validation "required"}}<span class="required red">*</span>{{/ifEqual}}</label>
+		<input class="form-control border-light validimage"
+		{{#ifEqual datafield.validation "required"}}  data-validation-required-message="{{datafield.label}} is required" {{/ifEqual}}
+		{{#each ../customfield_value as |custome_value| }}
+			{{#ifCond  custome_value.id_d "==" datafield.id_d}}			
+				value="{{custome_value.customfield_value}}" 
+				
+				{{/ifCond}}
+		{{/each}}
+		name="{{datafield._id}}" type="file">{{#each ../customfield_value as |custome_value| }}{{#ifCond  custome_value.id_d "==" datafield.id_d}}<p>{{custome_value.customfield_value}}</p><input class="form-control border-light edit_val"  name="customphoto_old" value="{{custome_value.customfield_value}}" type="hidden"  placeholder="" id="userinput51">{{/ifCond}}{{/each}}
+		<span class="required red notice"></span>
+	</div><div class="help-block"></div>
+	</div>
+	</div>
+{{/ifCond}}
+{{/each}}
+{{/if}}
+</div>
+
+<!-- Custome fields End--> 
+			<p class="form-section text-bold-600 font-medium-2 border-light"><i class="icon-users font-medium-2 mr-1"></i> {{__ "Family Information"}} </p>
+				<div class="form-group col-12 mb-2 contact-repeater pl-0">
+					<div data-repeater-list="family">
+					<div>
+					{{#each family}}
+						<div class="row" data-repeater-item>
+							<input type="hidden" id="familymembers" class="" name="id" {{#if this._id}} value="{{this._id}}" {{/if}}>
+							<div class="col-sm-12 col-md-6 col-lg-3 notCustomerBlock">
+								<div class="form-group input">
+									<div class="col-md-12 form-control border-light">
+										<input type="text" data-validation-regex-regex="([A-Za-z_,`.'^- ]{1,50})" data-validation-regex-message="Only Characters, no numbers" id="familymember" class="" name="familymember"  {{#if this.familymember}} value="{{this.familymember}}" {{/if}}>
+										<label for="familymember" class="familymember">{{#with ..}}{{__ "Family member name" setlang}}{{/with}}</label>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-12 col-md-6 col-lg-2 notCustomerBlock">
+								<div class="form-group input">
+								<div class="col-md-12 form-control border-light">
+									<input type="text" id="relationship" data-validation-regex-regex="([A-Za-z_,`.'^- ]{1,50})" data-validation-regex-message="Only Characters, no numbers" class="" name="relationship" {{#if this.relationship}} value="{{this.relationship}}"{{/if}}>
+									<label for="relationship" class="relationship">{{#with ..}}{{__ "Relationship" setlang}}{{/with}}</label>
+								</div>
+							</div>
+							</div>
+							<div class="col-sm-12 col-md-6 col-lg-2 notCustomerBlock">
+								<div class="form-group input">
+								<div class="col-md-12 form-control border-light">
+									<input type="text" id="occupation" data-validation-regex-regex="([A-Za-z_,`.'^- ]{1,50}) " data-validation-regex-message="Only Characters, no numbers" class="" name="famoccupation" {{#if this.famoccupation}} value="{{this.famoccupation}}"{{/if}}>
+									<label for="occupation" class="occupation">{{#with ..}}{{__ "Occupation" setlang}}{{/with}}</label>
+								</div>
+							</div>
+							</div>
+							<div class="col-sm-12 col-md-6 col-lg-2 notCustomerBlock">
+								<div class="form-group input">
+								<div class="col-md-12 form-control border-light">
+									<input type="text" id="contact"  class="" name="famcontact" minlength="10" maxlength="16" data-validation-containsnumber-regex="(\d)+" data-validation-containsnumber-message="No Characters, Only Numbers" aria-invalid="false" {{#if this.famcontact}} value="{{this.famcontact}}"{{/if}}>
+									<label for="contact" class="contact">{{#with ..}}{{__ "Contact" setlang}}{{/with}}</label>
+								</div>
+							</div>
+							</div>
+							<div class="col-sm-12 col-md-6 col-lg-2 notCustomerBlock">
+								<div class="form-group input">
+								<div class="col-md-12 form-control border-light">
+									<input type="text" id="income" class="" name="income"  data-validation-regex-regex="([0-9]{1,10})" data-validation-regex-message="Only Characters, no numbers" {{#if this.income}} value="{{this.income}}"{{/if}}>
+									<label for="income" class="income"> {{{currencyList ../session.generaldata.currency}}} {{#with ..}}{{__ "Annual Income" setlang}}{{/with}}</label>
+								</div>
+							</div>
+							</div>
+
+							<div class="input-group-append pb-1 ml-1">
+                              <span class="input-group-btn" id="button-addon2">
+									<button class="btn btn-danger" type="button" data-repeater-delete><i class=" ft-x"></i></button>
+                              </span>
+                            </div>
+							</div>
+							{{/each}}
+							</div>
+                        </div>
+						<button type="button" data-repeater-create class="btn shover" style="background-color:#6badc2;color:#fff">
+							<i class="icon-plus4"></i>{{__ "Add other family member"}}
+                        </button>
+                </div>
+			
+			<div class="form-actions left">
+				<button type="submit" class="btn btn-secondary submit" onclick="return ValidateExtension()">
+					<i class="fa fa-check-square-o"></i>{{__ "Submit"}}
+				</button>
+				<button type="reset" class="btn btn-warning">
+					<i class="ft-refresh-cw"></i>{{__ "Reset"}}
+				</button>
+			</div>
+		</form>
+	</div>
+	</div>
+	</div>
+	</div>
+    </div>
+</div>
+</div>
+</div>
+
+<script>
+$('document').ready(function(){
+var disablearr=[];
+
+ var removerequi= $('.edit_val').val();
+ if(removerequi =""){
+	$('.validimage').removeAttr('data-validation-required-message');
+ }
+
+ var username_state = false;
+ var email_state = false;
+ $('.username').on('blur', function(){
+  var username = $('.username').val();
+  if (username == '') {
+  	username_state = false;
+  	return;
+  }
+  $.ajax({
+    url: '/ajxfun/username/',
+    type: 'get',
+    data: {username : username},
+    success: function(response)
+	{
+      if (response.length != '' ) {
+      	username_state = false;
+		
+      	$('.username').siblings("span").text('Username already taken');
+		 $('.submit').attr('disabled', 'disabled');
+		 disablearr.push("username");
+		 disablearr = disablearr.filter(onlyUnique);
+      }else
+	  {
+      	username_state = true;
+      	$('.username').siblings("span").text('');
+		
+		disablearr=removeItemOnce(disablearr,'username');
+		if(disablearr.length === 0){
+			$('.submit').removeAttr('disabled');
+		}
+      }
+    }
+  });
+ });
+ var username_state = false;
+ var email_state = false;
+ $('.dupemail').on('blur', function(){
+  var email = $('.dupemail').val();
+  if (email == '') {
+  	username_state = false;
+  	return;
+  }
+  $.ajax({
+    url: '/ajxfun/duplicateemail/',
+    type: 'get',
+    data: {email : email},
+    success: function(response)
+	{
+      if (response.length != '' ) {
+      	username_state = false;
+      	$('.dupemail').siblings("span").text('Email already used.');
+		 $('.submit').attr('disabled', 'disabled');
+		 disablearr.push("email");
+		 disablearr = disablearr.filter(onlyUnique);
+      }else
+	  {
+      	username_state = true;
+      	$('.dupemail').siblings("span").text('');
+		disablearr=removeItemOnce(disablearr,'email');
+		if(disablearr.length === 0){
+			$('.submit').removeAttr('disabled');
+		}
+      }
+    }
+  });
+ 
+ });
+ 
+$('.phoneno').on('blur', function(){
+  var phoneno = $('.phoneno').val();
+  if (phoneno == '') {
+  	username_state = false;
+  	return;
+  }
+  $.ajax({
+    url: '/ajxfun/duplicatephoneno/',
+    type: 'get',
+    data: {mobile : phoneno},
+    success: function(response)
+	{
+      if (response.length != '' ) {
+      	username_state = false;
+      	$('.phonenodup').text('Mobile Number already used.');
+		disablearr.push("phone");
+		disablearr = disablearr.filter(onlyUnique);
+		$('.submit').attr('disabled', 'disabled');
+		}
+	  else
+	  {
+      	username_state = true;
+      	$('.phonenodup').text('');
+		disablearr=removeItemOnce(disablearr,'phone');
+		if(disablearr.length === 0){
+			$('.submit').removeAttr('disabled');
+		}
+      }
+    }
+  });
+ });
+ 
+ }); 
+ function onlyUnique(value, index, self) {
+  return self.indexOf(value) === index;
+}
+function removeItemOnce(arr, value) {
+  var index = arr.indexOf(value);
+  if (index > -1) {
+    arr.splice(index, 1);
+  }
+  return arr;
+}
+</script>
+<script>
+<!-- for state -->
+	$(document).ready(function(){
+	$("body").on("change", "#country", function (e) {
+
+			var countryId= $(this).val()
+			if(countryId!=''){
+			$.ajax({
+						type: 'POST',
+						url: '/ajxfun/state/',
+						headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+						data : {countryId:countryId},
+						success: function (response)
+						{
+							var state = response.state;
+							$('#state').empty().append("<option value=''>Select state </option>");
+
+							for(i = 0 ; i < state.length ; i++ ){
+
+								$('#state').append("<option value='"+state[i].id+"'>"+state[i].name+"</option>");
+							}
+							$('#city').empty().append("<option value=''>Select state first</option>");
+							<!-- console.log(response.state); -->
+						},
+						error: function(e)
+						{
+							console.log(e);
+						}
+					});
+			}else{
+				$('#city').empty().append("<option value=''>Select City</option>");
+				$('#state').empty().append("<option value=''>Select State</option>");
+			}
+		});
+		});
+<!-- for city -->
+	$(document).ready(function(){
+	$("body").on("change", "#state", function (e) {
+
+			var stateId= $(this).val()
+			if(stateId!=''){
+			<!-- alert(stateId); -->
+			$.ajax({
+						type: 'POST',
+						url: '/ajxfun/city/',
+						headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+						data : {stateId:stateId},
+						success: function (response)
+						{
+							var city = response.city;
+
+							$('#city').empty().append("<option value=''>Select city</option>");
+
+							for(i = 0 ; i < city.length ; i++ ){
+
+								$('#city').append("<option value='"+city[i].id+"'>"+city[i].name+"</option>");
+							}
+
+							<!-- console.log(response); -->
+						},
+						error: function(e)
+						{
+							console.log(e);
+						}
+					});
+			}else{
+				$('#city').empty().append("<option value=''>Select City</option>");
+				$('#state').empty().append("<option value=''>Select State</option>");
+			}
+		});
+		});
+</script>
+{{#each setting as |geninfom|}}
+<script type="text/javascript">
+        function ValidateExtension(){
+		m=0;
+		$('.imageUpload').each(function(){
+			if($(this).val() != '') {
+				var imageUpload=$(this).val();
+				var allowedFiles = [];
+				var jpeg="{{geninfom.imgtype_jpeg}}";
+				var jpg="{{geninfom.imgtype_jpg}}";
+				var png="{{geninfom.imgtype_png}}";
+				if(jpeg!=''){
+					allowedFiles.push('{{geninfom.imgtype_jpeg}}');
+				}
+				if(jpg!=''){
+					allowedFiles.push('{{geninfom.imgtype_jpg}}');
+				}
+				if(png!=''){
+					allowedFiles.push('{{geninfom.imgtype_png}}');
+				}
+				var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + allowedFiles.join('|') + ")$");
+				if (!regex.test(imageUpload.toLowerCase())) {
+					$(this).siblings('.notice').html("Please upload files having extensions: <b>" + allowedFiles.join(', ') + "</b> only.");
+					m++;
+				}
+				else{
+					$(this).siblings('.notice').html();
+				}
+			}
+		});
+			if(m>0){
+			return false;
+			}
+        }
+</script>
+{{/each}}
+{{#each newfield as |customvalid|}}
+<script type="text/javascript">
+       $('document').ready(function(){
+	    $('.validimage').on('change', function() {
+        console.log('This file size is: ' + (this.files[0].size/1024/1024).toFixed(2) + " MB");
+      });
+		m=0;
+		$('.validimage').on('blur', function(){
+			if($(this).val() != '') {
+				var imageUpload=$(this).val();
+				var allowedFiles = [];
+				var image="{{customvalid.filetype}}";
+				 var res = image.split(",");
+				allowedFiles=res;
+				var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + allowedFiles.join('|') + ")$");
+				if (!regex.test(imageUpload.toLowerCase())) {
+					m++;
+					$(this).siblings('.notice').html("Please upload files having extensions: <b>" + allowedFiles.join(', ') + "</b> only.");
+				}
+				else{
+					$(this).siblings('.notice').html();
+				}
+			}
+		});
+		$('.validimage').on('change', function() {
+		if("{{customvalid.field_type}}" == "file"){
+			var size = (this.files[0].size/1024/1024).toFixed(2);
+			var limit="{{customvalid.filesize}}";
+			if(size > limit){
+				alert("size should be less than or equal to {{customvalid.filesize}} mb");
+				$('.validimage').val("");
+			}
+		}
+		});
+		
+			if(m>0){
+			return false;
+			}
+        });
+</script>
+{{/each}}

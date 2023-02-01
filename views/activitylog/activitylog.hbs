@@ -1,0 +1,85 @@
+{{breadcrums "Home" "Activity Log"}}
+<div class="app-content center-layout mt-2 mx-md-3 px-1">
+    <div class="content-wrapper">
+	<div class="row">
+	<div class="col-md-12">
+	<div class="card">
+	<div class="card-header pb-0 border-bottom border-light">
+		<a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+	</div>
+	<div class="card-content collpase show">
+	<div class="card-body">
+		<div class="app-content center-layout  mx-md-3 px-1">
+					<div class="content-wrapper">
+						<div class="card-content collpase show">
+						 <section id="configuration">
+							<div class="row">
+							<div class="col-12">
+								<div class="card">
+								<div class="card-content collapse show">
+								<div class="card-body card-dashboard card-design p-0">
+								<section id="horizontal">
+									<div class="row">
+									<div class="col-12">
+									<!-- {{#each activity}} -->
+										<!-- <button type="button" {{#ifCond this.module "==" "Log"}}style="display:none"{{else}}{{/ifCond}} class="btn btn-danger m-1" id="clearlog">Clear log</button> -->
+									<!-- {{/each}} -->
+									<button type="button" class="btn btn-danger m-1" style="float:right" id="clearlog">{{__ "Clear log"}}</button>
+									</div>
+									<div class="col-12">
+										<div class="card">
+										<div id="tableBox">
+										<table class="table designtable">
+										<tbody>
+										
+										{{#if activity}}
+										{{#each activity as |result|}}
+										<tr class="colortr"> 
+											
+											<td class="bordertop">
+												{{result.user.firstname}} {{result.user.middlename}} {{result.user.lastname}} {{result.action}} {{result.item}} on {{result.date}} in {{result.module}}
+											</td>
+											
+										</tr>
+										{{/each}}
+										{{else}}
+										<tr class="colortr"><td class="bordertop">{{__ "Log clear"}}</td> </tr>
+										{{/if}}
+										
+										</tbody></table>
+										</div>
+										</div>
+									</div>
+									</div>
+								</section>
+								</div>
+								</div>
+								</div>
+							</div>
+							</div>
+						</section>
+					</div>
+					</div>
+					</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+<script>
+$(document).ready(function(){
+$("body").on("click", "#clearlog", function (e) {
+	//alert("123");
+	$.ajax({
+		type: "POST",
+		url: '/ajxfun/clearlog',
+		success: function (response)			 							
+		{
+			location.reload();
+		},
+	});
+});
+});
+</script>

@@ -1,0 +1,1239 @@
+{{breadcrums 'Home' 'General Settings'}}
+<div class="app-content center-layout mt-2 mx-md-3 px-1">
+    <div class="content-wrapper">
+		<div class="row">
+			<div class="col-md-12 general_setting"> 
+			 
+			{{#if messages.error  }}
+			<script>
+					toastr.error("{{messages.error}}","{{__ 'Error!'}}" , {"showMethod": "fadeIn", "hideMethod": "fadeOut", timeOut: 5000});
+				</script>
+			{{/if}}
+			{{#if messages.success }}
+				<script>
+					toastr.success("{{messages.success}}", "{{__ 'Success!'}}", {"showMethod": "fadeIn", "hideMethod": "fadeOut", timeOut: 5000});
+				</script>
+			{{/if}}
+				<div class="card">
+				 <div class="card-content">
+                <div class="card-body p-0">
+
+				 <ul class="nav nav-tabs nav-underline border-bottom border-light px-1">
+                      <li class="nav-item">
+                        <a class="nav-link border-bottom-accent-2 active" id="homeIcon1-tab1" data-toggle="tab" href="#Company" aria-controls="Company"
+                        aria-expanded="true"><i class="ft ft-info"></i>{{__ "Company Details"}}</a>
+                      </li>
+                        <li class="nav-item">
+                        <a class="nav-link" id="Localization-tab1" data-toggle="tab" href="#Localization" aria-controls="Localization"
+                        aria-expanded="false"><i class="ft ft-map-pin"></i>{{__ "Localization"}}</a>
+                      </li> 
+					  <li class="nav-item">
+                        <a class="nav-link" id="Finance-tab1" data-toggle="tab" href="#Finance" aria-controls="Finance"
+                        aria-expanded="false"><i class="fa fa-money"></i>{{__ "Finance"}}</a>
+                      </li> 
+					  <li class="nav-item">
+                        <a class="nav-link" id="Invoice-tab1" data-toggle="tab" href="#Invoice" aria-controls="Invoice"
+                        aria-expanded="false"><i class="ft ft-file-text"></i> {{__ "Invoice"}}</a>
+                      </li>                  
+                      <li class="nav-item">
+                        <a class="nav-link" id="MyTask-tab1" data-toggle="tab" href="#pdf_settings" aria-controls="pdf_settings"
+                        aria-expanded="false"><i class="fa fa-file-pdf-o"></i> {{__ "Invoice Pdf"}}</a>
+                      </li> 
+					   
+				
+                    </ul>
+				 <div class="tab-content px-1 pt-1">
+					 <div role="tabpanel" class="tab-pane active in" id="Company" aria-labelledby="homeIcon1-tab1" aria-expanded="true">
+                       
+						<div class="card-content collpase show">
+					{{#each data as |result|}}
+					
+						<form id="formID" class="form form-horizontal" action="/generalsettings/generalsetting" method="post" enctype="multipart/form-data" novalidate>
+						<input type="hidden" name="id" {{#if this._id}} value="{{this._id}}" {{/if}}/>
+							<div class="form-body user_form">
+							<p class="form-section text-bold-600 font-medium-2 border-light"><i class="ft-home font-medium-2 mr-1"></i>{{#with ..}}{{__ "Company Details" setlang}}{{/with}}</p>
+								<div class="row">
+									
+					<script>
+		$(document).ready(function(){
+	
+	// Edit time
+	var countryId= $('#country').val(); 
+	   
+			if(countryId!=''){
+			var state_id= {{result.state}} ;
+			<!-- alert(countryId); -->
+			$.ajax({
+						type: 'POST',
+						url: '/ajxfun/state/',
+						headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+						data : {countryId:countryId },
+						success: function (response)
+						{		 
+							var state = response.state;
+							$('#state').empty().append("<option value=''>Select state</option>");
+							
+							for(i = 0 ; i < state.length ; i++ ){
+							if(state_id == state[i].id){
+							$('#state').append("<option selected value='"+state[i].id+"'>"+state[i].name+"</option>");
+							}
+							else{
+								$('#state').append("<option value='"+state[i].id+"'>"+state[i].name+"</option>");
+								}
+							}
+							$('#city').empty().append("<option value=''>Select state first</option>");
+							<!-- console.log(response.state); -->
+							
+							
+							var stateId= $("#state").val();
+			if(stateId!=''){
+			var city_id= {{result.city}} ;
+			 <!-- alert(city_id);  -->
+			$.ajax({
+						type: 'POST',
+						url: '/ajxfun/city/',
+						headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+						data : {stateId:stateId},
+						success: function (response)
+						{		 
+							var city = response.city;
+							
+							$('#city').empty().append("<option value=''>Select city</option>");
+							
+							for(i = 0 ; i < city.length ; i++ ){
+								if(city_id == city[i].id){
+								$('#city').append("<option selected value='"+city[i].id+"'>"+city[i].name+"</option>");
+							}
+							$('#city').append("<option value='"+city[i].id+"'>"+city[i].name+"</option>");
+							}
+							<!-- console.log(response); -->
+						},
+						error: function(e) 
+						{
+							alert("An error occurred: " + e.responseText);
+							console.log(e);
+						}
+					});
+			}else{
+				$('#city').empty().append("<option value=''></option>");
+				$('#state').empty().append("<option value=''></option>");
+			}
+			},
+						error: function(e) 
+						{
+							alert("An error occurred: " + e.responseText);
+							console.log(e);
+						}
+					});
+			}else{
+				$('#city').empty().append("<option value=''></option>");
+				$('#state').empty().append("<option value=''></option>");
+			}
+	});
+	</script> 
+									<div class="col-md-6">
+										<div class="form-group input">
+											<div class="col-md-12 form-control border-light">
+												<input type="text" data-validation-regex-regex="([A-Za-z_,`.'^-]{1,100})" data-validation-regex-message="{{#with ..}}{{__ 'Only Characters, no numbers' setlang}}{{/with}}" required name="com_name" {{#if this.com_name}} id="com" value="{{this.com_name}}" {{/if}}  id="userinput_com" >
+												<label for="com" >{{#with ..}}{{__ "Company name" setlang}}{{/with}}<span class="required red">*</span></label>
+											</div>	<div class="help-block"></div>	
+										</div>
+									</div>
+									
+									<div class="col-md-6">
+										<div class="form-group input">
+											<div class="col-md-12 form-control border-light">
+ 
+												 <input type="text" id="userinput_email" class="form-control" maxlength="50" required {{#if this.com_email}} value="{{this.com_email}}" {{/if}}  name="com_email" data-validation-regex-regex="([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})" data-validation-regex-message="Enter Valid Email" aria-invalid="true">
+												<label >{{#with ..}}{{__ "Company Email" setlang}}{{/with}}<span class="required red">*</span></label> 
+ 
+											</div>	<div class="help-block"></div>	
+										</div>
+									</div>
+									
+								</div>
+								<div class="row">
+								
+								<div class="col-md-6">
+								<div class="form-group input">
+								    <div class="col-md-12 form-control border-light">
+									<input type="text" data-validation-regex-regex="([A-Za-z_,`.'^-]{1,50})" data-validation-regex-message="{{#with ..}}{{__ 'Only Characters, no numbers' setlang}}{{/with}}" name="business_type" {{#if this.business_type}} value="{{this.business_type}}" {{/if}} required id="userinput_bus" >
+									<label >{{#with ..}}{{__ "Business Type" setlang}}{{/with}}<span class="required red">*</span></label>
+									</div>	<div class="help-block"></div>	
+									</div>
+									</div>
+								
+									
+									<div class="col-md-2">
+										<div class="form-group input">
+											<div class="col-md-12 form-control border-light">
+											
+											<div class="pos_mobile plusi form-control-position" style='float:left'><i class="ft-plus"></i>
+											</div>
+						<input type="text" required name="country_code" class="form-control"  minlength="2" maxlength="3" data-validation-required-message="Country code is required" data-validation-containsnumber-regex="(\d)+" data-validation-containsnumber-message="No Characters, Only Numbers" aria-invalid="false" id="userinput_c_code"  {{#if this.country_code}} value="{{this.country_code}}" {{/if}} style="margin-left: 14px;"> 
+						<label >{{#with ..}}{{__ "Country code" setlang}}{{/with}}<span class="required red">*</span></label>
+					    </div><div class="help-block"></div>  
+										</div>
+									</div>
+									 
+									
+									<div class="col-md-4">
+									<div class="form-group input">
+										<div class="col-md-12 form-control border-light"> 
+					<input type="text" name="phone" class="form-control" minlength="10" maxlength="15" required data-validation-containsnumber-regex="(\d)+" data-validation-containsnumber-message="No Characters, Only Numbers" aria-invalid="false" id="userinput_num" {{#if this.phone}} value="{{this.phone}}"{{/if}}>
+					<label >{{#with ..}}{{__ "Contact Number" setlang}}{{/with}}<span class="required red">*</span></label> 
+				    </div><div class="help-block"></div>
+											</div>
+								</div> 
+								  
+								<div class="col-md-6">
+									<div class="form-group input">
+										<div class="col-md-12 form-control border-light">
+											<input type="text" name="vat_no" class="form-control"  minlength="3" maxlength="6" required="" data-validation-containsnumber-regex="(\d)+" data-validation-containsnumber-message="No Characters, Only Numbers" aria-invalid="false" {{#if this.vat_no}} value="{{this.vat_no}}"{{/if}}><label>{{#with ..}}{{__ "Vat Number" setlang}}{{/with}}<span class="required red">*</span></label>
+											 
+										</div>		<div class="help-block"></div>				   
+									</div>
+								</div> 
+								
+								<div class="col-md-6">
+									<div class="form-group input">
+										<div class="col-md-12 form-control border-light"> 
+											<input type="text" required id="userinput4" {{#if this.gst_no}} value="{{this.gst_no}}" {{/if}} maxlength="15" data-validation-containsnumber-regex="([0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[Z]{1}[0-9]{1})" data-validation-containsnumber-message="only Characters and Numbers" aria-invalid="false" name="gst_no">
+											<label>{{#with ..}}{{__ "GST no" setlang}}{{/with}}<span class="required red">*</span></label> 
+										</div>		<div class="help-block"></div>				   
+									</div>
+								</div> 
+								 
+								<div class="col-md-6">
+									<div class="form-group input">
+										<div class="col-md-12 form-control border-light"> 
+											<input type="text" id="userinput3" class="form-control" required="" name="email_bcc" data-validation-regex-regex="([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})" data-validation-regex-message="Enter Valid Email" aria-invalid="true"  {{#if this.email_bcc}} value="{{this.email_bcc}}" {{/if}} id="userinput3">
+											<label >{{#with ..}}{{__ "Email BCC" setlang}}{{/with}}<span class="required red">*</span></label> 
+										</div>	<div class="help-block"></div>	
+									</div>
+									</div>
+									<div class="col-md-6">
+									<div class="form-group input">
+										<div class="col-md-12 form-control border-light">
+											<input type="text" required {{#if this.footer_text }} value="{{this.footer_text}}" {{/if}} id="userinput4" name="footer_text">
+											<label>{{#with ..}}{{__ "Footer Text" setlang}}{{/with}}<span class="required red">*</span></label>
+										</div>		<div class="help-block"></div>				   
+									</div>
+								</div> 
+									
+								<div class="col-md-6">
+							<div class="form-group row">
+								<div class="col-md-12 input">
+									<label for="company_logo" class="custom-control-label-date ml-2
+										">{{#with ..}}{{__ "Company Logo" setlang}}{{/with}}</label>
+									<input  class="form-control border-light imageUpload" type="file" name="company_logo" accept="image/png" {{#if this.company_logo }} value="{{this.company_logo}}" {{else}} required {{/if}} id="company_logo1">
+									<span class="required red notice"></span>
+							</div><div class="help-block"></div>
+							<div class="col-lg-12 col-md-12 col-12">
+							{{#if this.company_logo}} 
+							<img class="existing_user_image compamy_logo img-thumbnail" style="max-width:400px;" src="/images/upload/generalsetting/{{this.company_logo}}"> 
+							<input class="form-control border-light" name="compan_old_images" value="{{this.company_logo}}" type="hidden" >  {{/if}}
+								</div><p id="output"></p>
+								</div>
+								</div> 
+								
+								
+								 <script>
+								$('#company_logo').change( 
+							function () {  
+							var fileExtension = ['{{result.imgtype_jpg}}','{{result.imgtype_jpeg}}','{{result.imgtype_png}}'];
+							 		 
+							if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+							alert("Only '.{{result.imgtype_jpg}}','.{{result.imgtype_jpeg}}','.{{result.imgtype_png}}' formats are allowed.");
+								return false; }
+								});
+								</script>
+								
+								
+								
+								<script type="text/javascript"> 
+									$('#company_logo').on('change', function() { 
+							  
+										const size =  
+										   (this.files[0].size / 1024 / 1024).toFixed(2); 
+							  
+										if (size > 10 || size < 0) { 
+											alert("File must be between the size of 1 KB - 10MB"); 
+											$('#company_logo').val("");
+											//document.getElementById('#file').value("");
+										} else { 
+											$("#output").html('<b>' + 
+											   'This file size is: ' + size + " MB" + '</b>'); 
+										} 
+									}); 
+								</script> 
+								
+								
+						 		
+								
+								 
+								 <script type="text/javascript">
+								/* $(function () {
+									$("#company_logo").bind("click", function () { 
+									
+									
+									var f = this.files[0]
+									alert(+ this.files[0].size/1024/1024 + "MB");
+        //here I CHECK if the FILE SIZE is bigger than 8 MB (numbers below are in bytes)
+        if (f.size > 8388608 || f.fileSize > 8388608)
+        {
+           //show an alert to the user
+           alert("Allowed file size exceeded. (Max. 8 MB)")
+
+           //reset file upload control
+           this.value = null;
+        } */
+									
+									
+								 	
+									/* 
+									 	if (typeof ($("#company_logo")[0].files) != "undefined") {
+											var size = parseFloat($("#company_logo")[0].files[0].size / 1024).toFixed(2); 
+											
+											alert(size + " KB.");
+										} else {
+											alert("This browser does not support HTML5.");
+										}
+									});
+								}); */
+							</script>
+								
+								
+									<!--<div class="col-md-6">
+										<div class="form-group input">
+											<div class="col-md-12 form-control border-light">
+												<input type="text" required id="userinput4" class="" name="firstname">
+												<label for="userinput4">Contact Number<span class="required red">*</span></label>
+											</div>	<div class="help-block"></div>					   
+										</div>
+									</div> -->
+									<!--<div class="col-md-6">
+										<div class="form-group row">
+											<div class="col-md-12">
+												<label class="custom-control-label-date ml-2">Birth Date<span class="required red">*</span></label>
+												<input type="date" required id="complaintinput3" class="form-control" name="complaintdate">
+											</div><div class="help-block"></div>
+										</div>
+									</div>-->
+									 
+									 <!--<div class="col-md-6">
+										<div class="form-group input">
+											<div class="col-md-12 form-control border-light">
+												<input type="text" required id="userinput4" class="" name="firstname">
+												<label for="userinput4">Company Information Format<span class="required red">*</span></label>
+											</div>	<div class="help-block"></div>					   
+										</div>
+									</div> -->
+									<!--<div class="col-md-6">
+										<div class="form-group">
+											<div class="col-md-12 form-control">
+												<div class="skin skin-flat row ">
+													<div class="input-group">
+														<label class="custom-control-label custom-top-label ml-2">Gender<span class="required red">*</span></label>
+														&nbsp;&nbsp;&nbsp;
+														<div class="d-inline-block custom-control custom-radio mr-1">
+															<input type="radio" name="customer1" class="custom-control-input" checked="" id="yes">
+															<label class="custom-control-label mr-1" for="yes">Male</label>
+															<input type="radio" name="customer1" class="custom-control-input" id="no">
+															<label class="custom-control-label" for="no">Female</label>
+															&nbsp; &nbsp;&nbsp; &nbsp;
+															&nbsp; &nbsp;&nbsp; &nbsp;
+															<input type="checkbox" id="remember-me" class="chk-remember ">
+															<label for="remember-me"> Remember Me</label>
+								  
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>-->
+								</div>
+								<p class="form-section text-bold-600 font-medium-2 border-light"><i class="ft-home font-medium-2 mr-1"></i> {{#with ..}}{{__ "Address" setlang}}{{/with}}</p>
+								<div class="row">
+									
+									<div class="col-md-12">
+										 <div class="form-group row">
+						<div class="col-md-6">
+							<div class="form-group input">  
+							  <label class="ml-1 custom-top-label top" style="z-index:9">{{#with ..}}{{__ "Select Country" setlang}}{{/with}}<span class="red">*</span></label>
+									<select required class="select2 form-control export" data-validation-required-message="This field is required" name="country" id="country">
+						<option value="">{{#with ..}}{{__ "Select Country" setlang}}{{/with}}</option> 
+						{{#each ../country as |id| }}
+							 	<option {{#ifCond this.id '===' result.country}} selected {{/ifCond}} value="{{this.id}}">{{this.name}}</option>
+							{{/each}}
+						</select>
+								</div><div class="help-block"></div>
+								 
+						</div> 
+										 
+											
+											 <div class="col-md-6">
+												<div class="form-group input">  
+												  <label class="ml-1 custom-top-label top" style="z-index:9">{{#with ..}}{{__ "Select State" setlang}}{{/with}}<span class="red">*</span></label>
+														<select required class="select2 form-control export" maxlength="50" data-validation-required-message="This Field is required" name="state" id="state" {{#if this.state}} value="{{this.state}}"{{/if}} >
+															<option value="">Select State</option> 
+															</select>
+													</div><div class="help-block"></div>
+													 
+											</div> 
+											 <div class="col-md-6">
+												<div class="form-group input"> 
+												  <label class="ml-1 custom-top-label top" style="z-index:9">{{#with ..}}{{__ "Select City" setlang}}{{/with}}<span class="red">*</span></label>
+													<select required class="select2 form-control export" maxlength="50" data-validation-required-message="This field is required" name="city" id="city" {{#if this.city}} value="{{this.city}}"{{/if}} >
+													<option value="">Select City</option> 
+													</select><div class="help-block"></div>
+												</div>
+											</div>  
+											
+											<div class="col-md-6">
+										<div class="form-group input">
+											<div class="col-md-12" style="border: 1px solid #ddd;">
+												<!--<textarea id="userinput8" rows="6" class="form-control border-light" name="bio"></textarea>
+												<label class="col-md-2" for="userinput8">About Project</label>-->
+												<div class="form-field">
+													<textarea name="com_addr" data-validation-regex-regex="([A-Za-z0-9_,` .'^-]{1,150})" data-validation-regex-message={{__ "Only Characters, no numbers"}} data-validation-required-message={{__ "Address is required"}}>{{#if this.com_addr}} {{this.com_addr}} {{/if}}</textarea>
+													<span class="txt-title-label"></span>
+													<label class="text-area">{{#with ..}}{{__ "Address" setlang}}{{/with}}<span class="required red">*</span></label>
+												</div>
+											</div><div class="help-block"></div>
+										</div>							
+									</div>
+									
+									<div class="col-md-6">
+									<div class="form-group input">
+										<div class="col-md-12 form-control border-light">
+											<input type="text" required id="userinput3"   maxlength="10" required data-validation-containsnumber-regex="(\d)+"data-validation-containsnumber-message="No Characters, Only Numbers" aria-invalid="false" {{#if this.zipcode}} value="{{this.zipcode}}" {{/if}} name="zipcode">
+											<label for="userinput3">{{#with ..}}{{__ "zip code" setlang}}{{/with}}<span class="required red">*</span></label>
+										</div>	<div class="help-block"></div>	
+									</div>
+									</div>
+									
+										</div>		  
+										</div>
+									 
+									
+								</div>
+							
+							
+								<p class="form-section text-bold-600 font-medium-2 border-light"><i class="fa fa-file font-medium-2 mr-1"></i> {{#with ..}}{{__ "Documents" setlang}}{{/with}}</p>
+								<div class="row">
+									
+									<div class="col-md-12">
+										 <div class="form-group row">
+										  
+									
+						
+<script>
+<!-- for state -->
+	$(document).ready(function(){
+	
+	
+	$("body").on("change", "#country", function (e) {
+			
+			var countryId= $(this).val()
+			if(countryId!=''){
+			$.ajax({
+						type: 'POST',
+						url: '/ajxfun/state/',
+						headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+						data : {countryId:countryId},
+						success: function (response)
+						{		 
+							var state = response.state;
+							$('#state').empty().append("<option value=''>Select country first </option>");
+							
+							for(i = 0 ; i < state.length ; i++ ){
+
+								$('#state').append("<option value='"+state[i].id+"'>"+state[i].name+"</option>");
+							}
+							$('#city').empty().append("<option value=''>Select state first</option>");
+							<!-- console.log(response.state); -->
+						},
+						error: function(e) 
+						{
+							alert("An error occurred: " + e.responseText);
+							console.log(e);
+						}
+					});
+			}else{
+				$('#city').empty().append("<option value=''></option>");
+				$('#state').empty().append("<option value=''></option>");
+			}   
+		});
+		});
+		
+<!-- for city -->
+	$(document).ready(function(){
+	$("body").on("change", "#state", function (e) {
+			
+			var stateId= $(this).val()
+			if(stateId!=''){
+			<!-- alert(stateId); -->
+			$.ajax({
+						type: 'POST',
+						url: '/ajxfun/city/',
+						headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+						data : {stateId:stateId},
+						success: function (response)
+						{		 
+							var city = response.city;
+							
+							$('#city').empty().append("<option value=''>Select city</option>");
+							
+							for(i = 0 ; i < city.length ; i++ ){
+
+								$('#city').append("<option value='"+city[i].id+"'>"+city[i].name+"</option>");
+							}
+							
+							<!-- console.log(response); -->
+						},
+						error: function(e) 
+						{
+							alert("An error occurred: " + e.responseText);
+							console.log(e);
+						}
+					});
+			}else{
+				$('#city').empty().append("<option value=''></option>");
+				$('#state').empty().append("<option value=''></option>");
+			}   
+		});
+		});
+</script>			
+									
+									 
+									
+						<div class="col-md-6"> 
+						
+						<div class="form-group input">
+							<div class="col-md-12 form-control border-light">
+								<div class="skin skin-flat row px-1">
+									<div class="input-group">
+									<label for="userinput3">{{#with ..}}{{__ "Image File Type:" setlang}}{{/with}}&nbsp;</label>
+								<input type="checkbox" data-toggle="toggle" id="userinput3" {{#if this.imgtype_jpg	}} checked {{/if}} value="jpg" name="imgtype_jpg">
+								<label for="userinput3">{{#with ..}}{{__ "jpg" setlang}}{{/with}}</label>&nbsp;&nbsp;&nbsp;&nbsp;
+								<input type="checkbox" data-toggle="toggle" id="userinput3" {{#if this.imgtype_png}} checked {{/if}} value="png" name="imgtype_png">
+								<label for="userinput3">{{#with ..}}{{__ "png" setlang}}{{/with}}</label>&nbsp;&nbsp;&nbsp;&nbsp;
+								<input type="checkbox" data-toggle="toggle" id="userinput3" {{#if this.imgtype_jpeg}} checked {{/if}} value="jpeg" name="imgtype_jpeg">
+								<label for="userinput3">{{#with ..}}{{__ "jpeg" setlang}}{{/with}}</label>&nbsp;&nbsp;&nbsp;&nbsp;
+								
+								</div>	<div class="help-block"></div>	
+									</div>
+									</div>
+									</div>
+									</div>
+									
+									
+									
+									
+
+									 									 <div class="col-md-6">
+									<div class="form-group input">
+										<div class="col-md-12 form-control border-light">
+										<div class="skin skin-flat row px-1">
+									<div class="input-group">
+									
+								<label>{{#with ..}}{{__ "Document File Type:" setlang}}{{/with}}&nbsp;</label>	
+								<div class="row">								
+								<div class="col-lg-5 col-md-12 col-12 pr-0">
+								<input type="checkbox" data-toggle="toggle" {{#if this.doctype_Pdf}} checked {{/if}} value="pdf" name="doctype_Pdf">
+								<label for="userinput3">{{#with ..}}{{__ "Pdf" setlang}}{{/with}}</label>&nbsp;&nbsp;&nbsp;&nbsp;
+								
+								<input type="checkbox" data-toggle="toggle" {{#if this.doctype_Xlsx}} checked {{/if}} value="xlsx" name="doctype_Xlsx">
+								<label for="userinput3">{{#with ..}}{{__ "Xlsx" setlang}}{{/with}}</label>&nbsp;&nbsp;&nbsp;&nbsp;
+								
+								<input type="checkbox" data-toggle="toggle" {{#if this.doctype_Xls}} checked {{/if}} value="xls" name="doctype_Xls">
+								<label for="userinput3">{{#with ..}}{{__ "Xls" setlang}}{{/with}}</label>&nbsp;&nbsp;&nbsp;&nbsp;
+								</div>
+								<div class="col-lg-6 col-md-12 col-12 pl-0">
+								<input type="checkbox" data-toggle="toggle" {{#if this.doctype_Zip}} checked {{/if}} value="zip" name="doctype_Zip">
+								<label for="userinput3">Zip</label>&nbsp;&nbsp;&nbsp;&nbsp;
+								
+								<input type="checkbox" data-toggle="toggle" {{#if this.doctype_Doc}} checked {{/if}} value="doc" name="doctype_Doc">
+								<label for="userinput3">{{#with ..}}{{__ "Doc" setlang}}{{/with}}</label>&nbsp;&nbsp;&nbsp;&nbsp;
+								
+								<input type="checkbox" data-toggle="toggle" {{#if this.doctype_Docx}} checked {{/if}} value="docx" name="doctype_Docx">
+								<label for="userinput3">{{#with ..}}{{__ "Docx" setlang}}{{/with}}</label>&nbsp;&nbsp;&nbsp;&nbsp;
+								</div></div></div>	<div class="help-block"></div>	
+									</div>
+									</div> </div>
+									</div> 					
+									<div class="col-md-6">
+									<div class="form-group input">
+										<div class="col-md-12 form-control border-light">
+											<input type="text" required id="userinput3" {{#if this.imgupload_size}} value="{{this.imgupload_size}}" {{/if}} name="imgupload_size" minlength="1" maxlength="5" required="" data-validation-regex-regex="(\d)+" data-validation-regex-message="The Image upload size is must be a number.">
+											
+					
+											<label for="userinput3">{{#with ..}}{{__ "image upload size(MB)" setlang}}{{/with}} <span class="required red">*</span></label>
+										</div>	<div class="help-block"></div>	
+									</div>
+									</div>
+								 
+									
+									 
+					<div class="col-md-6">
+					<div class="form-group input">
+						<div class="col-md-12 form-control border-light"> 
+							<input type="text" required id="userinput3" {{#if this.docupload_size}} value="{{this.docupload_size}}" {{/if}} name="docupload_size" minlength="1" maxlength="5" data-validation-regex-regex="(\d)+"  data-validation-regex-message="The Documents upload size is must be a number.">
+							<label for="userinput3">{{#with ..}}{{__ "Documents Upload size(MB)" setlang}}{{/with}}<span class="required red">*</span></label> 
+						</div>	<div class="help-block"></div>	
+					</div>
+					</div>
+									
+									 
+									
+										</div>		  
+										</div>
+									 
+									
+								</div>
+							 
+							
+							</div>
+							<div class="form-actions left">
+								<button type="submit" name="companybtn" value="companybtn" onclick="return ValidateExtension()" class="btn btn-secondary">
+									<i class="fa fa-check-square-o"></i> {{#with ..}}{{__ "Submit" setlang}}{{/with}}
+								</button>
+							<button type="reset" class="btn btn-warning">
+								<i class="ft-refresh-cw"></i> {{#with ..}}{{__ "Reset" setlang}}{{/with}}
+							</button>
+							</div>
+						</form>
+						{{/each}}
+					</div>
+					</div>
+					
+					<div role="tabpanel" class="tab-pane" id="Localization" aria-labelledby="Localization-tab1"
+                      aria-expanded="true">
+            <div class="card-content">
+                <div class="card-body p-0">
+					{{#each data}}
+					
+						<form id="formID" class="form form-horizontal" novalidate action="/generalsettings/generalsetting" method="post" name="com_details">
+						<input type="hidden" name="id" {{#if this._id}} value="{{this._id}}" {{/if}}/>
+							<div class="form-body user_form">
+							 <div class="row">
+							  
+								 	<div class="col-md-6 mb-1"> 
+								<label class="ml-1 custom-top-label top" style="z-index:9">{{#with ..}}{{__ "Date Format" setlang}}{{/with}}<span class="red">*</span></label>
+								<select name="date_format" id="date_format" required class="form-control valid select2">
+										<option {{#ifCond this.date_format '==' 'm-d-Y'}} selected {{/ifCond}} value="m-d-Y">mm-dd-YYYY</option>
+									<option {{#ifCond this.date_format '==' 'm/d/Y'}} selected {{/ifCond}} value="m/d/Y">mm/dd/YYYY</option> 
+									<!-- <option {{#ifCond this.date_format '==' 'd-m-Y'}} selected {{/ifCond}} value="d-m-Y">dd-mm-YYYY</option> -->
+									<!-- <option {{#ifCond this.date_format '==' 'd/m/Y'}} selected {{/ifCond}} value="d/m/Y">dd/mm/YYYY</option>  -->
+									<option {{#ifCond this.date_format '==' 'Y-m-d'}} selected {{/ifCond}} value="Y-m-d">YYYY-mm-dd</option>
+									<option {{#ifCond this.date_format '==' 'F j, Y'}} selected {{/ifCond}} value="F j, Y">Month D, YYYY</option>
+								</select>
+								
+							<span id="time_format-error" class="invalid-feedback" style="display: inline;"></span> 
+								<div class="help-block"></div>
+								</div>
+								
+								<div class="col-md-6 mb-1"> 
+								<label class="ml-1 custom-top-label top" style="z-index:9">{{#with ..}}{{__ "Time Format" setlang}}{{/with}}<span class="red">*</span></label>
+								<select name="time_format" id="time_format" required class="form-control select2 valid" data-none-selected-text="Nothing selected" tabindex="-98" aria-describedby="time_format-error" aria-invalid="false">
+								<option {{#ifCond this.time_format '==' '24'}} selected {{/ifCond}} value="24">24 hours</option>
+								<option {{#ifCond this.time_format '==' '12'}} selected {{/ifCond}}  value="12">12 hours</option>
+								</select>
+							<span id="time_format-error" class="invalid-feedback" style="display: inline;"></span> 
+								<div class="help-block"></div>
+								</div>
+								
+					<div class="col-md-6 mb-1"> 
+					<!--<label class="ml-1 custom-top-label top" for="time_format">Currency<span class="red">*</span></label>-->
+					
+					<!--<select class="select2 form-control export col-12" data-validation-required-message="country is required" name="currency" maxlength="50" id="country" {{#if this.currency}} value="{{this.currency}}"{{/if}}>
+						<option value="">Select currency</option>
+
+						{{#each ../country as |id| }}
+						<option {{#ifCond this.id '===' result.country}} selected {{/ifCond}} value="{{this.id}}" >{{this.name}}</option>
+							{{/each}}
+						</select>-->
+					 <label class="ml-1 custom-top-label top" style="z-index:9">{{#with ..}}{{__ "Select Currency" setlang}}{{/with}}<span class="red">*</span></label>
+				 	<select class="w-100 valid select2 export col-12" id="currency" required name="currency" aria-describedby="currency-error" aria-invalid="false">
+		<option {{#ifCond this.currency '==' 'INR'}} selected {{/ifCond}} value="INR">Rupee(₹)</option>
+		<option {{#ifCond this.currency '==' 'USD'}} selected {{/ifCond}} value="USD">Dollar($)</option>
+		<option {{#ifCond this.currency '==' 'BYN'}} selected {{/ifCond}} value="BYN">Ruble(₽)</option>
+		<option {{#ifCond this.currency '==' 'GIP'}} selected {{/ifCond}} value="GIP">Pound(£)</option>
+		<option {{#ifCond this.currency '==' 'IRL'}} selected {{/ifCond}} value="IRL">Rial(﷼)</option>
+		<option {{#ifCond this.currency '==' 'JPY'}} selected {{/ifCond}} value="JPY">Yen(‎¥)</option>
+		<option {{#ifCond this.currency '==' 'MXN'}} selected {{/ifCond}} value="MXN">peso(₱)</option>
+		<!--<option {{#ifCond this.currency '==' 'AED'}} selected {{/ifCond}} value="AED">AED</option>
+		<option {{#ifCond this.currency '==' 'AFN'}} selected {{/ifCond}} value="AFN">AFN</option>
+		<option {{#ifCond this.currency '==' 'ALL'}} selected {{/ifCond}} value="ALL">ALL</option>
+		<option {{#ifCond this.currency '==' 'AMD'}} selected {{/ifCond}} value="AMD">AMD</option>
+		<option {{#ifCond this.currency '==' 'ANG'}} selected {{/ifCond}} value="ANG">ANG</option>
+		<option {{#ifCond this.currency '==' 'AOA'}} selected {{/ifCond}} value="AOA">AOA</option>
+		<option {{#ifCond this.currency '==' 'ARS'}} selected {{/ifCond}} value="ARS">ARS</option>
+		
+		<option {{#ifCond this.currency '==' 'AWG'}} selected {{/ifCond}} value="AWG">AWG</option>
+		<option {{#ifCond this.currency '==' 'AZN'}} selected {{/ifCond}} value="AZN">AZN</option>
+		<option {{#ifCond this.currency '==' 'BAM'}} selected {{/ifCond}} value="BAM">BAM</option>
+		<option {{#ifCond this.currency '==' 'BBD'}} selected {{/ifCond}} value="BBD">BBD</option>
+		<option {{#ifCond this.currency '==' 'BDT'}} selected {{/ifCond}} value="BDT">BDT</option>
+		<option {{#ifCond this.currency '==' 'BGN'}} selected {{/ifCond}} value="BGN">BGN</option>
+		<option {{#ifCond this.currency '==' 'BHD'}} selected {{/ifCond}} value="BHD">BHD</option>
+		<option {{#ifCond this.currency '==' 'BIF'}} selected {{/ifCond}} value="BIF">BIF</option>
+		<option {{#ifCond this.currency '==' 'BMD'}} selected {{/ifCond}} value="BMD">BMD</option>
+		<option {{#ifCond this.currency '==' 'BND'}} selected {{/ifCond}} value="BND">BND</option>
+		<option {{#ifCond this.currency '==' 'BOB'}} selected {{/ifCond}} value="BOB">BOB</option>
+		<option {{#ifCond this.currency '==' 'BRL'}} selected {{/ifCond}} value="BRL">BRL</option>
+		<option {{#ifCond this.currency '==' 'BSD'}} selected {{/ifCond}} value="BSD">BSD</option>
+		<option {{#ifCond this.currency '==' 'BTN'}} selected {{/ifCond}} value="BTN">BTN</option>
+		<option {{#ifCond this.currency '==' 'BWP'}} selected {{/ifCond}} value="BWP">BWP</option>
+		<option {{#ifCond this.currency '==' 'BYR'}} selected {{/ifCond}} value="BYR">BYR</option>
+		<option {{#ifCond this.currency '==' 'BZD'}} selected {{/ifCond}} value="BZD">BZD</option>
+		<option value="CAD">CAD</option>
+		<option value="CDF">CDF</option>
+		<option value="CHF">CHF</option>
+		<option value="CLF">CLF</option>
+		<option value="CLP">CLP</option>
+		<option value="CNY">CNY</option>
+		<option value="COP">COP</option>
+		<option value="CRC">CRC</option>
+		<option value="CUP">CUP</option>
+		<option value="CVE">CVE</option>
+		<option value="CZK">CZK</option>
+		<option value="DJF">DJF</option>
+		<option value="DKK">DKK</option>
+		<option value="DOP">DOP</option>
+		<option value="DZD">DZD</option>
+		<option value="EGP">EGP</option>
+		<option value="ETB">ETB</option>
+		<option value="EUR">EUR</option>
+		<option value="FJD">FJD</option>
+		<option value="FKP">FKP</option>
+		<option value="GBP">GBP</option>
+		<option value="GEL">GEL</option>
+		<option value="GHS">GHS</option>
+		<option value="GIP">GIP</option>
+		<option value="GMD">GMD</option>
+		<option value="GNF">GNF</option>
+		<option value="GTQ">GTQ</option>
+		<option value="GYD">GYD</option>
+		<option value="HKD">HKD</option>
+		<option value="HNL">HNL</option>
+		<option value="HRK">HRK</option>
+		<option value="HTG">HTG</option>
+		<option value="HUF">HUF</option>
+		<option value="IDR">IDR</option>
+		<option value="ILS">ILS</option>
+		<option value="INR">INR</option>
+		<option value="IQD">IQD</option>
+		<option value="IRR">IRR</option>
+		<option value="ISK">ISK</option>
+		<option value="JEP">JEP</option>
+		<option value="JMD">JMD</option>
+		<option value="JOD">JOD</option>
+		<option value="JPY">JPY</option>
+		<option value="KES">KES</option>
+		<option value="KGS">KGS</option>
+		<option value="KHR">KHR</option>
+		<option value="KMF">KMF</option>
+		<option value="KPW">KPW</option>
+		<option value="KRW">KRW</option>
+		<option value="KWD">KWD</option>
+		<option value="KYD">KYD</option>
+		<option value="KZT">KZT</option>
+		<option value="LAK">LAK</option>
+		<option value="LBP">LBP</option><option value="LKR">LKR</option><option value="LRD">LRD</option><option value="LSL">LSL</option><option value="LTL">LTL</option><option value="LVL">LVL</option><option value="LYD">LYD</option><option value="MAD">MAD</option><option value="MDL">MDL</option><option value="MGA">MGA</option><option value="MKD">MKD</option><option value="MMK">MMK</option><option value="MNT">MNT</option><option value="MOP">MOP</option><option value="MRO">MRO</option><option value="MUR">MUR</option><option value="MVR">MVR</option><option value="MWK">MWK</option><option value="MXN">MXN</option><option value="MYR">MYR</option><option value="MZN">MZN</option><option value="NAD">NAD</option><option value="NGN">NGN</option><option value="NIO">NIO</option><option value="NOK">NOK</option><option value="NPR">NPR</option><option value="NZD">NZD</option><option value="OMR">OMR</option><option value="PAB">PAB</option><option value="PEN">PEN</option><option value="PGK">PGK</option><option value="PHP">PHP</option><option value="PKR">PKR</option><option value="PLN">PLN</option><option value="PYG">PYG</option><option value="QAR">QAR</option><option value="RON">RON</option><option value="RSD">RSD</option><option value="RUB">RUB</option><option value="RWF">RWF</option><option value="SAR">SAR</option><option value="SBD">SBD</option><option value="SCR">SCR</option><option value="SDG">SDG</option><option value="SEK">SEK</option><option value="SGD">SGD</option><option value="SHP">SHP</option><option value="SLL">SLL</option><option value="SOS">SOS</option><option value="SRD">SRD</option><option value="STD">STD</option><option value="SVC">SVC</option><option value="SYP">SYP</option><option value="SZL">SZL</option><option value="THB">THB</option><option value="TJS">TJS</option><option value="TMT">TMT</option><option value="TND">TND</option><option value="TOP">TOP</option><option value="TRY">TRY</option><option value="TTD">TTD</option><option value="TWD">TWD</option><option value="TZS">TZS</option><option value="UAH">UAH</option><option value="UGX">UGX
+		</option>
+		<option value="UYU">UYU</option><option value="UZS">UZS</option><option value="VEF">VEF</option><option value="VND">VND</option><option value="VUV">VUV</option><option value="WST">WST</option><option value="XAF">XAF</option><option value="XCD">XCD</option><option value="XDR">XDR</option><option value="XOF">XOF</option><option value="XPF">XPF</option><option value="YER">YER</option><option value="ZAR">ZAR</option><option value="ZMK">ZMK</option><option value="ZWL">ZWL</option>-->				
+		</select>
+			<span id="time_format-error" class="invalid-feedback" style="display: inline;"></span> 
+			<div class="help-block"></div>
+			</div>
+		<div class="col-md-6 mb-1">
+		<label class="ml-1 custom-top-label top" style="z-index:9">{{#with ..}}{{__ "Languages" setlang}}{{/with}}<span class="red">*</span></label>
+		<select name="language" class="form-control select2" required>
+		<option {{#ifCond this.language '==' 'en'}} selected {{/ifCond}} value="en">English</option>
+		<option {{#ifCond this.language '==' 'hi'}} selected {{/ifCond}} value="hi">Hindi</option>
+		<option {{#ifCond this.language '==' 'fr'}} selected {{/ifCond}} value="fr">French</option>
+		<option {{#ifCond this.language '==' 'sp'}} selected {{/ifCond}} value="sp">Spanish</option>
+		<!-- <option {{#ifCond this.language '==' 'de'}} selected {{/ifCond}} value="de">German</option> -->
+		<!-- <option {{#ifCond this.language '==' 'pl'}} selected {{/ifCond}} value="pl">Polish</option> -->
+		<!-- <option {{#ifCond this.language '==' 'nl'}} selected {{/ifCond}} value="nl">Dutch</option> -->
+		<!-- <option {{#ifCond this.language '==' 'pt'}} selected {{/ifCond}} value="pt">Portuguese</option> -->
+		<!-- <option {{#ifCond this.language '==' 'tr'}} selected {{/ifCond}} value="tr">Turkish</option> -->
+		<!-- <option {{#ifCond this.language '==' 'it'}} selected {{/ifCond}} value="it">Italian</option> -->
+		<!-- <option {{#ifCond this.language '==' 'id'}} selected {{/ifCond}} value="id">Indonesia</option> -->
+		<!-- <option {{#ifCond this.language '==' 'es'}} selected {{/ifCond}} value="es">Spanish</option> -->
+		<!-- <option {{#ifCond this.language '==' 'zh'}} selected {{/ifCond}} value="zh">Chinese</option> -->
+		<!-- <option {{#ifCond this.language '==' 'ru'}} selected {{/ifCond}} value="ru">Russian</option> -->
+		<!-- <option {{#ifCond this.language '==' 'ja'}} selected {{/ifCond}} value="ja">Japanese</option> -->
+		
+		 
+		</select>
+							<span id="time_format-error" class="invalid-feedback" style="display: inline;"></span> 
+								<div class="help-block"></div>
+								</div> 
+								</div> 
+								</div> 
+							<div class="form-actions left">
+								<button type="submit" name="localization" value="localization" class="btn btn-secondary">
+									<i class="fa fa-check-square-o"></i> {{#with ..}}{{__ "Submit" setlang}}{{/with}}
+								</button>
+								
+								<button type="reset" onclick="myFunction_reset()" class="btn btn-warning">
+									<i class="ft-refresh-cw"></i> {{#with ..}}{{__ "Reset" setlang}}{{/with}}
+								</button>
+							</div>
+							
+							</script>
+						</form>
+						{{/each}}
+					 
+				
+		   </div>
+                </div> 
+                      </div> 
+					
+					  <div role="tabpanel" class="tab-pane" id="Finance" aria-labelledby="Finance-tab1"
+                      aria-expanded="true">
+            <div class="card-content">
+                 <div class="card-body p-0">
+					{{#each data}}
+						<form id="formID" class="form form-horizontal" novalidate action="/generalsettings/generalsetting" method="post" name="finance_details">
+						 
+						
+						
+						<input type="hidden" name="id" {{#if this._id}} value="{{this._id}}" {{/if}}/>
+							<div class="form-body user_form">
+							 <div class="row">
+							  
+							  
+							 
+								 	<div class="col-md-6 mb-1"> 
+								 <label class="ml-1 custom-top-label top" style="z-index:9">{{#with ..}}{{__ "Decimal Separator" setlang}}{{/with}}<span class="red">*</span></label>
+								<select name="decimal_separator" required class="select2 form-control valid">
+									<option {{#if this.decimal_separator}} selected value="," {{/if}}>,</option>
+									<option {{#if this.decimal_separator}} selected value="." {{/if}}>.</option>
+								</select>
+								<div class="help-block"></div>
+								</div>
+								
+								<div class="col-md-6 mb-1"> 
+								
+								<label class="ml-1 custom-top-label top" style="z-index:9">{{#with ..}}{{__ "Thousand Separator" setlang}}{{/with}}<span class="red">*</span></label>
+								<select name="thousand_separator" required class="select2 form-control">
+								<option {{#ifCond this.thousand_separator '==' ','}} selected {{/ifCond}} value=",">,</option>
+								<option {{#ifCond this.thousand_separator '==' '.'}} selected {{/ifCond}} value=".">.</option>
+								</select>
+							<span id="time_format-error" class="invalid-feedback" style="display: inline;"></span> 
+								<div class="help-block"></div>
+								</div>
+								
+							 	
+								 </div> 
+								 
+								 <div class="row">
+								 <!--	<div class="col-md-6">
+				<div class="form-group">
+					<div class="col-md-12 form-control">
+						<div class="skin skin-flat row ">
+							<div class="input-group">
+							<label class="custom-control-label custom-top-label ml-2">Currency Placement<span class="required red">*</span></label>
+								&nbsp;&nbsp;&nbsp;
+								<div class="d-inline-block custom-control custom-radio mr-1">
+							<input type="radio" name="currency_set" class="custom-control-input" {{#ifCond this.currency_set '==' '0'}} checked="" {{/ifCond}} value="0" id="yes">
+					<label class="custom-control-label mr-1" for="yes">Currency Before</label>
+					<input type="radio" name="currency_set" class="custom-control-input" {{#ifCond this.currency_set '==' '1'}} checked="" {{/ifCond}}  value="1" id="no">
+					<label class="custom-control-label" for="no">Currency After</label>
+					 
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>-->
+								
+					<div class="col-md-6"> 
+						<div class="col-md-12 form-control"> 
+							<div class="skin skin-flat row px-1">
+								<div class="input-group">
+									&nbsp;<input type="checkbox" data-toggle="toggle" name="tax_item" {{#if this.tax_item}} checked {{/if}} value="1"> 
+									<label class="custom-control-label">{{#with ..}}{{__ "Tax per item" setlang}}{{/with}}</label>
+								</div> 
+							</div> 
+						</div>
+					</div> 
+					 
+								<div class="col-md-6 mb-1"> 
+								<label class="ml-1 custom-top-label top" style="z-index:9">{{#with ..}}{{__ "Default Tax" setlang}}{{/with}}<span class="red">*</span></label>
+								<select name="Default_tax" class="select2 form-control">
+								<option {{#ifCond this.Default_tax '==' 'gst'}} selected  {{/ifCond}} value="gst">GST</option>
+								<option {{#ifCond this.Default_tax '==' 'sales_tax'}} selected  {{/ifCond}} value="sales_tax" >SALES TAX</option>
+								</select>
+								
+							<span id="time_format-error" class="invalid-feedback" style="display: inline;"></span> 
+								<div class="help-block"></div>
+								</div>
+								
+								<div class="col-md-6"> 
+						<div class="col-md-12 form-control"> 
+							<div class="skin skin-flat row px-1">
+								<div class="input-group">
+									&nbsp;<input type="checkbox" data-toggle="toggle" name="auto_round_off" {{#if this.auto_round_off}} checked {{/if}} value="1"> 
+									<label class="custom-control-label">{{#with ..}}{{__ "Auto Round OFF" setlang}}{{/with}}</label>
+								</div> 
+							</div> 
+						</div>
+					</div> 
+								 </div> 
+								</div>  
+							<div class="form-actions left">
+								<button type="submit" name="finance" value="finance" class="btn btn-secondary">
+									<i class="fa fa-check-square-o"></i> {{#with ..}}{{__ "Submit" setlang}}{{/with}}
+								</button>
+								
+								<button type="reset" class="btn btn-warning">
+									<i class="ft-refresh-cw"></i> {{#with ..}}{{__ "Reset" setlang}}{{/with}}
+								</button>
+							</div>
+							
+						</form>
+						{{/each}}
+					 
+				
+		   </div> 
+            </div>  
+                      </div>   
+						<div role="tabpanel" class="tab-pane" id="Invoice" aria-labelledby="Invoice-tab1"
+                      aria-expanded="true">
+            <div class="card-content">
+                 <div class="card-body p-0">
+					{{#each data}}
+						<form id="formID" class="form form-horizontal" novalidate action="/generalsettings/generalsetting" method="post" name="invoice_details">
+						<input type="hidden" name="id" {{#if this._id}} value="{{this._id}}" {{/if}}/>
+							<div class="form-body user_form">
+							 <div class="row">
+								<div class="col-md-6">
+									<div class="form-group input">
+										<div class="col-md-12 form-control border-light">
+											<input id="userinput1" class="form-control" type="text" name="invoice_prefix" data-validation-regex-regex="([A-Za-z0-9_,` .'^-]{1,20})" data-validation-required-message="Invoice Prefix is required"  data-validation-regex-message={{__ "Only Characters, no numbers and"}} {{#if this.invoice_prefix}}  value="{{this.invoice_prefix}}" {{/if}}>
+											<label for="userinput1">{{#with ..}}{{__ "Invoice Prefix" setlang}}{{/with}}<span class="red">*</span></label>
+										</div>
+									</div>
+								</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<div class="col-md-12 form-control">
+										<div class="skin skin-flat row px-2"> 
+										<input type="radio" name="invoice_number_format" class="custom-control-input" {{#ifCond this.invoice_number_format '==' '1'}} checked="" {{/ifCond}} value="1" id="yes">
+					<label class="custom-control-label mr-1" for="yes">{{#with ..}}{{__ "Number Based - (01-YY)" setlang}}{{/with}}</label>
+					<input type="radio" name="invoice_number_format" class="custom-control-input" {{#ifCond this.invoice_number_format '==' '2'}} checked="" {{/ifCond}}  value="2" id="no">
+					<label class="custom-control-label mr-1" for="no">{{#with ..}}{{__ "Year Based - (01/MM/YYYY)" setlang}}{{/with}}</label> 
+					<!--
+					<input type="radio" name="invoice_number_format" class="custom-control-input" {{#ifCond this.invoice_number_format '==' '3'}} checked="" {{/ifCond}} value="3" id="yes">
+					<label class="custom-control-label mr-1" for="yes">000001-YY</label>
+					<input type="radio" name="invoice_number_format" class="custom-control-input" {{#ifCond this.invoice_number_format '==' '4'}} checked="" {{/ifCond}}  value="4" id="no">
+					<label class="custom-control-label mr-1" for="no">000001/MM/YYYY</label> 
+											<!--<label class="custom-control-label custom-top-label ml-2">Invoice Number</label>
+												<fieldset class="ml-1">
+													<div class="iradio_flat-green">
+													<input type="radio" {{#if this.invoice_number_format}} checked value="1" {{/if}} name="invoice_number_format" class="custom-control-input" id="before">
+													</div>
+													<label class="custom-control-label mr-1" for="before">Number Based</label>
+												</fieldset>
+												<fieldset class="ml-1">
+													<div class="iradio_flat-green"><input type="radio" value="2" name="invoice_number_format" {{#if this.invoice_number_format}} checked value="2" {{/if}}  class="custom-control-input" id="after1"></div>
+													<label class="custom-control-label" for="after1">Year Based</label>
+												</fieldset>-->
+												<!--<fieldset class="ml-1">
+													<div class="iradio_flat-green"><input type="radio" {{#if this.invoice_number_format}} checked value="3"  {{/if}}  name="invoice_number_format" class="custom-control-input" id="after2"></div>
+													<label class="custom-control-label" for="after2">000001-YY</label>
+												</fieldset>
+												<fieldset class="ml-1">
+												<div class="iradio_flat-green"><input type="radio" {{#if this.invoice_number_format}} checked value="4" {{/if}}  name="invoice_number_format" class="custom-control-input"></div>
+													<label class="custom-control-label" for="after3">000001/MM/YYYY</label>
+												</fieldset>-->
+																																				</div>
+									</div><div class="help-block"></div>
+										</div>
+										</div>
+							<div class="col-md-6">
+								<div class="form-group input">
+								<div class="col-md-12 form-control border-light">
+								<input id="number_length" class="form-control" data-validation-required-message="Number Length is required" type="text" name="number_length" minlength="1" maxlength="5" data-validation-containsnumber-regex="(\d)+" data-validation-containsnumber-message={{__ "No Characters, Only Numbers"}} {{#if this.number_length}} value="{{this.number_length}}" {{/if}} >
+								<label for="number_length" class="active">{{#with ..}}{{__ "Number Length" setlang}}{{/with}}<span class="red">*</span></label>
+								</div> <div class="help-block"></div> 									</div>
+							    </div>
+				 <!--<div class="col-md-6">
+					<div class="form-group">
+						<div class="col-md-12 form-control">
+							<div class="skin skin-flat row">
+								<fieldset class="ml-1">	
+										<input value="0" name="show_total_paid_amount" type="hidden">
+										<div class="icheckbox_flat-green checked"><input type="checkbox" id="visable1" data-toggle="toggle" value="1" name="show_total_paid_amount"></div><label class="custom-control-label mr-1">Show Credit Applied</label>
+								</fieldset>
+								<fieldset class="ml-1">
+										<input value="0" name="show_total_paid_amount" type="hidden">
+										<div class="icheckbox_flat-green checked"><input type="checkbox" id="visable2" data-toggle="toggle" value="1" name="show_total_paid_amount"></div><label class="custom-control-label mr-1">Show Total Paid Amount</label>
+								</fieldset>
+								<fieldset class="ml-1">
+										<input value="0" name="show_total_paid_amount" type="hidden">
+										<div class="icheckbox_flat-green checked"><input type="checkbox" id="visable3" data-toggle="toggle" value="1" name="show_total_paid_amount"></div>	<label class="custom-control-label mr-1">Show Due Amount</label>
+								<fieldset>	
+							</fieldset></fieldset></div>
+						</div>
+					</div>
+				</div> -->
+					 <div class="col-md-6">
+						<div class="form-group input">
+							<div class="col-md-12 form-control border-light">
+								<div class="form-field">
+									<textarea name="bank_details" data-validation-regex-regex="([A-Za-z0-9_,` .'^-]{1,150})" data-validation-regex-message="Only Characters, no numbers" data-validation-required-message="Bank Details is required" class="valid" aria-invalid="false">{{this.bank_details}}</textarea>
+										<span class="txt-title-label"></span>
+										<label class="text-area active">{{#with ..}}{{__ "Bank Details" setlang}}{{/with}}<span class="red">*</span></label>
+								</div>
+							</div> <div class="help-block"></div> 									</div>
+						</div>
+							<div class="col-md-6">
+							    <div class="form-group input">
+								<div class="col-md-12 form-control border-light">
+								<div class="form-field">
+									<textarea name="invoice_client_note" data-validation-regex-regex="([A-Za-z0-9_,` .'^-]{1,150})" data-validation-regex-message="Only Characters, no numbers" data-validation-required-message="Invoice Client Note is required">{{this.invoice_client_note}}</textarea>
+										<span class="txt-title-label"></span>
+									    <label class="text-area active">{{#with ..}}{{__ "Invoice Client Note" setlang}}{{/with}}<span class="red">*</span></label>
+								</div>
+								</div><div class="help-block"></div> 	                             </div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group input">
+									<div class="col-md-12 form-control border-light">
+										<div class="form-field">
+										<textarea name="invoice_predefined_terms" data-validation-regex-regex="([A-Za-z0-9_,` .'^-]{1,150})" data-validation-regex-message="Only Characters, no numbers" data-validation-required-message="Invoice Predefined Terms is required">{{this.invoice_predefined_terms}}</textarea>
+										<span class="txt-title-label"></span>
+										<label class="text-area active">{{#with ..}}{{__ "Invoice Predefined Terms" setlang}}{{/with}}<span class="red">*</span></label>
+										</div>
+										</div><div class="help-block"></div> 					
+										</div>
+										</div>
+										</div>  
+								 
+								  
+								</div> 
+								 
+							<div class="form-actions left">
+								<button type="submit" name="invoice" value="invoice" class="btn btn-secondary">
+									<i class="fa fa-check-square-o"></i> {{#with ..}}{{__ "Submit" setlang}}{{/with}}
+								</button>
+								
+								<button type="reset" class="btn btn-warning">
+									<i class="ft-refresh-cw"></i> {{#with ..}}{{__ "Reset" setlang}}{{/with}}
+								</button>
+							</div>
+							
+						</form>
+						{{/each}}
+					 
+				
+		   </div>
+				
+				 
+            </div> 
+          
+                      </div>
+					  
+				<div role="tabpanel" class="tab-pane" id="pdf_settings" aria-labelledby="pdf_settings"
+                      aria-expanded="true">
+            <div class="card-content">
+                 <div class="card-body p-0">
+					{{#each data as |result|}}
+						<form id="formID" class="form form-horizontal" novalidate action="/generalsettings/generalsetting" method="post" enctype="multipart/form-data" name="pdf_settings">
+						<input type="hidden" name="id" {{#if this._id}} value="{{this._id}}" {{/if}}/>
+							<div class="form-body user_form">
+							 <div class="row">
+								<div class="col-md-6">
+									<div class="form-group input">
+										 <label class="ml-1 custom-top-label top" style="z-index:9">{{#with ..}}{{__ "PDF Font" setlang}}{{/with}}<span class="red">*</span></label>
+										<select name="pdf_font" class="select2">
+											<option {{#ifCond this.pdf_font '==' 'NEW_TIMES'}} selected {{/ifCond}} value="NEW_TIMES">Select pdf Font</option>
+											<option {{#ifCond this.pdf_font '==' 'NEW_TIMES'}} selected {{/ifCond}} value="NEW_TIMES">new times</option><option {{#ifCond this.pdf_font '==' 'NEW_TIMES'}} selected {{/ifCond}} value="OPEN_SANS">Open sans</option>
+										</select>
+										   
+									</div>
+								</div>
+								
+								<div class="col-md-6">
+									<div class="form-group input">
+										<div class="col-md-12 form-control border-light">
+											<input id="userinput1" class="form-control" type="text" data-validation-regex-regex="([A-Za-z_,`.'#^-]{1,50})" data-validation-regex-message= "Only Characters, no numbers" data-validation-required-message="Table Head Color is required" name="tbl_head_color" {{#if this.tbl_head_color}} value="{{this.tbl_head_color}}" {{/if}}>
+											<label for="userinput1">{{#with ..}}{{__ "Table Head Color" setlang}}{{/with}}<span class="red">*</span></label>
+										</div> <div class="help-block"></div>
+									</div>
+								</div>	
+								
+								<div class="col-md-6">
+									<div class="form-group input">
+										<div class="col-md-12 form-control border-light">
+											<input id="userinput1" class="form-control" data-validation-required-message="Font Size is required" maxlength="2" type="text" name="font_size" data-validation-regex-regex="([0-9]{1,2})" {{#if this.font_size}} value="{{this.font_size}}" {{/if}}>
+											<label for="userinput1">{{#with ..}}{{__ "Font Size" setlang}}{{/with}}<span class="red">*</span></label>
+										</div> <div class="help-block"></div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group input">
+										<div class="col-md-12 form-control border-light">
+											<input id="userinput1" class="form-control" data-validation-required-message= "Table Head Text Color is required" type="text"  data-validation-regex-regex="([A-Za-z_,`.#'^-]{1,50})" name="tbl_head_txt_color" {{#if this.tbl_head_txt_color}} value="{{this.tbl_head_txt_color}}" {{/if}}>
+											<label for="userinput1">{{#with ..}}{{__ "Table Head Text Color" setlang}}{{/with}}<span class="red">*</span></label>
+										</div> <div class="help-block"></div>
+									</div>
+								</div>	
+								<div class="col-md-6">
+									<div class="form-group input">
+										<div class="col-md-12 form-control border-light">
+											<input id="userinput1" class="form-control" data-validation-required-message= "pdf logo url is required" data-validation-regex-regex="([A-Za-z_,`.'^-]{1,150})"
+											type="text" name="pdf_logo_url" {{#if this.pdf_logo_url}} value="{{this.pdf_logo_url}}" {{/if}}>
+											<label for="userinput1">{{#with ..}}{{__ "pdf logo url" setlang}}{{/with}}<span class="red">*</span></label>
+										</div> <div class="help-block"></div>
+									</div>
+								</div>
+								
+								<div class="col-md-6">
+									<div class="form-group input">
+										<div class="col-md-12 form-control border-light">
+											<input id="userinput1" class="form-control" data-validation-regex-regex="([0-9]{1,4})" data-validation-required-message="logo width is required" type="text" maxlength="4"  name="pdf_logo_width" {{#if this.pdf_logo_width}} value="{{this.pdf_logo_width}}" {{/if}}>
+											<label for="userinput1">{{#with ..}}{{__ "logo width" setlang}}{{/with}}<span class="red">*</span></label>
+										</div> <div class="help-block"></div>
+									</div>
+								</div>	
+								<div class="col-md-6">
+							<div class="form-group">
+								<div class="col-md-12 form-control">
+									<div class="skin skin-flat row">
+										<fieldset class="ml-1">
+												 <input type="checkbox" id="visable1" data-toggle="toggle" {{#if this.show_transaction}} checked {{/if}} value="1" name="show_transaction"><label class="custom-control-label mr-1">{{#with ..}}{{__ "Show Credit Applied" setlang}}{{/with}}</label>
+										</fieldset>
+										<fieldset class="ml-1">
+												<input type="checkbox" id="visable2" data-toggle="toggle" value="1" {{#if this.show_pdf_signature_invoice}} checked {{/if}} name="show_pdf_signature_invoice"><label class="custom-control-label mr-1">{{#with ..}}{{__ "Show Total Paid Amount" setlang}}{{/with}}</label>
+										</fieldset>
+										<fieldset class="ml-1">
+												<input type="checkbox" id="visable3" data-toggle="toggle" value="1" {{#if this.show_pdf_signature_creditnote}} checked {{/if}} name="show_pdf_signature_creditnote" >	<label class="custom-control-label mr-1">{{#with ..}}{{__ "Show Due Amount" setlang}}{{/with}}</label>
+										</fieldset>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-6 mb-2 input">
+						<label class="ml-1 custom-top-label top" style="z-index:9">{{#with ..}}{{__ "A4 Landscape" setlang}}{{/with}}<span class="red">*</span></label>
+						<select name="pdf_format" id="pdf_format" class="form-control select2 valid" aria-invalid="false">
+						<option {{#ifCond this.pdf_format '==' 'A4-LANDSCAPE'}} selected {{/ifCond}} value="A4-LANDSCAPE" >A4 Landscape</option>
+						<option  {{#ifCond this.pdf_format '==' 'LETTER-PORTRAIT'}} selected {{/ifCond}} value="LETTER-PORTRAIT">Letter Portrait</option>
+						<option  {{#ifCond this.pdf_format '==' 'LETTER-LANDSCAPE'}}  selected {{/ifCond}} value="LETTER-LANDSCAPE">Letter Landscape</option>
+						</select>	
+						<!--<label class="ml-1 custom-top-label top" for="userinput7">Pdf Format<span class="red">*</span></label>-->
+							</div>
+							
+							<div class="col-md-6">
+							<div class="form-group row">
+								<div class="col-md-12 input">
+								<label class="ml-1 custom-top-label top" for="userinput7">{{#with ..}}{{__ "signature Image for pdf" setlang}}{{/with}}<span class="red">*</span></label> 
+								<input class="form-control border-light" id="company_logo1" type="file" name="company_logo" {{#if this.signature_image}} value="{{this.signature_image}}" {{else}} data-validation-required-message="Profile Image is required" {{/if}}  id="userinput5">
+								{{#if this.signature_image}} <br/><img class="existing_user_image update_time_team_image" src="/images/upload/generalsetting/{{this.signature_image}}"> 
+								<input class="form-control border-light" name="sig_photo_old" value="{{this.signature_image}}" type="hidden" id="userinput5"> {{/if}}
+							</div>
+							</div>
+						</div>
+						
+						<!--<div class="col-md-6">
+			<div class="form-group">
+				<div class="col-md-12 form-control">
+					<div class="skin skin-flat row">
+						<div class="input-group">
+							<label class="custom-control-label custom-top-label ml-2">Header</label>
+							&nbsp;&nbsp;&nbsp;
+							<div class="d-inline-block custom-control custom-radio mr-1">
+								 <input type="radio" name="swap_header" class="custom-control-input" {{#ifCond this.swap_header '==' '0'}} checked="" {{/ifCond}} value="0" id="yes">
+					<label class="custom-control-label mr-1" for="yes">Currency Before</label>
+					<input type="radio" name="swap_header" class="custom-control-input" {{#ifCond this.swap_header '==' '1'}} checked="" {{/ifCond}}  value="1" id="no">
+					<label class="custom-control-label" for="no">Currency After</label>
+					
+							</div>
+						</div>
+							</div>
+													</div>
+												</div>
+											</div>-->
+
+
+							</div> 
+								 
+							<div class="form-actions left">
+								<button type="submit" name="pdf_settings" value="pdf_settings" class="btn btn-secondary">
+									<i class="fa fa-check-square-o"></i> {{#with ..}}{{__ "Submit" setlang}}{{/with}}
+								</button>
+								
+								<button type="reset" class="btn btn-warning">
+									<i class="ft-refresh-cw"></i>{{#with ..}}{{__ " Reset" setlang}}{{/with}}
+								</button>
+							</div>
+							<script>
+								/* $('#company_logo1').change( 
+							function () {  
+							var fileExtension = ['{{result.imgtype_jpg}}','{{result.imgtype_jpeg}}','{{result.imgtype_png}}'];
+							alert(fileExtension);
+							if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+							alert("Only '.{{result.imgtype_jpg}}','.{{result.imgtype_jpg}}','.{{result.imgtype_jpg}}' formats are allowed.");
+								return false; }
+								}); */
+								</script>
+						</form>
+						{{/each}}
+		   </div>				 
+            </div> 
+			</div>
+                      </div>		
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    </div>
+    </div>
+	
+{{#each data as |geninfom|}}
+<script type="text/javascript">
+        function ValidateExtension(){
+		<!-- alert("123"); -->
+		m=0;
+		$('.imageUpload').each(function(){
+			if($(this).val() != '') {
+				var imageUpload=$(this).val();
+				var allowedFiles = [];
+				var jpeg="{{geninfom.imgtype_jpeg}}";
+				var jpg="{{geninfom.imgtype_jpg}}";
+				var png="{{geninfom.imgtype_png}}";
+				if(jpeg!=''){
+					allowedFiles.push('{{geninfom.imgtype_jpeg}}');
+				}
+				if(jpg!=''){
+					allowedFiles.push('{{geninfom.imgtype_jpg}}');
+				}
+				if(png!=''){
+					allowedFiles.push('{{geninfom.imgtype_png}}');
+				}
+				var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + allowedFiles.join('|') + ")$");
+				if (!regex.test(imageUpload.toLowerCase())) {
+					$(this).siblings('.notice').html("Please upload files having extensions: <b>" + allowedFiles.join(', ') + "</b> only.");
+					m++;
+				}
+				else{
+					$(this).siblings('.notice').html();
+				}
+			}
+		});
+			if(m>0){
+			return false;
+			}
+        }
+</script>
+{{/each}} 
+  

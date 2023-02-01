@@ -1,0 +1,682 @@
+{{breadcrums 'Home' title}}
+
+<div class="app-content center-layout mt-2 mx-md-3 px-1">
+	<div class="content-wrapper">
+	<div class="row">
+	<div class="col-md-12">
+	<div class="card">
+	<div class="card-header p-0 border-bottom border-light">
+		<a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+	</div>
+	
+	<div class="card-content collpase show">
+	<div class="card-body">
+		<form method="POST" id="formID" action="/customfields/addcustomfields" method="post" class="needs-validation form form-horizontal demoForm">
+		{{#each data}}
+		<div class="form-body user_form"> <!--Card Body div-->                       
+			<div class="row"><!--Row Div--> 								
+			<div class="col-md-6 mb-2 input">
+				<input type="hidden" id="userinput1"name="id" {{#if this._id}} value="{{this._id}}"{{/if}} > 
+				<label class="ml-1 custom-top-label top" style="z-index:99" for="module_name">{{#with ..}}{{__ "Module Name" setlang}}{{/with}}<span class="required red">*</span></label>
+				<select id="module_name" class="select2 form-control"  name="module_name" >
+				<!--<option value="">{{#with ..}}{{__ "Select Module" setlang}}{{/with}}</option>-->
+				<option value="user" {{#ifCond this.module_name '==' 'user'}} selected {{/ifCond}}>{{#with ..}}{{__ "User" setlang}}{{/with}}</option>
+				<option value="loan" {{#ifCond this.module_name '==' 'loan'}} selected {{/ifCond}}>{{#with ..}}{{__ "Loan" setlang}}{{/with}}</option>
+				<option value="loantype" {{#ifCond this.module_name '==' 'loantype'}} selected {{/ifCond}}>{{#with ..}}{{__ "Loan Type" setlang}}{{/with}}</option>
+				<option value="emi" {{#ifCond this.module_name '==' 'emi'}} selected {{/ifCond}}>{{#with ..}}{{__ "EMI" setlang}}{{/with}}</option>
+				<option value="role" {{#ifCond this.module_name '==' 'role'}} selected {{/ifCond}}>{{#with ..}}{{__ "Role" setlang}}{{/with}}</option>
+				<option value="rule"{{#ifCond this.module_name '==' 'rule'}} selected {{/ifCond}} >{{#with ..}}{{__ "Rules and Regulations" setlang}}{{/with}}</option>
+				<option value="reminder" {{#ifCond this.module_name '==' 'reminder'}} selected {{/ifCond}}>{{#with ..}}{{__ "Reminder" setlang}}{{/with}}</option>
+				<option value="service" {{#ifCond this.module_name '==' 'service'}} selected {{/ifCond}}>{{#with ..}}{{__ "Service" setlang}}{{/with}}</option>	
+				<option value="product" {{#ifCond this.module_name '==' 'product'}} selected {{/ifCond}}>{{#with ..}}{{__ "Product" setlang}}{{/with}}</option>	
+				</select>
+			</div>					  
+			<div class="col-md-6">
+			<div class="form-group input">
+			<div class="col-md-12 form-control border-light">
+				<input type="text" id="userinput1"  data-validation-regex-regex="([A-Za-z_, `.'^-]{1,50})" data-validation-regex-message="{{#with ..}}{{__ 'Only Characters, no numbers' setlang}}{{/with}}" data-validation-required-message="{{#with ..}}{{__ 'Label is required' setlang}}{{/with}}" name="label" {{#if this.label}} value="{{this.label}}"{{/if}}>
+				<label for="userinput1">{{#with ..}}{{__ "Label" setlang}}{{/with}}<span class="required red">*</span></label> 
+			</div><div class="help-block"></div>
+			</div>
+			</div>	
+			<div class="col-md-6">	
+				<div class="mb-2 input">	
+					<label class="ml-1 custom-top-label top" style="z-index:99" for="type">{{#with ..}}{{__ "Input Type" setlang}}{{/with}}<span class="required red">*</span></label>
+					<select id="field_type" class="select2 form-control dropdown_change"  name="field_type" >
+						<!--<option value="">{{#with ..}}{{__ "Select Input Type" setlang}}{{/with}}</option>-->
+						<option value="text" {{#ifCond this.field_type '==' 'text'}} selected {{/ifCond}}>{{#with ..}}{{__ "Text Box" setlang}}{{/with}}</option>
+						<option value="textarea" {{#ifCond this.field_type '==' 'textarea'}} selected {{/ifCond}}>{{#with ..}}{{__ "Textarea" setlang}}{{/with}}</option>
+						<option value="dropdown" {{#ifCond this.field_type '==' 'dropdown'}} selected {{/ifCond}}>{{#with ..}}{{__ "Dropdown" setlang}}{{/with}}</option>
+						<option value="date" {{#ifCond this.field_type '==' 'date'}} selected {{/ifCond}}>{{#with ..}}{{__ "Date Field" setlang}}{{/with}}</option>
+						<option value="checkbox" {{#ifCond this.field_type '==' 'checkbox'}} selected {{/ifCond}}>{{#with ..}}{{__ "Checkbox" setlang}}{{/with}}</option>
+						<option value="radio" {{#ifCond this.field_type '==' 'radio'}} selected {{/ifCond}}>{{#with ..}}{{__ "Radio" setlang}}{{/with}}</option>
+						<option value="file" {{#ifCond this.field_type '==' 'file'}} selected {{/ifCond}}>{{#with ..}}{{__ "File" setlang}}{{/with}}</option>
+					</select>
+				</div>								
+			</div>
+			<div class="col-md-6">
+			<div class="form-group">
+			<div class="col-md-12 form-control">
+			<div class="skin skin-flat row">
+			<div class="input-group">
+				<label class="ml-1 custom-top-label">{{#with ..}}{{__ "Validation" setlang}}{{/with}}<span class="red">*</span></label>
+				<div class="d-inline-block custom-control custom-checkbox mr-1 margin_left_custom_field">
+					
+					<label class="checkbox-inline mr-2"> 
+					<input type="checkbox" name="validation" {{#if this.validation}}{{#ifEquals this.validation 'nullable'}}  {{/ifEquals}}{{/if}} value="nullable" class="nullable_rule" checked><span>{{#with ..}}{{__ "Nullable" setlang}}{{/with}}</span>
+					</label>
+					
+					<label class="checkbox-inline mr-2">
+					<input type="checkbox" name="validation" {{#if this.validation}}{{#ifEquals this.validation  'required'}}  {{/ifEquals}}{{/if}} value="required" class="required_rule" ><span>{{#with ..}}{{__ "Required" setlang}}{{/with}}</span>
+					</label>
+					
+					<label class="checkbox-inline mr-2">
+					<input type="checkbox"  name="validation" {{#if this.validation}}{{#ifEquals this.validation 'numeric'}}  {{/ifEquals}}{{/if}} value="numeric" class="only_number" ><span>{{#with ..}}{{__ "Only Number" setlang}}{{/with}}</span>
+					</label>
+					
+					<label class="checkbox-inline mr-2">
+					<input type="checkbox" name="validation" {{#if this.validation}}{{#ifEquals this.validation 'alpha'}}  {{/ifEquals}}{{/if}} value="alpha"  class="only_char"><span>{{#with ..}}{{__ "Only Character" setlang}}{{/with}}</span>
+					</label>
+					
+					<label class="checkbox-inline mr-2">
+					<input type="checkbox" name="validation" {{#if this.validation}}{{#ifEquals this.validation 'alpha_space'}}  {{/ifEquals}}{{/if}} value="alpha_space"  class="char_space" ><span>{{#with ..}}{{__ "Character with Space" setlang}}{{/with}}</span>
+					</label>
+					
+					<label class="checkbox-inline mr-2">
+					<input type="checkbox" class="char_num" name="validation" {{#if this.validation}}{{#ifEquals this.validation 'alpha_num'}}  {{/ifEquals}}{{/if}} value="alpha_num" ><span>{{#with ..}}{{__ "Number & Character" setlang}}{{/with}}</span>
+					</label>
+					
+					<label class="checkbox-inline mr-2">
+					<input type="checkbox"  class="email" name="validation" {{#if this.validation}}{{#ifEquals this.validation 'email'}}  {{/ifEquals}}{{/if}}  value="email" ><span>{{#with ..}}{{__ "Email" setlang}}{{/with}}</span>
+					</label>
+					
+					<label class="checkbox-inline mr-2">
+					<input type="checkbox" name="validation" id="Maximum" {{#if this.validation}}{{#ifEquals this.validation 'max'}}  {{/ifEquals}}{{/if}} class="opentext maxcheck max" value="max" ><span>{{#with ..}}{{__ "Maximum" setlang}}{{/with}}</span>
+					</label>
+					
+					<label class="checkbox-inline mr-2">
+					<input type="checkbox" name="validation" id="Minimum" {{#if this.validation}}{{#ifEquals this.validation 'min'}}  {{/ifEquals}}{{/if}} class="opentext mincheck min" value="min" ><span>{{#with ..}}{{__ "Minimum" setlang}}{{/with}}</span>
+					</label>
+					
+					<label class="checkbox-inline mr-2">
+					<input type="checkbox" class="url" {{#if this.validation}}{{#ifEquals this.validation 'url'}}  {{/ifEquals}}{{/if}} name="validation" value="url" ><span>{{#with ..}}{{__ "URL" setlang}}{{/with}}</span>
+					</label>
+					
+					<label class="checkbox-inline mr-2">
+					<input type="checkbox" name="validation" {{#if this.validation}}{{#ifEquals this.validation 'before_or_equal:today'}}  {{/ifEquals}}{{/if}} id="date0" class="date" value="before_or_equal:today" ><span>{{#with ..}}{{__ "Before Or Equal(Today's Date)" setlang}}{{/with}}</span>
+					</label>
+					
+					<label class="checkbox-inline mr-2">
+					<input type="checkbox" name="validation" {{#if this.validation}}{{#ifEquals this.validation 'date_equals:today'}}  {{/ifEquals}}{{/if}} id="date1"  class="date"  value="date_equals:today" ><span>{{#with ..}}{{__ "Today's Date" setlang}}{{/with}}</span>
+					</label>
+					
+					<label>
+					<input type="checkbox" name="validation" id="date2" {{#if this.validation}}{{#ifEquals this.validation 'after_or_equal:today'}}  {{/ifEquals}}{{/if}}  class="date"   value="after_or_equal:today" ><span>{{#with ..}}{{__ "After Or Equal(Today's Date)" setlang}}{{/with}}</span>
+					</label>
+				</div>
+			</div>
+			</div>
+			</div>
+			</div>
+			</div>
+			</div><!--Row Div End-->
+			<div class="row sub_cat" style="display:none;">
+				<div class="col-md-6">
+					<div class="form-group input">
+						<div class="col-md-12 form-control border-light">
+							<input type="text" maxlength="30" class="form-control d_label" >
+							<label>{{#with ..}}{{__ "Dropdown Label" setlang}}{{/with}}</label>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<input type="button"  name="menu_web" class="btn btn-primary add_more" value="Add More">
+				</div>
+			</div>
+			<div class="row sub_cat" >
+				<div class="col-md-12 drop_label">
+				{{#if this.d_label}}
+				{{#each this.d_label as |dropdata|}}
+				<div class="badge badge-danger label_data custom-margin"><input type="hidden" value={{dropdata}} name="d_label"><span>{{dropdata}}</span><a href="#"><i class="fa fa-trash font-medium-2 delete_d_label" aria-hidden="true"></i></a></div>
+				{{/each}}
+				{{/if}}
+				</div>
+			</div>			
+			<div class="row checkbox_cat" style="display:none;">
+				<div class="col-md-6">
+					<div class="form-group input">
+						<div class="col-md-12 form-control border-light">
+							<input type="text" maxlength="30"  class="form-control c_label" >
+							<label>{{#with ..}}{{__ "Checkbox Label" setlang}}{{/with}}</label>
+						</div>
+					</div>
+				</div> 
+				<div class="col-md-2">
+					<input type="button"  name="menu_web" class="btn btn-primary add_more_checkbox" value="Add More">
+				</div> 
+			</div>
+			<div class="row checkbox_cat">
+				<div class="col-md-12 checkbox_label">
+				{{#if this.c_label}}
+				{{#each this.c_label as |checkdata|}}
+				<div class="badge badge-warning label_checkbox custom-margin"  ><input type="hidden" value={{checkdata}}  name="c_label"><span>{{checkdata}}</span><a href="#"><i class="fa fa-trash font-medium-2 delete_c_label" aria-hidden="true"></i></a></div>
+				{{/each}}
+				{{/if}}
+				</div>
+			</div>			
+			<div class="row radio_cat" style="display:none;">
+				<div class="col-md-6">
+					<div class="form-group input">
+						<div class="col-md-12 form-control border-light">
+							<input type="text" maxlength="30"  class="form-control r_label" >
+							<label>{{#with ..}}{{__ "Radio Label" setlang}}{{/with}}</label>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<input type="button"  name="menu_web" class="btn btn-primary add_more_radio" value="Add More">
+				</div>
+			</div>
+			<div class="row radio_cat">
+				<div class="col-md-12 radio_label">
+				{{#if this.r_label}}
+				{{#each this.r_label as |radiodata|}}
+				<div class="badge badge-secondary label_radio custom-margin" style="margin-right: 3px;"><input type="hidden" value={{radiodata}} name="r_label"><span>{{radiodata}}</span><a href="#"><i class="fa fa-trash font-medium-2 delete_r_label" aria-hidden="true"></i></a></div>
+				{{/each}}
+				{{/if}}
+				</div>
+			</div>
+			
+			<div class="row file_type_and_size" style="display:none;">
+				<div class="col-md-6">
+					<div class="form-group input">
+						<div class="col-md-12 form-control border-light">
+							<input type="hidden" value="" class="file_types_value">   
+							<input class="form-control validate[required,custom[onlyLetter_specialcharacter]] file_types_input"  name="filetype" maxlength="100" {{#if this.filetype}} value={{this.filetype}}{{/if}} type="text" id="userinput11">
+							<label for="userinput11" class="active ml-1 custom-top-label top">{{#with ..}}{{__ "File Types (like png,jpg,pdf,doc)" setlang}}{{/with}}<span class="red">*</span></label>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group input">
+						<div class="col-md-12 form-control border-light">
+							<input type="hidden" value="" class="file_size_value">  
+							<input class="form-control validate[required,custom[number]] file_size_input" {{#if this.filesize}} value={{this.filesize}}{{/if}}  name="filesize" maxlength="3" type="text" id="userinput9" >
+							<label for="userinput9" class="active ml-1 custom-top-label top">{{#with ..}}{{__ "File Upload Size(mb)" setlang}}{{/with}}<span class="red">*</span></label>
+						</div>
+				   </div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 Minimum-text" id="min_limit" style="display:none;">
+					<div class="form-group input">
+						<div class="col-md-12 form-control border-light">
+							<input type="text" maxlength="5" data-validation-containsnumber-regex="(\d)+" data-validation-containsnumber-message="{{#with ..}}{{__ 'Only numbers' setlang}}{{/with}}" class="form-control validate[required] valuemin" name="minival" {{#if this.minival}} value={{this.minival}}{{/if}} id="min" >
+							<label>{{#with ..}}{{__ "Minimum Limit" setlang}}{{/with}}<span class="red">*</span></label>
+						</div><div class="help-block"></div>
+					</div>
+				</div>
+				<div class="col-md-6 Maximum-text" id="max_limit" style="display:none;">
+					<div class="form-group input">
+						<div class="col-md-12 form-control border-light">
+							<input type="text" maxlength="5" data-validation-containsnumber-regex="(\d)+" data-validation-containsnumber-message="{{#with ..}}{{__ 'Only numbers' setlang}}{{/with}}" class="form-control validate[required] valuemax" name="maxival" {{#if this.maxival}}value={{this.maxival}}{{/if}} id="max" >
+							<label>{{#with ..}}{{__ "Maximum Limit" setlang}}{{/with}}<span class="red">*</span></label>
+						</div><div class="help-block"></div>
+					</div>
+				</div>
+			</div>
+			<div class="row" style="margin-top: 20px;"><!--Row Div--> 
+				<div class="col-md-6">
+					<div class="form-group">
+						<div class="col-md-12 form-control">
+							<div class="skin skin-flat row">
+								<div class="input-group">
+									<label class="ml-1 custom-top-label">{{#with ..}}{{__ "Visibility" setlang}}{{/with}}</label>
+									<div class="d-inline-block custom-control custom-checkbox mr-1">
+										<input type="checkbox" {{#ifCond this.field_visibility "==" 1}} checked {{/ifCond}} value = "1" class="custom-control-input hideattar" name="field_visibility" >
+										<label class="custom-control-label" for="colorCheck1">{{#with ..}}{{__ "Yes" setlang}}{{/with}}</label>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div><!--Row Div End--> 	
+			</div><!--Card Body Div End--> 
+			<div class="form-actions left">
+				<button type="submit" class="btn btn-secondary">
+					<i class="fa fa-check-square-o"></i> {{#with ..}}{{__ "Submit" setlang}}{{/with}}
+				</button>
+				<button type="reset" class="btn btn-warning mr-1 btn-outline-light text-muted">
+					<i class="ft-refresh-cw"></i> {{#with ..}}{{__ "Reset" setlang}}{{/with}}
+					</button>
+			</div>
+			</form>					
+			</div><!--Card Body div end-->
+			</div><!--Card content div end-->
+		</div><!--Card div End-->
+	</div><!--Col 12 Div End--> 		
+</div><!--Row Div End--> 		
+</div><!--Row Div End--> 		
+</div><!--Row Div End--> 	
+{{/each}}	
+<script>
+$(document).ready(function () 
+{	
+	var dropdwon_data = $(".dropdown_change option:selected").val();
+	if(dropdwon_data == 'dropdown'){
+	$(".sub_cat").show();
+	}
+	else{
+		$(".sub_cat").hide();
+	}
+	if(dropdwon_data == 'checkbox'){
+	$(".checkbox_cat").show();
+	}
+	else{
+		$(".checkbox_cat").hide();
+	}
+	if(dropdwon_data == 'radio'){
+	$(".radio_cat").show();
+	}
+	else{
+		$(".radio_cat").hide();
+	}
+	if(dropdwon_data == 'file'){
+	$(".file_type_and_size").show();
+	}
+	else{
+		$(".file_type_and_size").hide();
+	}
+	
+	<!-- Make checked required or validation code start -->
+	$(".required_rule").on('ifChecked', function (event) 
+	{
+		$('.nullable_rule').iCheck('uncheck');
+	});
+
+	$(".nullable_rule").on('ifChecked', function (event) 
+	{
+		$('.required_rule').iCheck('uncheck');
+	});
+
+	$(".nullable_rule").on('ifUnchecked', function (event) 
+	{
+		$('.required_rule').iCheck('check');
+	});
+
+	$(".required_rule").on('ifUnchecked', function (event) 
+	{
+		$('.nullable_rule').iCheck('check');
+	});
+
+	$(".only_number").on('ifChecked', function (event) 
+	{
+		$('.only_char,.char_space,.char_num,.email,.url,.date').iCheck('disable');
+		$('.only_char,.char_space,.char_num,.email,.url,.date').iCheck('uncheck');
+		$('.only_char,.char_space,.char_num,.email,.url,.date').attr('disabled', true);
+	});
+
+	$(".only_char").on('ifChecked', function (event)
+	{
+		$('.only_number,.char_space,.char_num,.email,.url,.date').iCheck('disable');
+		$('.only_number,.char_space,.char_num,.email,.url,.date').iCheck('uncheck');
+		$('.only_number,.char_space,.char_num,.email,.url,.date').attr('disabled', true);
+	});
+
+	$(".char_num").on('ifChecked', function (event) 
+	{
+		$('.only_char,.only_number,.char_space,.email,.url,.date').iCheck('disable');
+		$('.only_char,.only_number,.char_space,.email,.url,.date').iCheck('uncheck');
+		$('.only_char,.only_number,.char_space,.email,.url,.date').attr('disabled', true);
+	});
+
+	$(".char_space").on('ifChecked', function (event)
+	{
+		$('.only_char,.only_number,.char_num,.email,.url,.date').iCheck('disable');
+		$('.only_char,.only_number,.char_num,.email,.url,.date').iCheck('uncheck');
+		$('.only_char,.only_number,.char_num,.email,.url,.date').attr('disabled', true);
+	});
+
+	$(".email").on('ifChecked', function (event) 
+	{
+		$('.only_char,.only_number,.char_num,.char_space,.url,.date').iCheck('disable');
+		$('.only_char,.only_number,.char_num,.char_space,.url,.date').iCheck('uncheck');
+		$('.only_char,.only_number,.char_num,.char_space,.url,.date').attr('disabled', true);
+	});
+
+	$(".url").on('ifChecked', function (event) 
+	{
+		$('.only_char,.only_number,.char_num,.char_space,.email,.date').iCheck('disable');
+		$('.only_char,.only_number,.char_num,.char_space,.email,.date').iCheck('uncheck');
+		$('.only_char,.only_number,.char_num,.char_space,.email,.date').attr('disabled', true);
+	});
+
+	$(".date").on('ifChecked', function (event) 
+	{
+		$('.only_char,.only_number,.char_num,.char_space,.email,.url,.min,.max').iCheck('disable');
+		$('.only_char,.only_number,.char_num,.char_space,.email,.url,.min,.max').iCheck('uncheck');
+		$('.only_char,.only_number,.char_num,.char_space,.email,.url,.min,.max').attr('disabled', true);
+
+		$.each($('.date'), function (key, value) 
+		{
+			$('#date' + key).iCheck('disable');
+			$('#date' + key).attr('disabled', true);
+		});
+		$(this).iCheck('enable');
+		$(this).attr('disabled', false);
+
+	});
+
+	$(".only_number").on('ifUnchecked', function (event) 
+	{
+		$('.only_char,.char_space,.char_num,.email,.url,.date').iCheck('enable');
+		$('.only_char,.char_space,.char_num,.email,.url,.date').attr('disabled', false);
+	});
+
+	$(".only_char").on('ifUnchecked', function (event) 
+	{
+		$('.only_number,.char_space,.char_num,.email,.url,.date').iCheck('enable');
+		$('.only_number,.char_space,.char_num,.email,.url,.date').attr('disabled', false);
+	});
+
+	$(".char_num").on('ifUnchecked', function (event) 
+	{
+		$('.only_char,.only_number,.char_space,.char_num,.email,.url,.date').iCheck('enable');
+		$('.only_char,.only_number,.char_space,.char_num,.email,.url,.date').attr('disabled', false);
+	});
+
+	$(".char_space").on('ifUnchecked', function (event)
+	{
+		$('.only_char,.only_number,.char_num,.email,.url,.date').iCheck('enable');
+		$('.only_char,.only_number,.char_num,.email,.url,.date').attr('disabled', false);
+	});
+
+	$(".email").on('ifUnchecked', function (event) 
+	{
+		$('.only_char,.only_number,.char_num,.char_space,.url,.date').iCheck('enable');
+		$('.only_char,.only_number,.char_num,.char_space,.url,.date').attr('disabled', false);
+	});
+
+	$(".url").on('ifUnchecked', function (event) 
+	{
+		$('.only_char,.only_number,.char_num,.char_space,.email,.date').iCheck('enable');
+		$('.only_char,.only_number,.char_num,.char_space,.email,.date').attr('disabled', false);
+	});
+
+	$(".date").on('ifUnchecked', function (event) 
+	{
+		$('.only_char,.only_number,.char_num,.char_num,.char_space,.email,.url,.min,.max').iCheck('uncheck');
+		$('.only_char,.only_number,.char_num,.char_num,.char_space,.email,.url,.min,.max').attr('disabled', false);
+
+		$.each($('.date'), function (key, value) 
+		{
+			$('#date' + key).iCheck('enable');
+			$('#date' + key).attr('disabled', false);
+		});
+
+	});
+
+	<!-- Make checked required or nullable code end -->
+
+	$('body').on('change', '.dropdown_change', function () 
+	{
+		var dropdwon_data = $(".dropdown_change option:selected").val();
+		
+		if (dropdwon_data == 'text' || dropdwon_data == 'textarea') 
+		{
+			$('.date').iCheck('disable');
+			$('.date').attr('disabled', true);
+			$('.only_number,.only_char,.char_space,.char_num,.email,.max,.min,.url').iCheck('enable');
+			$('.only_number,.only_char,.char_space,.char_num,.email,.max,.min,.url').attr('disabled', false);
+			
+			$('.file_type_and_size').fadeOut(1000);
+			$('.radio_cat').fadeOut(1000);
+			$('.checkbox_cat').fadeOut(1000);
+			$('.sub_cat').fadeOut(1000);
+
+		}
+		else if (dropdwon_data == 'dropdown') 
+		{
+			$('.radio_cat').fadeOut(1000);
+			$('.checkbox_cat').fadeOut(1000);
+			$('.sub_cat').fadeIn(1000);
+
+			$('.only_number,.only_char,.char_space,.char_num,.email,.max,.min,.url,.date').iCheck('disable');
+			$('.only_number,.only_char,.char_space,.char_num,.email,.max,.min,.url,.date').attr('disabled', true);
+			
+			$('.file_type_and_size').fadeOut(1000);	
+			$('#max_value').val('max');
+			$('#max_limit').fadeOut(1000);
+			$('#min_value').val('min');
+			$('#min_limit').fadeOut(1000);
+		}
+		else if (dropdwon_data == 'checkbox') 
+		{
+			$('.only_number,.only_char,.char_space,.char_num,.email,.max,.min,.url,.date').iCheck('disable');
+			$('.only_number,.only_char,.char_space,.char_num,.email,.max,.min,.url,.date').attr('disabled', true);
+			
+			$('.file_type_and_size').fadeOut(1000);
+			$('.sub_cat').fadeOut(1000);
+			$('.radio_cat').fadeOut(1000);
+			$('.checkbox_cat').fadeIn(1000);
+		}
+		else if (dropdwon_data == 'radio') 
+		{
+			$('.only_number,.only_char,.char_space,.char_num,.email,.max,.min,.url,.date').iCheck('disable');
+			$('.only_number,.only_char,.char_space,.char_num,.email,.max,.min,.url,.date').attr('disabled', true);
+			
+			$('.file_type_and_size').fadeOut(1000);
+			$('.sub_cat').fadeOut(1000);
+			$('.checkbox_cat').fadeOut(1000);
+			$('.radio_cat').fadeIn(1000);
+			$('#max_value').val('max');
+			$('#max_limit').fadeOut(1000);
+			$('#min_value').val('min');
+			$('#min_limit').fadeOut(1000);
+
+		}
+		
+		else if (dropdwon_data == 'date') 
+		{
+
+			$('.only_number,.only_char,.char_space,.char_num,.email,.max,.min,.url').iCheck('disable');
+			$('.only_number,.only_char,.char_space,.char_num,.email,.max,.min,.url').attr('disabled', true);
+
+			$('.date').iCheck('enable');
+			$('.date').attr('disabled', false);
+			$('.file_type_and_size').fadeOut(1000);
+			$('.radio_cat').fadeOut(1000);
+			$('.checkbox_cat').fadeOut(1000);
+			$('.sub_cat').fadeOut(1000);
+			$('#max_value').val('max');
+			$('#max_limit').fadeOut(1000);
+			$('#min_value').val('min');
+			$('#min_limit').fadeOut(1000);
+		}
+		else if (dropdwon_data == 'file') 
+		{
+			$('.only_number,.only_char,.char_space,.char_num,.email,.max,.min,.url,.date').iCheck('disable');
+			$('.only_number,.only_char,.char_space,.char_num,.email,.max,.min,.url,.date').attr('disabled', true);
+			
+			$('.file_type_and_size').fadeIn(1000);
+			$('.radio_cat').fadeOut(1000);
+			$('.checkbox_cat').fadeOut(1000);
+			$('.sub_cat').fadeOut(1000);
+			$('#max_value').val('max');
+			$('.file_types_value').val('file_types');
+			$('.file_size_value').val('file_upload_size');
+			$('#max_limit').fadeOut(1000);
+			$('#min_value').val('min');
+			$('#min_limit').fadeOut(1000);
+		}
+		else 
+		{
+			$('.only_number,.only_char,.char_space,.char_num,.email,.max,.min,.url,.date').iCheck('disable');
+			$('.only_number,.only_char,.char_space,.char_num,.email,.max,.min,.url,.date').attr('disabled', false);
+			
+			$('.file_type_and_size').fadeOut(1000);
+			$('.radio_cat').fadeOut(1000);
+			$('.checkbox_cat').fadeOut(1000);
+			$('.sub_cat').fadeOut(1000);
+			$('#max_value').val('max');
+			$('#max_limit').fadeOut(1000);
+			$('#min_value').val('min');
+			$('#min_limit').fadeOut(1000);
+		}
+	});
+	$('body').on('change', '#module_name', function () 
+	{
+		var module_name_data = $("#module_name option:selected").val();
+
+		if (module_name_data == 'user') 
+		{
+			$('.role_div').fadeIn(1000);			
+		}
+		else
+		{
+			$('.role_div').fadeOut(1000);
+		}	
+	});			
+});
+
+// Add More Dropdown Label Code
+
+$(document).ready(function ()
+{
+	$('body').on('click', '.add_more', function () 
+	{
+		var text = $('.d_label').val();
+		
+		if(text.length>0){
+			$('.drop_label').append('<div class="badge badge-danger label_data custom-margin"><input type="hidden" value="' + text + '" name="d_label"><span>' + text + '</span><a href="#"><i class="fa fa-trash font-medium-2 delete_d_label" aria-hidden="true"></i></a></div> ');
+			$('.d_label').val('');
+		}
+	});
+
+	$('body').on('click', '.delete_d_label', function () 
+	{
+		$(this).parents('.label_data').remove();
+	});
+});
+
+// Add More Checkbox Label Code
+
+$(document).ready(function ()
+{
+	$('body').on('click', '.add_more_checkbox', function () 
+	{
+		var text = $('.c_label').val();
+		if(text.length>0){
+			$('.checkbox_label').append('<div class="badge badge-warning label_checkbox custom-margin"  ><input type="hidden" value="' + text + '"  name="c_label"><span>' + text + '</span><a href="#"><i class="fa fa-trash font-medium-2 delete_c_label" aria-hidden="true"></i></a></div> ');
+			$('.c_label').val('');
+		}	
+	});
+
+	$('body').on('click', '.delete_c_label', function () 
+	{
+		$(this).parents('.label_checkbox').remove();
+	});
+});
+
+// Add More Radio Label Code
+$(document).ready(function () 
+{
+	$('body').on('click', '.add_more_radio', function ()
+	{
+		var text = $('.r_label').val();
+		if(text.length>0)
+		{
+			$('.radio_label').append('<div class="badge badge-secondary label_radio custom-margin" style="margin-right: 3px;"><input type="hidden" value="' + text + '"  name="r_label"><span>' + text + '</span><a href="#"><i class="fa fa-trash font-medium-2 delete_r_label" aria-hidden="true"></i></a></div>');
+			$('.r_label').val('');
+		}	
+	});
+
+	$('body').on('click', '.delete_r_label', function () 
+	{
+		$(this).parents('.label_radio').remove();
+	});
+});
+// Max and Min Validation Code
+$(document).ready(function () 
+{
+	
+	$(".opentext").on('ifChecked', function (event) 
+	{
+		if ($(this).prop("checked") == true) 
+		{
+			var value_data = $(this).attr('value');
+			if (value_data == 'max') 
+			{
+				$('#max_limit').fadeIn(1000);
+			}
+			else if (value_data == 'min') 
+			{
+				$('#min_limit').fadeIn(1000);
+			}
+		}
+	});
+	$(".maxcheck").on('ifUnchecked', function (event)
+	{	
+		$('.valuemax').attr('value', "");
+	});
+	$(".mincheck").on('ifUnchecked', function (event)
+	{	
+		$('.valuemin').attr('value', "");
+	});
+	$(".opentext").on('ifUnchecked', function (event)
+	{
+		var value_data = $(this).attr('value');
+
+		if (value_data.includes('max')) 
+		{
+			$('.max_value').val('max');
+			$('#max_limit').fadeOut(1000);
+		}
+		else if (value_data.includes('min')) 
+		{
+			$('.min_value').val('min');
+			$('#min_limit').fadeOut(1000);
+		}
+	});
+	
+	if($("#min").val() == ""){
+		$(".Minimum-text").hide();
+	}
+	else{
+		$(".Minimum-text").show();
+	}
+	
+	if($("#max").val() == ""){
+		$(".Maximum-text").hide();
+	}
+	else{
+		$(".Maximum-text").show();
+	}
+	
+	$('body').on('keyup', '#max', function () 
+	{
+		var limit = 'max:' + $(this).val();
+		$('.max_value').attr('value', limit);
+	});
+
+	$('body').on('keyup', '#min', function () 
+	{
+		var limit = 'min:' + $(this).val();
+		$('.min_value').attr('value', limit);
+	});
+	
+	$('body').on('keyup', '.file_types_input', function () 
+	{
+		var limit = 'file_types:' + $(this).val();
+		$('.file_types_value').attr('value', limit);
+	});
+	
+	$('body').on('keyup', '.file_size_input', function () 
+	{
+		var limit = 'file_upload_size:' + $(this).val();
+		$('.file_size_value').attr('value', limit);
+	});
+});
+ 
+</script>	 

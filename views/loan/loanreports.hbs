@@ -1,0 +1,58 @@
+{{breadcrums 'Home' 'LoanReports'}}
+<div class="app-content center-layout mt-2 mx-md-3 px-1">
+<div class="content-wrapper">
+	<div class="content-body">
+	<section id="simple-user-cards" class="row pb-2">
+		<div class="col-xl-12 col-md-12 col-sm-12">
+		<div class="card-content">
+			<div class="row">	
+			<span id="dots"></span>
+			
+			<span class="col-xl-12 col-sm-12 col-12 app-content center-layout mt-2"> 
+			<div class=" col-12  bg-white p-0">					 
+		
+		<div class="container-fluid"> 
+		<div class="h3 p-1 font-weight-bolder"><i class="fa fa-newspaper-o" aria-hidden="true"></i> EMI Pendding Reports
+		</div>
+		<div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Loan No</th>
+                        <th scope="col">User Name</th>
+                        <th scope="col">Loan Amount</th>
+                        <th scope="col">InterestRate</th>
+                        <th scope="col">EMI month</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Email</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+					{{#each data}}
+					 
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>{{ this.loan.loancount}}</td>
+                        <td>{{this.user.firstname}}</td>
+                        <td>{{this.loan.loanamount}}</td>
+                        <td>{{this.loan.interestrate}}</td>
+                        <td>{{this.month}}</td>
+                        <td>{{this.user.mobile}}</td>
+                        <td>{{this.user.email}}</td>
+                      </tr>
+					{{/each}}
+                    </tbody>
+                  </table>
+                </div>
+		
+		</div>
+	</div>
+	
+	</div>
+	</div>
+	</div>
+	</section>
+	</div>
+	</div>
+	</div>

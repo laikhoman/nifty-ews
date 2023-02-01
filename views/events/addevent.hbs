@@ -1,0 +1,155 @@
+{{breadcrums 'Home' title}}
+
+<div class="app-content center-layout mt-2 mx-md-3 px-1">
+	<div class="content-wrapper">
+	<div class="row">
+	<div class="col-md-12">
+	<div class="card">
+		
+	<div class="card-content collpase show">
+	<div class="card-body">
+		<form method="POST" id="formID" action="/events/addevent" method="post" class="needs-validation form form-horizontal demoForm">
+		{{#each data as |datas|}}
+		<div class="form-body user_form"> <!--Card Body div-->
+		<div class="row"><!--Row Div--> 
+			<div class="col-md-6">
+			<div class="form-group input">
+				<div class="">
+					  <label class="custom-control-label-date ml-2" id="export" style="z-index:99">{{__ 'Event Type'}}</label>	
+						<input type="hidden" id="userinput1" name="id" {{#if this._id}} value="{{this._id}}"{{/if}} />
+						<select id="loantype" class="select2 form-control export" name="eventtype" {{#if this.eventtype}} value="{{this.eventtype}}" {{/if}}>
+							<option value="">Event Type</option>
+							{{#each ../type as |result|}}
+							<option value="{{result.categoryname}}"{{#ifCond datas.eventtype "==" result.categoryname}}selected{{/ifCond}}>{{result.categoryname}}</option>
+							{{/each}}
+						</select>
+				</div><div class="help-block"></div>
+			</div>
+			</div>
+			<div class="col-md-6">
+			<div class="form-group input">
+			<div class="col-md-12 form-control border-light"> 
+				<input type="text" id="userinput1" data-validation-regex-regex="([A-Za-z_, `.'^-]{1,50})" data-validation-regex-message="Only Characters, no numbers" data-validation-required-message="Event Title is required" name="eventtitle" {{#if this.eventtitle}} value="{{this.eventtitle}}" {{/if}}>
+				 <label for="userinput1">{{__ "Event Title"}}<span class="required red">*</span></label> 
+			</div><div class="help-block"></div>
+			</div>
+			</div>
+			<div class="col-md-6">	
+			<div class="form-group input">
+			<div class="col-md-12" style="border: 1px solid #ddd;">
+			<div class="form-field">
+			<textarea name="eventvenue"  data-validation-regex-regex="([A-Za-z0-9_,` .'^-|\n]{1,150})" data-validation-regex-message="Event venue may only contain characters, numbers, space and _,`.'^-" data-validation-required-message="Event venue is required" {{#if this.eventvenue}} value="{{this.eventvenue}}"{{/if}}>{{this.eventvenue}}</textarea>
+				<span class="txt-title-label"></span>
+				<label class="text-area address ">{{__ "Event venue"}}<span class="required red">*</span></label>
+			</div>
+			</div><div class="help-block"></div>
+			</div>
+			</div>
+			
+			<div class="col-md-6">
+			<div class="form-group">
+			<div class="col-md-12 form-control">
+			<div class="skin skin-flat row">
+			<div class="input-group">
+				<label class="ml-1 custom-top-label">Duration<span class="red">*</span></label>
+				<div class="d-inline-block custom-control custom-checkbox mr-1 margin_left_custom_field">
+					<label class="checkbox-inline mr-2">
+					<input type="radio" name="duration" data-validation-required-message="Duration is required" value="multiple days" class="moredays" {{#ifCond this.duration "==" "multiple days"}}checked{{/ifCond}}><span>Multiple days</span></label>
+					<label class="checkbox-inline mr-2">
+					<input type="radio" name="duration" id="Minimum" class="oneday" value="one day" {{#ifCond this.duration "==" "one day"}}checked{{/ifCond}}><span>One day</span></label>
+				</div>
+			</div>
+			</div>
+			</div><div class="help-block"></div>
+			</div>
+			</div>
+				<div class="col-md-6 startdates" {{#if this.startdate}}  {{else}} style="display:none;" {{/if}} >
+				<div class="form-group row">
+					<div class="col-md-12">
+					<label class="custom-control-label-date ml-2">{{__ "Start date"}}<span class="required red">*</span></label>
+					<input type='text' id="setdate" class="form-control afterdate dateformat"  data-validation-required-message="{{__ 'Start Date is required'}}" {{#if this.startdate}} value="{{this.startdate}}" {{else}}  {{/if}} name="startdate" aria-invalid="false">
+					<i class="ft-calendar icon-care"></i> 
+					</div>
+			    </div><div class="help-block"></div>
+			    </div>
+				
+				<div class="col-md-6 enddates" {{#if this.enddate}}  {{else}} style="display:none;" {{/if}}>
+					<div class="form-group row">
+					<div class="col-md-12">
+					<label class="custom-control-label-date ml-2">{{__ "End date"}}<span class="required red">*</span></label>
+					<input type='text' id="getdate" class="form-control afterdate dateformat"  data-validation-required-message="{{__ 'End Date is required'}}" {{#if this.enddate}} value="{{this.enddate}}" {{else}}  {{/if}} name="enddate"  aria-invalid="false">
+					<i class="ft-calendar icon-care"></i> 
+					</div>
+			    </div><div class="help-block"></div>
+			    </div>
+			 </div>
+			<div class="row">	
+				<div class="col-md-6">
+				<div class="form-group input">
+				
+					<div class="">
+						  <label class="custom-control-label-date ml-2" id="export" style="z-index:99">{{__ 'Event for'}}</label>
+							<select class="select2 form-control export" name="eventfor" {{#if this.eventfor}} value="{{this.eventfor}}" {{/if}}>
+								<option value="all" {{#ifCond datas.eventfor "==" "all"}}selected{{/ifCond}}>All</option>
+								{{#each ../role as |roles|}}								
+									<option value="{{roles._id}}" {{#if roles.id_d}} {{#ifCond roles.id_d "==" datas.eventforid_d}}selected{{/ifCond}} {{/if}} >{{roles.role_nm}}</option>	
+								{{/each}}
+							</select>
+					</div><div class="help-block"></div>
+				</div>
+				</div>
+				<div class="col-md-6">	
+				<div class="form-group input">
+				<div class="col-md-12" style="border: 1px solid #ddd;">
+				<div class="form-field">
+				<textarea name="eventdetail"  data-validation-regex-regex="([A-Za-z0-9_,` .'^-|\n]{1,250})" data-validation-regex-message="Event detail may only contain characters, numbers, space and _,`.'^-" {{#if this.eventdetail}} value="{{this.eventdetail}}"{{/if}}>{{this.eventdetail}}</textarea>
+					<span class="txt-title-label"></span>
+					<label class="text-area address ">{{__ "Event Detail"}}</label>
+				</div>
+				</div><div class="help-block"></div>
+				</div>
+				</div>
+			</div><!--Row Div End--> 	
+			</div><!--Card Body Div End--> 
+			{{/each}}
+			<div class="form-actions left">
+				<button type="submit" class="btn btn-secondary">
+					<i class="fa fa-check-square-o"></i> {{__ "Submit"}}
+				</button>
+				<button type="reset" class="btn btn-warning mr-1 btn-outline-light text-muted">
+					<i class="ft-refresh-cw"></i> {{__ "Reset"}}
+				</button>
+			</div>
+			</form>					
+			</div><!--Card Body div end-->
+			</div><!--Card content div end-->
+		</div><!--Card div End-->
+	</div><!--Col 12 Div End--> 		
+</div><!--Row Div End--> 		
+</div><!--Row Div End--> 		
+</div><!--Row Div End--> 
+<script>
+$(document).ready(function ()
+{
+	$(".moredays").on('ifChecked', function (event) 
+	{
+		$('.startdates').fadeIn(1000);
+		$('.enddates').fadeIn(1000);
+	});
+	
+	$(".oneday").on('ifChecked', function (event) 
+	{
+		$('.startdates').fadeIn(1000);
+		$('.enddates').fadeOut(1000);
+	});
+	
+	$('.afterdate').each(function(){
+		$(this).data("DateTimePicker").minDate(new Date());
+	});	
+	
+	$("#setdate").on("dp.change", function (e) {
+		e.date= $('#setdate').data("DateTimePicker").date();
+		$('#getdate').data("DateTimePicker").minDate(e.date);
+	});
+});
+</script>

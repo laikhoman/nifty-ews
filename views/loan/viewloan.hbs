@@ -1,0 +1,526 @@
+{{breadcrums 'Home' 'View Loan'}}	
+
+<div class="app-content center-layout mt-2 mx-md-3 px-1">
+<div class="content-wrapper">
+
+	<div class="content-body">
+	<section id="simple-user-cards" class="row pb-2">
+	<div class="col-xl-12 col-md-12 col-sm-12">
+	{{#each user}}
+		<h2> <i class="fa fa-user-circle-o"></i>&nbsp;{{this.firstname}} {{this.middlename}} {{this.lastname}}</h2>
+	{{/each}}
+	</div>
+	<div class="row" style="float:left; width:100%">
+		<div class="col-xl-3 col-md-12 col-sm-12 pl-0">
+		<div class="card-content123">
+			{{#each data}}
+				<input type="hidden" id="userinput1"name="id" {{#if this._id}} value="{{this._id}}"{{/if}}>
+				<div class="card-body padding-mobile text-center p-0 pt-1 pb-1">
+					<h5 class="card-title"></h5>
+					
+					<div class="card-body text-center padding-mobile">
+					<h6 class="card-subtitle text-muted"><b>{{#with ..}}{{__ "Loan No. :" setlang}}{{/with}}</b> {{this.loancount}}</h6>
+					
+				</div>
+				</div>
+		</div>
+		</div>
+		<div class="col-xl-9 col-md-12 col-sm-12" style="padding-top: 2%;">
+			<div id="card-drag-area">
+			<h5 class="card-title"></h5>
+				
+					<div class="col-md-12 col-sm-12 align-self-start profile_user leftDiv border-light">
+						<div class="row">
+							<div class="col-xl-12 col-md-12 col-12 col-sm-12 col-xs-12">
+								<div class="row">
+									<div class="col-xl-5 col-md-12 col-12 col-sm-12 col-xs-12 card-content collapse show pb-1">
+										<h6><b>{{#with ..}}{{__ "Loan description:" setlang}}{{/with}}</b> {{this.description}}</h6>
+									</div>
+								<div class="col-xl-4 col-md-6 col-12 col-sm-12 col-xs-12 card-content collapse show pb-1">
+									<h6>
+										<b>{{#with ..}}{{__ "Loan amount" setlang}}{{/with}} ({{{currencyList ../session.generaldata.currency}}}):</b> {{formatNumber this.loanamount 0 ','','}}
+									</h6>
+								</div>
+								<div class="col-xl-3 col-md-6 col-12 col-sm-12 col-xs-12 card-content collapse show pb-1">
+										 <h6>
+										<b>{{#with ..}}{{__ "Interest Rate:" setlang}}{{/with}}</b> {{this.interestrate}}%
+										</h6>
+								</div>
+								</div>
+								</div>
+								
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--View more and View less-->
+	</div>        
+	<div class="col-xl-12 col-sm-12 col-md-12 col-12   text-center  p-1 ">
+		<button onclick="myFunction()" id="myBtn" type="button" class="viewbtn bg-transparent border-0 " style="outline:none;">{{#with ..}}{{__ "View more" setlang}}{{/with}}<br/><i class='fa  fa-2x'>&#xf107;</i></button>   
+	</div>
+	</div>
+	<div class="row match-height">
+		<span id="dots"></span>
+		<span id="more" class="col-12" style="display:none;">
+		<div class=" col-xl-12 col-lg-12  col-12 app-content center-layout bg-white p-0 mt-2 ">
+		<div class="table-responsive">
+		<!--<div class="col-xl-12 col-sm-12 col-12 bd-example p-1">-->
+		<div class="h3 p-1 "><i class="fa fa-user" aria-hidden="true"></i> {{#with ..}}{{__ "Loan Information" setlang}}{{/with}}</div>
+			<div class="container-fluid ">
+				<div class="row p-1">
+			    <div class="col-sm-6">
+			        <div class="row">
+						<div class="col-sm-6 col-6 font-weight-bold ">{{#with ..}}{{__ "Loan Number" setlang}}{{/with}}</div>
+						<div class="col-sm-6 col-6"> 
+							<span class="colon">:</span>
+							<div class="tabletext">{{this.loancount}}</div>
+						</div>
+					</div>
+				</div>
+				 <div class="col-sm-6">
+			        <div class="row">
+						<div class="col-sm-6 col-6 font-weight-bold ">{{#with ..}}{{__ "Loan Type" setlang}}{{/with}}</div>
+						<div class="col-sm-6 col-6"> 
+							<span class="colon">:</span>
+							{{#each ../type as |results|}}
+							<div class="tabletext">{{results.type}}</div>
+							{{/each}}
+						</div>
+					</div>
+				</div>   
+                </div>	
+				<div class="row p-1">
+				    <div class="col-sm-6"> 
+				        <div class="row">
+						  <div class="col-sm-6 col-6 font-weight-bold ">{{#with ..}}{{__ "Monthly Pay" setlang}}{{/with}}({{{currencyList ../session.generaldata.currency}}})
+						  </div>
+						  <div class="col-sm-6 col-6"> 
+						    <span class="colon">:</span>
+							 <div class="tabletext">{{formatNumber this.monthly_payment 0 ','','}} </div> 
+						  </div>
+						</div>
+				    </div> 
+					<div class="col-sm-6"> 
+				        <div class="row">
+						  <div class="col-sm-6 col-6 font-weight-bold ">{{#with ..}}{{__ "Years" setlang}}{{/with}}
+						  </div>
+						  <div class="col-sm-6 col-6"> 
+						    <span class="colon">:</span>
+							 <div class="tabletext">{{this.years}}</div> 
+						  </div>
+						</div>
+				    </div> 
+					   
+                </div>
+				<div class="row p-1">
+				    <div class="col-sm-6"> 
+				        <div class="row">
+						  <div class="col-sm-6 col-6 font-weight-bold">{{#with ..}}{{__ "Loan Start Date" setlang}}{{/with}}
+						  </div>
+						  <div class="col-sm-6 col-6"> 
+						    <span class="colon">:</span>
+							<div class="tabletext">{{this.startdate}}</div>
+						  </div>
+						</div>
+				    </div>
+				 <div class="col-sm-6"> 
+						<div class="row">
+						  <div class="col-sm-6 col-6 font-weight-bold ">{{#with ..}}{{__ "Loan End Date" setlang}}{{/with}}
+						  </div>
+						  <div class="col-sm-6 col-6"> 
+						    <span class="colon">:</span>
+							<div class="tabletext">{{this.enddate}}</div>
+						  </div>
+						</div>  
+				 </div>    
+                </div>
+				<div class="row p-1">
+				    <div class="col-sm-6"> 
+				        <div class="row">
+						  <div class="col-sm-6 col-6 font-weight-bold ">{{#with ..}}{{__ "Total EMI months" setlang}}{{/with}}
+						  </div>
+						  <div class="col-sm-6 col-6"> 
+						    <span class="colon">:</span>
+							<div class="tabletext"> {{this.totalemimonth}} </div> 
+						  </div>
+						</div>
+				    </div>
+                
+				
+				    <div class="col-sm-6"> 
+				        <div class="row">
+						  <div class="col-sm-6 col-6 font-weight-bold ">{{#with ..}}{{__ "Income per year" setlang}}{{/with}} ({{{currencyList ../session.generaldata.currency}}})
+						  </div>
+						  <div class="col-sm-6 col-6"> 
+						    <span class="colon">:</span>
+							<div class="tabletext">{{formatNumber this.incomeperyear 0 ','','}} </div> 
+						  </div>
+						</div>
+				    </div>
+				    </div>
+				
+				<div class="row p-1">
+				 <div class="col-sm-6"> 
+						<div class="row">
+						  <div class="col-sm-6 col-6 font-weight-bold ">{{#with ..}}{{__ "Income per month" setlang}}{{/with}} ({{{currencyList ../session.generaldata.currency}}})
+						  </div>
+						  <div class="col-sm-6 col-6"> 
+						    <span class="colon">:</span> 
+							<div class="tabletext">{{formatNumber this.incomepermonth 0 ','','}}</div>
+						  </div>
+						</div>  
+				 </div>    
+                 <div class="col-sm-6"> 
+						<div class="row">
+						  <div class="col-sm-6 col-6 font-weight-bold ">{{#with ..}}{{__ "Work detail" setlang}}{{/with}} 
+						  </div>
+						  <div class="col-sm-6 col-6"> 
+						    <span class="colon">:</span> 
+							<div class="tabletext">{{this.workdetail}}</div>
+						  </div>
+						</div>  
+					</div> 
+				</div>
+				<div class="row p-1">
+				 <div class="col-sm-6"> 
+				        <div class="row">
+						  <div class="col-sm-6 col-6 font-weight-bold ">{{#with ..}}{{__ "Documents shown" setlang}}{{/with}}
+						  </div>
+						  <div class="col-sm-6 col-6"> 
+						    <span class="colon">:</span>
+							{{#each this.document as |doc|}}
+							<div class="tabletext"><a href="/images/upload/documents/{{doc}}">{{doc}}</a></div>
+							{{/each}}							
+						  </div>
+						</div>
+				    </div>
+				</div>
+				
+		</div> 
+		<div class="h3 p-1">
+			<i class="fa fa fa-user" aria-hidden="true"></i> {{#with ..}}{{__ "Colleague Information" setlang}}{{/with}}
+		</div>
+	 <div class="container-fluid ">
+		 <div class="row p-1">
+				     <div class="col-sm-6"> 
+						<div class="row">
+						  <div class="col-sm-6 col-6 font-weight-bold ">{{#with ..}}{{__ "Colleague Name" setlang}}{{/with}}
+						  </div>
+						  <div class="col-sm-6 col-6">
+						    <span class="colon">:</span> 
+							<div class="tabletext">{{this.colleague}}</div>
+						  </div>
+						</div>  
+				 </div>    
+				 <div class="col-sm-6"> 
+						<div class="row">
+						  <div class="col-sm-6 col-6 font-weight-bold ">{{#with ..}}{{__ "Address" setlang}}{{/with}}
+						  </div>
+						  <div class="col-sm-6 col-6"> 
+						   <span class="colon">:</span>
+						  <div class="tabletext">{{this.address}}</div>  
+						  </div>
+						</div>  
+				 </div>    
+                </div>	
+				<div class="row p-1">
+				    <div class="col-sm-6"> 
+				        <div class="row">
+						  <div class="col-sm-6 col-6 font-weight-bold ">{{#with ..}}{{__ "Mobile" setlang}}{{/with}}
+						  </div>
+						  <div class="col-sm-6 col-6"> 
+						    <span class="colon">:</span>
+							 <div class="tabletext">{{this.mobile}}</div> 
+						  </div>
+						</div>
+				    </div>
+				 <div class="col-sm-6"> 
+						<div class="row">
+						  <div class="col-sm-6 col-6 font-weight-bold ">{{#with ..}}{{__ "Address Colleague" setlang}}{{/with}}
+						  </div>
+						  <div class="col-sm-6 col-6"> 
+						    <span class="colon">:</span>
+							<div class="tabletext"> {{this.addtype}}</div>
+						  </div>
+						</div>  
+				 </div>    
+                </div>
+		</div>  
+					<!--</div>-->  
+                    </span>    
+        </div>
+		</div>
+        </div>
+ 
+			
+<script>
+function myFunction() {
+  var dots = document.getElementById("dots");
+  var moreText = document.getElementById("more");
+  var btnText = document.getElementById("myBtn");
+  var viewbtn = document.getElementById("myviewbtn");
+  
+  if (dots.style.display === "none") {
+    dots.style.display = "inline";
+    btnText.innerHTML = "{{{__ 'View more'}}} <br/><i class='fa fa-2x'>&#xf107;</i>"; 
+    moreText.style.display = "none";
+	viewbtn.style.display = "{{{__ 'View more'}}}";
+  } else {
+    dots.style.display = "none";
+    btnText.innerHTML = "{{{__ 'View less'}}} <br/><i class='fa fa-2x'>&#xf106;</i>"; 
+    moreText.style.display = "inline";
+	viewbtn.style.display = "{{{__ 'View less'}}}";
+  }
+}
+
+</script>
+</section>
+
+{{/each}}
+		 
+		  <div class="row match-height" id="calendar">
+          <div class="col-xl-12 col-lg-12 app-content center-layout mt-2   px-1" id="user_list">
+            <div class="card">
+              <div class="card-content">
+                <div class="card-body px-0">
+                    <ul class="nav nav-tabs nav-top-border no-hover-bg">
+                      <li class="nav-item">
+                        <a class="nav-link active" id="baseIcon-tab11" data-toggle="tab" aria-controls="tabIcon11"
+                        href="#tabIcon11" aria-expanded="true"><i class="fa fa-play"></i>{{__ 'EMI details'}}</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="baseIcon-tab13" data-toggle="tab" aria-controls="tabIcon13"
+                        href="#tabIcon13" aria-expanded="false"><i class="fa fa-cog"></i>{{__ 'Alert Details'}}</a>
+                      </li>
+					  <li class="nav-item">
+                        <a class="nav-link" id="baseIcon-tab15" data-toggle="tab" aria-controls="tabIcon15"
+                        href="#tabIcon15" aria-expanded="false"><i class="fa fa-cog"></i>{{__ 'Re-Payment'}}</a>
+                      </li>
+                    </ul>
+                    <div class="tab-content px-1 pt-1">
+                    <div role="tabpanel" class="tab-pane active" id="tabIcon11" aria-expanded="true"
+                      aria-labelledby="baseIcon-tab11">
+					<div class="app-content center-layout mt-2 mx-md-3 px-1">
+					<div class="content-wrapper">
+					<div class="row">
+					<div class="col-md-12">
+					<div class="card">
+						<div class="card-content collpase show">
+						 <section id="configuration">
+							<div class="row">
+							<div class="col-12">
+								<div class="card">
+								<div class="card-content collapse show">
+								<div class="card-body card-dashboard card-design">
+								<section id="horizontal">
+									<div class="row">
+									<div class="col-12">
+										<div class="card">
+										<div id="tableBox" class="table-responsive">
+										<table class="table designtable">
+										<thead class="headcolor"><tr>
+										<th>{{__ 'No'}}</th>
+										<th>{{__ 'Date'}}</th>
+										<th>{{{currencyList session.generaldata.currency}}} {{__ 'Principal'}}</th>
+										<th>{{{currencyList session.generaldata.currency}}} {{__ 'Interest'}}</th>										
+										<th>{{{currencyList session.generaldata.currency}}} {{__ 'Remaining Balance'}}</th>									
+										<th>{{__ 'Status'}}</th></tr>
+										</thead>
+
+										<tbody>
+										{{#each emi as |result|}}
+										
+									<tr class="colortr"> 
+									<td class="bordertop">{{result.month}}</td>
+									<td class="bordertop">{{ result.date}}</td>
+									<td class="bordertop">{{formatNumber result.principal 0 ','','}}</td>
+									<td class="bordertop">{{formatNumber result.interest}}</td>					
+									<td class="bordertop">{{formatNumber result.remainingBalance 0 ','','}}</td>
+									<td class="bordertop"><a href="/loan/addemi/{{result._id}}">
+									{{#ifCond this.status '==' '0'}}<button type="button" class="btn btn-info">{{__ 'pending'}}</button>{{/ifCond}}</a>
+									{{#ifCond this.status '==' '1'}}<button type="button" disabled class="btn" style="background-color:#00c735; color:#fff">{{__ 'Completed'}}</button>{{/ifCond}}</td>  
+											</tr>
+											
+										{{/each}}										
+										<!-- <tr class="colortr font-weight-bold addi"> -->
+										<!-- <td>{{__ 'Sum'}}</td> -->
+										<!-- <td>300000.00</td> -->
+										<!-- <td>250.00</td> -->
+										<!-- <td>300250.00</td>  -->
+										<!-- <td>-</td>  -->
+										<!-- <td>-</td>  -->
+										<!-- </tr> --> 
+										</tbody></table>
+										<!-- <script> -->
+									<!-- function CompareDate() { -->
+								 	<!-- var dateOne = new Date($(".startdate")); //Year, Month, Date -->
+									<!-- var dateTwo = new Date($(".end_date")); //Year, Month, Date -->
+									<!-- if (dateOne == dateTwo) { -->
+									     <!-- alert("Status Compalate"); -->
+										 <!-- } -->
+									<!-- else  -->
+										<!-- { -->
+									     <!-- alert("Status Pending"); -->
+										 <!-- } -->
+										<!-- }  -->
+						<!-- CompareDate(); -->
+							<!-- </script> -->
+										</div>
+										</div>
+									</div>
+									</div>
+								</section>
+								</div>
+								</div>
+								</div>
+							</div>
+							</div>
+						</section>
+					</div>
+					</div>
+					</div>
+				</div>
+			</div>
+			</div>
+                      </div>
+                      <div class="tab-pane" id="tabIcon13" aria-labelledby="baseIcon-tab3">
+					  {{#if alert_data}}
+					  {{#each alert_data as |data_emi|}}
+                        
+							<div class="col-12 col-lg-8 view_alert mb-1">
+								<div class="row">
+									<div class="col-12 col-lg-8 p-1">
+										<i class="ft-alert-triangle"></i>
+										<div class="alert_details">
+											<h3>Upcoming Emi Month</h3>
+											<p>You EMI month {{data_emi.date}}. Your EMI month payment is {{formatNumber data_emi.principal 0 ','','}}</p>
+										</div>
+									</div>
+									<div class="col-12 col-lg-4 p-1 float-right">
+										<p class="date_alert">{{data_emi.date}}</p>
+									</div>
+								</div>
+							</div>
+							
+						{{/each}}
+						{{else}}
+						<h4 class="mb-1 mt-1 ml-1">No alert Found.</h4>
+						{{/if}}
+                      </div>
+		    <!-- <div class="tab-pane" id="tabIcon15" aria-labelledby="baseIcon-tab3"> -->
+			        <!-- <a href="/loan/repayment/{{result._id}}"> -->
+					<!-- <button type="button" class="btn btn-info">Add Repay Now</button></a> -->
+            <!-- </div> -->
+			 
+			<div class="tab-pane " id="tabIcon15" aria-expanded="true"
+                      aria-labelledby="baseIcon-tab3">  
+					  <a href="/loan/repayment">  
+					<!-- <input type="hidden" id="userinput1" name="id" {{#if this.loan_id}} value="{{this.loan_id}}"{{/if}} >   -->
+					<!-- <p>{{this.id}}</p> --> 
+					<button type="button" class="btn btn-info">Add Repay Now</button></a>  
+					<div class="app-content center-layout mt-2 mx-md-3 px-1">
+					<div class="content-wrapper"> 
+					<div class="row">
+					<div class="col-md-12"> 
+					<div class="card"> 
+						<div class="card-content collpase show">
+						 <section id="configuration">
+							<div class="row">
+							<div class="col-12">
+								<div class="card">
+								<div class="card-content collapse show">
+								<div class="card-body card-dashboard card-design">
+								<section id="horizontal">
+									<div class="row">
+									<div class="col-12">
+										<div class="card">
+										<div id="tableBox" class="table-responsive">
+										<table class="table designtable">
+										<thead class="headcolor"><tr>
+										<th>{{__ 'No'}}</th>
+										<th>{{__ 'Date'}}</th>
+										<!-- <th>{{__ 'Total EMI Months'}}</th> -->
+										<th>{{__ 'Payment Method'}}</th>
+										<th>{{__ 'Actual Number Of Payments'}}</th> 
+										<th>{{{currencyList session.generaldata.currency}}} {{__ 'Extra Payment Of Amount'}}</th>  
+										</thead>
+
+										<tbody>
+									{{#each repayment as |result|}} 
+									<tr class="colortr"> 
+									<td class="bordertop">{{result.month}}</td>
+									<td class="bordertop">{{ result.date}}</td>
+									<!-- <td class="bordertop">{{formatNumber result.paymentemimonth }}</td> -->
+									<td class="bordertop">{{result.payment_type}}</td>
+									<td class="bordertop">{{formatNumber result.repayments}}</td> 
+									<td class="bordertop">{{formatNumber result.repaymentamount }}</td> 
+									</tr>
+										{{/each}}										
+										<!-- <tr class="colortr font-weight-bold addi"> -->
+										<!-- <td>{{__ 'Sum'}}</td> -->
+										<!-- <td>300000.00</td> -->
+										<!-- <td>250.00</td> -->
+										<!-- <td>300250.00</td>  -->
+										<!-- <td>-</td>  -->
+										<!-- <td>-</td>  -->
+										<!-- </tr> -->
+										
+										</tbody></table>
+										
+										</div>
+										</div>
+									</div>
+									</div>
+								</section>
+								</div>
+								</div>
+								</div>
+							</div>
+							</div>
+						</section>
+					</div>
+					</div>
+					</div>
+				</div>
+			</div>
+			</div>
+        </div>	
+		<!---Re_Payment List Table end--->	 
+			
+           </div>
+          </div>
+	    </div>
+        </div>
+        </div>
+	  </div>
+      </div>
+           
+	</div>
+	</div>
+	 </div>
+
+<!-- <script language="javascript" type="text/javascript"> -->
+            <!-- function sum(td){            -->
+			<!-- if (toString.call(td) !== "[object Array]") -->
+			<!-- return false;      -->
+            <!-- var total =  0; -->
+            <!-- for(var i=0;i<td.length;i++) -->
+              <!-- {                   -->
+                <!-- if(isNaN(td[i])){ -->
+                <!-- continue; -->
+                 <!-- } -->
+                  <!-- total += Number(td[i]); -->
+               <!-- } -->
+             <!-- return total; -->
+            <!-- } -->
+<!-- </script> -->
+<!-- {{#each data as |result|}} -->
+<!-- <script src="/js/loan.js"></script> -->
+<!-- <script src="/js/loanToHtmlTable.js"></script> -->
+<!-- <script> -->
+	<!-- var loan = new LoanJS.Loan('{{result.loanamount}}', '{{result.totalemimonth}}', '{{result.interest}}', true); -->
+    <!-- //var div = document.getElementById("tableBox"); -->
+    <!-- div.innerHTML = LoanJS.loanToHtmlTable(loan); // loan rendering as html table string -->
+    <!-- document.div.appendChild(div); -->
+<!-- </script> -->
+<!-- {{/each}} -->

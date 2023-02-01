@@ -1,0 +1,331 @@
+{{breadcrums 'Home' 'Notification Template Listing'}}
+<div class="app-content center-layout mt-2 mx-md-3 px-1 content-header row">
+	<div class="col-xl-12 col-lg-12 box-four-view">
+	<div class="card_boxnf">
+	<div class="card-content">
+	<div class="card-body pl-0 pr-0">
+		
+		<div class="row" style="">
+		<div class="col-lg-2 col-md-2 mb-2 custom_select">
+		
+		</div>
+		<div class="col-lg-2 col-md-2 mb-2">
+			
+		</div>
+		<div class=" col-lg-7 col-md-7 mb-7">
+		</div>
+		<div class=" col-lg-12 col-md-12 mb-1 pr-2 heading-elements p-0 text-right" >
+		<a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+				<div class="heading-elements ews-heading">
+					<ul class="list-inline mb-0">
+					<li id="export">
+						<select class="select2 form-control export">
+							<option value="">{{__ "Export"}}</option>
+							<option value="csv">{{__ "XLSX"}}</option>
+							<option value="pdf">{{__ "PDF"}}</option>
+						</select>
+					</li>	
+					</ul>
+				</div>
+		</div>
+		</div>
+		</div>
+		</div>
+		</div>
+		</div>
+		</div>
+		
+
+<div class="app-content center-layout mt-2 mx-md-3 px-1">
+    <div class="content-wrapper">
+	<div class="row">
+	<div class="col-md-12">
+	<div class="card">
+	 
+	<div class="card-content collpase show">
+	 
+		<!-- Zero configuration table -->
+        <section id="configuration">
+        <div class="row">
+            <div class="col-12">
+             <div class="card">
+                
+                <div class="card-content collapse show">
+				
+				<!--{{log messages}}-->
+				{{#if messages.error  }}
+			<script>
+					toastr.error("{{messages.error}}","Error!" , {"showMethod": "fadeIn", "hideMethod": "fadeOut", timeOut: 5000});
+				</script>
+			{{/if}}
+			{{#if messages.success }}
+				<script>
+					toastr.success("{{messages.success}}", "Sucess!", {"showMethod": "fadeIn", "hideMethod": "fadeOut", timeOut: 5000});
+				</script>
+			{{/if}}
+                <div class="card-body card-dashboard card-design">
+					
+					<section id="horizontal">
+						<div class="row">
+						<div class="col-12">
+						<div class="card">
+							
+							<div class="card-content collapse show" id="NF-datatable">
+							<div class="card-body p-0">
+								<div id="grid"></div>
+								<div id="window"></div>
+								
+							</div>
+						</div>
+							
+							<div class="card-content collapse show">
+							<div class="card-body card-dashboard">
+							
+
+							<script type="x/kendo-template" id="page-template">
+								 <div class="page-template">
+									<div class="header">
+									   <div style="float: right"></div>
+									  Notification Template List 
+									</div>
+									<div class="footer">
+									 
+									</div>
+								</div>
+							</script>
+							<script type="text/x-kendo-template" id="windowTemplate">
+								
+								
+								<div class="swal-modal">
+									<span class="swal-icon--warning__body">
+										<span class="swal-icon--warning__dot"></span>
+									</span>
+								</div>
+									<div class="swal-title">{{{__ "Delete !"}}}</div>
+								<div class="swal-text">{{{__ "Are You sure wan't to delete this custom field ?"}}}</div>
+								<div class="swal-footer">
+								<div class="swal-button-container nobutton">
+									<button class="swal-button swal-button--confirm btn btn-secondary" id="noButton">{{{__ "NO"}}}</button>
+								</div>
+								<div class="swal-button-container yesbutton">
+									<button class="swal-button swal-button--cancel btn" id="yesButton">{{{__ "YES"}}}</button>
+								</div>
+								</div>  
+								
+								
+							</script>
+
+	
+    <script >
+       jQuery(document).ready(function() {
+	   
+	var windowTemplate = kendo.template($("#windowTemplate").html());//for delete popup
+		$('body').on('change', '.export', function() {
+		var value = $(this).val();
+		if(value == 'csv')
+		{
+			$("#grid").getKendoGrid().saveAsExcel();
+		}else if(value == 'pdf')
+		{
+			$("#grid").getKendoGrid().saveAsPDF();
+		}
+	});
+		
+		
+		 var window1 = $("#window").kendoWindow({
+            title: " Warning !",
+			resizable: false,
+            visible: false, //the window will not appear before its .open method is called
+           
+        }).data("kendoWindow");
+		
+		
+		var element=$("#grid").kendoGrid({
+			//var path='{{path}}';	
+				pdf: {
+		allPages: true,
+		template: $("#page-template").html(),
+		avoidLinks: true,
+		fileName: "notificationtemplate-list.pdf",// Bug 277	
+		paperSize: "A4",
+		margin: { top: "2cm", left: "1cm", right: "1cm", bottom: "1cm" },
+		landscape: true,
+		repeatHeaders: true,
+		scale: 0.8
+		},
+		excel: {
+		fileName: "notificationtemplate-list.xlsx",// Bug 277
+		allPages:true
+		},
+		scrollable: true,
+		pdfExport: function(e) {
+                  var grid = $("#grid").data("kendoGrid");
+                  grid.hideColumn(5);
+                  e.promise
+                  .done(function() {
+                      grid.showColumn(5);
+                  });
+                },
+				
+				dataSource: {
+				serverPaging: false,
+			serverSorting: false,
+				 transport: {
+					read: {  
+						url: '/ajxfun/notificationtemplate',
+						dataType: "json", 
+					},
+				 }, 
+				schema: {
+                        model: {
+							id: "_id",
+                            fields: {
+                                _id: { validation: { required: true } },
+                                rule_title: { validation: { required: true } },
+                                rule_desc: { validation: { required: true } },
+                            }
+                        }
+                    },  
+                    pageSize: 10,
+					batch: false,
+					requestEnd: function (e) {
+								if (e.type == "create" && e.response) {
+									enablefilter();
+							}
+						}
+                },
+                
+                sortable: true,
+                reorderable: true,
+                groupable: true,
+                resizable: true,
+                filterable: {
+					mode: "row"
+				},
+                columnMenu: true,
+				pageable: {
+					input: true,
+					numeric: false,
+					pageSize: 10,
+					pageSizes: [10, 20, 25, 50, 100]
+				},
+                noRecords: true,
+                columns: [
+					
+					{
+                        field: "notificationtype",
+                        title: "{{__ "Notification Type"}}",
+						width: 80
+                    }, {
+                        field: "slug",
+                        title: "{{__ "Slug"}}",
+						width: 80
+                    },  
+					{
+                        field: "templatetitle",
+                         title: "{{__ "Template Title"}}",
+                        width: 90
+                    },				
+					 {
+                        field: "subject",
+                         title: "{{__ "Subject"}}",
+                        width: 100
+                    },				
+					 {
+                        field: "content",
+                         title: "{{__ "Content"}}",
+                        width: 350
+                    },	
+					{{#ifCond session.admin_access "==" 0}}
+					{{#ifCondition accessrightdata.view "||" accessrightdata.delete "||" accessrightdata.update}} 
+					{
+						width: "100px",
+						command:
+						[
+							{
+								template : "<center>" 
+							},
+							
+							{template : "&nbsp;" },
+							
+							/* Edit action start */
+							{{#if accessrightdata.update }}
+							 { 	
+								name: "pageEdit", text:"", className: "btn btn-icon btn-outline-light",iconClass:"fa fa-pencil",
+								click:function(e) 
+								{ 
+								  var clickedRow = this.dataItem($(e.currentTarget).closest("tr"));
+								 
+								  var id = clickedRow._id; 
+								  window.location.href = "addnotificationtemplate/"+id;
+								  return false;
+								} 
+							},
+							{{/if}}
+							{template : "&nbsp;" },
+							{template : "</center>" },
+							 
+							],
+							{{#if accessrightdata.view}}	
+							title: "{{__ "Action"}}", 
+							{{#if accessrightdata.add}}
+							headerTemplate: "<center><a href='addnotificationtemplate'><button type='button' class='btn addnew btn-sm'><i class='fa fa-plus'></i>{{__ "New"}}</button></a></center>"
+							{{/if}}
+							{{/if}}
+					}
+					{{/ifCondition}}
+					{{else}}
+						{
+						width: "100px",
+						command:
+						[
+							{
+								template : "<center>" 
+							},
+							{template : "&nbsp;" },
+							/* Edit action start */
+							 { 	
+								name: "pageEdit", text:"", className: "btn btn-icon btn-outline-light",iconClass:"fa fa-pencil",
+								click:function(e) 
+								{ 
+								  var clickedRow = this.dataItem($(e.currentTarget).closest("tr"));
+								 
+								  var id = clickedRow._id; 
+								  window.location.href = "addnotificationtemplate/"+id;
+								  return false;
+								} 
+							},
+							{template : "&nbsp;" },
+							{template : "</center>" },
+							 
+							],
+							title: "Action", 
+							headerTemplate: "<center><a href='addnotificationtemplate'><button type='button' class='btn addnew btn-sm'><i class='fa fa-plus'></i> New</button></a></center>"
+					}
+					{{/ifCond}}
+                ],
+				editable: {
+                mode: "inline"
+            }
+            }); 
+        });
+        </script>  
+							</div>
+							</div>
+						</div>
+						</div>
+						</div>
+					</section>
+				</div>
+				</div>
+			</div>
+			</div>
+		</div>
+		</section>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	 

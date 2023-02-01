@@ -1,0 +1,113 @@
+ {{breadcrums 'Home' 'Event details'}}
+<div class="app-content center-layout mt-2 mx-md-3 px-1">
+<div class="content-wrapper">
+	<div class="content-body">
+	<section id="simple-user-cards" class="row pb-2">
+		<div class="col-xl-12 col-md-12 col-sm-12">
+		<div class="card-content">
+			<div class="row">	
+			<span id="dots"></span>
+			{{#each data}}
+			<span class="col-xl-12 col-sm-12 col-12 app-content center-layout mt-2"> 
+			<div class=" col-12  bg-white p-0">					 
+		<div class="h3 p-1 font-weight-bolder"><i class="fa fa-user " aria-hidden="true"></i> {{#with ..}}{{__ "Event Details" setlang}}{{/with}}
+		</div>
+		<div class="container-fluid "> 
+				<div class="row p-1"> 
+				    <div class="col-sm-8">
+				        <div class="row">
+						  <div class="col-sm-4 col-5 font-weight-bold ">{{#with ..}}{{__ "Event Type" setlang}}{{/with}}
+						  </div>
+						  <div class="col-sm-6 col-7">
+						  <span class="colon">:</span>
+							<div class="tabletext ">{{this.eventtype}}</div>
+						  </div>
+						</div>
+				    </div>
+				</div>
+				<div class="row p-1"> 
+				    <div class="col-sm-8">
+				        <div class="row">
+						  <div class="col-sm-4 col-5 font-weight-bold ">{{#with ..}}{{__ "Event Title" setlang}}{{/with}}
+						  </div>
+						  <div class="col-sm-6 col-7"> 
+						  <span class="colon">:</span>
+							<div class="tabletext ">{{this.eventtitle}}</div>
+						  </div>
+						</div>
+				    </div>
+				</div>
+				<div class="row p-1"> 
+				    <div class="col-sm-8">
+				        <div class="row">
+						  <div class="col-sm-4 col-5 font-weight-bold ">{{#with ..}}{{__ "Event venue" setlang}}{{/with}}
+						  </div>
+						  <div class="col-sm-6 col-7"> 
+						  <span class="colon">:</span>
+							<div class="tabletext ">{{this.eventvenue}}</div><br>
+						  </div>
+						</div>
+				    </div>
+				</div>
+				<div class="row p-1"> 
+				    <div class="col-sm-8">
+				        <div class="row">
+						  <div class="col-sm-4 col-5 font-weight-bold ">{{#with ..}}{{__ "Duration" setlang}}{{/with}}
+						  </div>
+						  <div class="col-sm-6 col-7"> 
+						  <span class="colon">:</span>
+							<div class="tabletext ">{{this.duration}}</div><br>
+						  </div>
+						</div>
+				    </div>
+				</div>
+				<div class="row p-1"> 
+				    <div class="col-sm-8">
+				        <div class="row">
+						  <div class="col-sm-4 col-5 font-weight-bold ">{{#with ..}}{{__ "Start Date" setlang}}{{/with}}
+						  </div>
+						  <div class="col-sm-6 col-7"> 
+						  <span class="colon">:</span>
+							<div class="tabletext ">{{this.startdate}}</div><br>
+						  </div>
+						</div>
+				    </div>
+				</div>
+				{{#if this.enddate}}
+				<div class="row p-1"> 
+				    <div class="col-sm-8">
+				        <div class="row">
+						  <div class="col-sm-4 col-5 font-weight-bold ">{{#with ..}}{{__ "End Date" setlang}}{{/with}}
+						  </div>
+						  <div class="col-sm-6 col-7"> 
+						  <span class="colon">:</span>
+							<div class="tabletext ">{{this.enddate}}</div><br>
+						  </div>
+						</div>
+				    </div>
+				</div>
+				{{/if}}
+				{{#if this.eventdetail}}
+				<div class="row p-1"> 
+				    <div class="col-sm-8">
+				        <div class="row">
+						  <div class="col-sm-4 col-5 font-weight-bold ">{{#with ..}}{{__ "Event Detail" setlang}}{{/with}}
+						  </div>
+						  <div class="col-sm-6 col-7"> 
+						  <span class="colon">:</span>
+							<div class="tabletext ">{{this.eventdetail}}</div><br>
+						  </div>
+						</div>
+				    </div>
+				</div>
+				{{/if}}
+		</div>
+	</div>
+	{{/each}}
+	</div>
+	</div>
+	</div>
+	</section>
+	</div>
+	</div>
+	</div>

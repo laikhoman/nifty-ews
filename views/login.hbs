@@ -1,0 +1,63 @@
+<!--Toastr JS-->
+	<script src="/stylesheets/vendors/js/extensions/toastr.min.js" type="text/javascript"></script>
+	<script src="/js/scripts/extensions/toastr.js" type="text/javascript"></script>
+<!-- END Toastr JS-->
+
+<div class="content-wrapper login">
+    <div class="content-header row">
+    </div>
+    <div class="content-body">
+        <section class="flexbox-container" id="NF_loginpg">
+          <div class="col-12 d-flex align-items-center justify-content-center">
+            <div class="col-md-3 col-10 box-shadow-2 p-0 top">
+              <div class="card border-grey border-lighten-3 px-1 py-1 m-0">
+                <div class="card-header border-0">
+                  <div class="card-title text-center">
+                    <img src="/images/Nifty-EWS.png" style="width:60%" alt="branding logo">
+                  </div>                  
+                </div>
+                <div class="card-content">
+				
+                  <p class="card-subtitle line-on-side text-muted text-center font-small-3 mx-2 my-1">
+                    <span>{{__ "Using Account Details"}}</span>
+                  </p>
+                  <div class="card-body NF_login ">
+				  {{#if messages.error}}
+					<script>
+						toastr.error("{{messages.error}}","Error!" , {"showMethod": "fadeIn", "hideMethod": "fadeOut", timeOut: 5000});
+					</script>
+				  {{/if}}
+                    <form class="form-horizontal" action="/" method="post">
+                      <fieldset class="form-group position-relative has-icon-left">
+                        <input type="text" class="form-control" name="username" id="username" placeholder="Your Username"
+                        required>
+                        <div class="form-control-position">
+                          <i class="ft-user"></i>
+                        </div>
+                      </fieldset>
+                      <fieldset class="form-group position-relative has-icon-left">
+                        <input type="password" class="form-control" name="password" id="user-password" placeholder="Enter Password" 
+                        required>
+                        <div class="form-control-position">
+                          <i class="fa fa-key"></i>
+                        </div>
+                      </fieldset>
+                    
+                      <button type="submit" class="btn btn-outline-secondary btn-block  mb-2"><i class="ft-unlock"></i> {{__ "Login"}}</button>
+					  
+                    </form>
+                  </div>
+                  <!-- <p class="card-subtitle line-on-side text-muted text-center font-small-3 mx-2 my-1"> -->
+                    <!-- <span>{{__ "New User?"}}</span> -->
+                  <!-- </p> -->
+                  <!-- <div class="card-body"> -->
+                    <!-- <a href="#" class="btn btn-outline-red btn-block"><i class="ft-user"></i>{{__ " Sign up"}}</a> -->
+                 <!-- </div> -->
+               </div>
+             </div>
+           </div>
+         </div>
+       </section>
+     </div>
+</div>
+  

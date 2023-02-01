@@ -1,0 +1,445 @@
+ <!--Toastr JS-->
+	<script src="/stylesheets/vendors/js/extensions/toastr.min.js" type="text/javascript"></script>
+	<script src="/js/scripts/extensions/toastr.js" type="text/javascript"></script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js"></script>
+<!-- END Toastr JS--> 
+<nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-static-top navbar-light navbar-border navbar-brand-center">
+	<div class="navbar-wrapper">
+		<div class="navbar-header">
+			<ul class="nav navbar-nav flex-row">
+				<li class="nav-item mobile-menu d-md-none mr-auto"><a href="#" class="nav-link nav-menu-main menu-toggle hidden-xs"><i class="ft-menu font-large-1"></i></a></li>
+				<li class="nav-item">
+					<a href="/" class="navbar-brand">
+					<!--<img alt="niffty admin logo" src="/images/Nifty-EWS.png"class="brand-logo nifty-logo">-->
+					 <img alt="niffty admin logo" src="/images/upload/generalsetting/{{session.company_logo}}"class="brand-logo nifty-logo"> 
+					<!--<h2 class="brand-text">NiftyCRM</h2>-->
+					</a>
+				</li>
+				<li class="nav-item d-md-none">
+					<a data-toggle="collapse" data-target="#navbar-mobile" class="nav-link open-navbar-container"><i class="fa fa-ellipsis-v"></i></a>
+				</li>
+			</ul>
+		</div>
+		<div class="navbar-container center-layout mx-sm-3 ">
+			<div id="navbar-mobile" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav mr-auto float-left">
+					<li class="nav-item d-none d-md-block"><a href="#" class="nav-link nav-menu-main menu-toggle hidden-xs pl-0"><i class="ft-menu"></i></a></li>					
+				</ul>
+				<ul class="nav navbar-nav float-right">
+					<li class="dropdown dropdown-notification nav-item">
+						<a href="#" data-toggle="dropdown" class="nav-link nav-link-label"><i class="ficon ft-bell"></i>
+							<span class="badge badge-pill badge-default badge-danger badge-default badge-up noticount">{{session.noticount}}</span> 
+							
+						</a>
+						<ul class="dropdown-menu dropdown-menu-media dropdown-menu-right notifiction_ul">
+							<li class="dropdown-menu-header">
+								<h6 class="dropdown-header m-0">
+									<span class="grey darken-2">{{__ "Notifications"}}</span>
+									<a href="/notification/notificationlist" title="View New Customer"><i class="ft-external-link float-right pl-1" style="font-size:15px;"></i></a>
+									<span class="notification-tag badge badge-default badge-danger float-right m-0 noticount">{{session.noticount}} New</span>
+									
+								</h6>
+							</li>
+							{{#each session.noti}}
+							{{#ifCond this.action "==" "New User"}}
+							<li class="scrollable-container media-list clickonevent" id="clickonevent">
+								
+									<div class="media">
+									<div class="media-left align-self-center"><i class="ft-plus-square icon-bg-circle bg-cyan"></i></div>
+									<input type="hidden" id="addusernoti" name="id" {{#if this._id}} value="{{this._id}}"{{/if}} />
+										<div class="media-body">
+											<span class="notification-tag badge badge-default badge-warning float-right m-0">{{this.date}}</span>
+											<h6 class="media-heading">{{this.action}}!</h6>
+											<a href="/users/viewuser/{{this.user}}"><p class="notification-text font-small-3 text-muted" style="word-break: normal;">{{this.desc}} {{this.Name}} </p></a>
+										</div>
+									</div>
+								
+							</li>
+							{{/ifCond}}
+							{{#ifCond this.action "==" "User Updated"}}
+							<li class="scrollable-container media-list onclickevent" id="onclickevent">
+								
+									<div class="media">
+									<div class="media-left align-self-center"><i class="ft-plus-square icon-bg-circle bg-cyan"></i></div>
+									<input type="hidden" id="upusernoti" name="id" {{#if this._id}} value="{{this._id}}"{{/if}} />
+										<div class="media-body">
+											<h6 class="media-heading">{{this.action}}!</h6>
+											<span class="notification-tag badge badge-default badge-warning float-right 	m-0">{{this.date}}</span>
+											<a href="/users/viewuser/{{this.user}}"><p class="notification-text font-small-3 text-muted" style="word-break: normal;">{{this.Name}} {{this.desc}}</p></a>
+										</div>
+									</div>
+								
+							</li>
+							{{/ifCond}}
+							{{#ifCond this.action "==" "New Loan Added"}}
+							<li class="scrollable-container media-list clickeloan" id="clickeloan" >
+								
+									<div class="media">
+									<div class="media-left align-self-center"><i class="ft-plus-square icon-bg-circle bg-cyan"></i></div>
+									<input type="hidden" id="addloanoti" name="id" {{#if this._id}} value="{{this._id}}"{{/if}} />
+										<div class="media-body">
+											<h6 class="media-heading">{{this.action}}!</h6>
+											<span class="notification-tag badge badge-default badge-warning float-right 	m-0">{{this.date}}</span>
+											<a href="/loan/viewloan/{{this.loan}}"><p class="notification-text font-small-3 text-muted" style="word-break: normal;">{{this.Name}} {{this.desc}}</p></a>
+										</div>
+									</div>
+								
+							</li>
+							{{/ifCond}}
+							{{#ifCond this.action "==" "Loan Updated"}}
+							<li class="scrollable-container media-list clickuploan" id="clickuploan">
+								
+									<div class="media">
+									<div class="media-left align-self-center"><i class="ft-plus-square icon-bg-circle bg-cyan"></i></div>
+									<input type="hidden" id="uploanoti" name="id" {{#if this._id}} value="{{this._id}}"{{/if}} />
+										<div class="media-body">
+											<h6 class="media-heading">{{this.action}}!</h6>
+											<span class="notification-tag badge badge-default badge-warning float-right 	m-0">{{this.date}}</span>
+											<a href="/loan/viewloan/{{this.loan}}"><p class="notification-text font-small-3 text-muted" style="word-break: normal;">{{this.Name}} {{this.desc}} {{this.nameofuser.[0]}} {{this.nameofuser.[1]}} {{this.nameofuser.[2]}}</p></a>
+										</div>
+									</div>
+								
+							</li>
+							{{/ifCond}}
+							{{/each}}
+						</ul>
+					</li>
+				<li class="dropdown dropdown-user nav-item">
+				  <a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link dropdown-user-link">
+					<span class="avatar avatar-online roundimage imageround">
+					  <img src="/images/upload/{{session.photo}}" alt="avatar"><i></i></span>
+					<span class="user-name">{{session.username}}</span>
+				  </a>
+					
+				  <div class="dropdown-menu dropdown-menu-right">
+					<a href="/users/editprofile/{{session.user_id}}" class="dropdown-item"><i class="ft-user"></i> {{__ "Edit Profile"}}</a>
+				  <div class="dropdown-divider"></div><a href="/logout" class="dropdown-item"><i class="ft-power"></i> {{__ "Logout"}}</a>
+				</div>
+				</li>
+			  </ul>
+			</div>
+		  </div>
+		</div>
+	  </nav>  
+<!-- Horizontal navigation-->
+  <div role="navigation" data-menu="menu-wrapper" class="header-navbar navbar-expand-sm navbar navbar-horizontal navbar-fixed navbar-light navbar-without-dd-arrow navbar-shadow menu-border background-image ">
+    <!-- Horizontal menu content--> 
+    <div data-menu="menu-container" class="navbar-container main-menu-content center-layout menu_back justify-content-center">
+      <!-- include ../../../includes/mixins-->
+      <ul id="main-menu-navigation" data-menu="menu-navigation" class="nav navbar-nav">
+        <li data-menu="custom-menu" class="mr-1 nav-item">
+          <a href="/" class="nav-link"><i class="icon-speedometer" aria-hidden="true"></i>
+            <span>{{__ "Dashboard"}}</span>
+          </a>
+        </li>
+		{{#hiddenmodules session.access_rights.user.view session.admin_access}}
+        <li data-menu="custom-menu" class="nav-item mr-1">
+		<a href="/users/userlist" class="nav-link"><i class="ft-users"></i><span>{{__ "Users"}}</span></a>
+		</li>
+		{{/hiddenmodules}}
+		{{#ifCond session.admin_access "==" 0}}
+        {{#ifCond session.access_rights.typeofloan.view "||" session.access_rights.loanlist.view}}
+          <li data-menu="dropdown" class="dropdown nav-item mr-1"><a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link"><i class="ft-sliders" aria-hidden="true"></i><span>{{__ "Loan Management"}} <span class="fa fa-angle-down d-none d-md-inline"></span></span></a>
+          <ul class="dropdown-menu">
+		  
+			{{#hiddenmodules session.access_rights.typeofloan.view session.admin_access}}
+            <a href="/loan/loantypelist"><li class="dropdown-item"><i class="fa fa-stack-overflow" aria-hidden="true"></i>{{__ "Types of Loans"}}
+            </li></a>
+			{{/hiddenmodules}}
+			
+			{{#hiddenmodules session.access_rights.loanlist.view session.admin_access}}
+            <a href="/loan/loanlist"><li class="dropdown-item"><i class="fa fa-list-alt" aria-hidden="true"></i>{{__ "Loan List"}}
+            </li></a>
+			{{/hiddenmodules}}
+			{{#ifCond session.admin_access "==" 1}}
+			<a href="/loan/loanreports"><li class="dropdown-item"><i class="fa fa-list-alt" aria-hidden="true"></i>{{__ "EMI Reports"}}
+            </li></a>
+			
+			{{/ifCond}}
+           </ul>
+		   </li>
+		  {{/ifCond}}
+		  {{/ifCond}}
+		  {{#ifCond session.admin_access "==" 1}}
+          <li data-menu="dropdown" class="dropdown nav-item mr-1"><a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link"><i class="ft-sliders" aria-hidden="true"></i><span>{{__ "Loan Management"}} <span class="fa fa-angle-down d-none d-md-inline"></span></span></a>
+          <ul class="dropdown-menu">
+		  
+			{{#hiddenmodules session.access_rights.typeofloan.view session.admin_access}}
+            <a href="/loan/loantypelist"><li class="dropdown-item"><i class="fa fa-stack-overflow" aria-hidden="true"></i>{{__ "Types of Loans"}}
+            </li></a>
+			{{/hiddenmodules}}
+			
+			{{#hiddenmodules session.access_rights.loanlist.view session.admin_access}}
+            <a href="/loan/loanlist"><li class="dropdown-item"><i class="fa fa-list-alt" aria-hidden="true"></i>{{__ "Loan List"}}
+            </li></a>
+			{{/hiddenmodules}}
+			{{#ifCond session.admin_access "==" 1}}
+			<a href="/loan/loanreports"><li class="dropdown-item"><i class="fa fa-list-alt" aria-hidden="true"></i>{{__ "EMI Reports"}}
+            </li></a>
+			
+			{{/ifCond}}
+           </ul>
+		   </li>
+		  {{/ifCond}}
+		 {{#hiddenmodules session.access_rights.product.view session.admin_access}}
+        <li data-menu="custom-menu" class="nav-item mr-1"><a href="/product/productlist" class="nav-link"><i class="icon-bag"></i><span>{{__ "Products"}}</span></a>
+		</li>
+		{{/hiddenmodules}}
+		{{#hiddenmodules session.access_rights.report.view session.admin_access}}
+		<li data-menu="custom-menu" class="nav-item mr-1">
+          <a href="/report/report" class="nav-link"><i class="fa fa-newspaper-o" aria-hidden="true"></i>
+            <span>{{__ "Reports"}}</span>
+          </a>
+        </li>		
+	    {{/hiddenmodules}}
+		{{#ifCond session.admin_access "==" 0}}
+		{{#ifConditionfive session.access_rights.service.view "||" session.access_rights.category.view "||" session.access_rights.events.view "||" session.access_rights.events.view "||" session.access_rights.rulesandregulation.view}}
+		  <li data-menu="dropdown" class="dropdown nav-item mr-1"><a href="/generalsetting" data-toggle="dropdown" class="dropdown-toggle nav-link"><i class="fa fa-wrench custom_height_width_icons"></i><span>{{__ "Services"}} <span class="fa fa-angle-down d-none d-md-inline"></span></span></a>
+			<ul class="dropdown-menu">
+			
+			{{#hiddenmodules session.access_rights.service.view session.admin_access}}
+            <a href="/service/servicelist"><li class="dropdown-item"><i class="fa fa-cog" aria-hidden="true"></i>{{__ "Service List"}}
+            </li></a>
+			{{/hiddenmodules}}
+			
+			{{#hiddenmodules session.access_rights.category.view session.admin_access}}
+			<a href="/category/categorylist"><li class="dropdown-item"><i class="fa fa-list-ul" aria-hidden="true"></i>{{__ "Category List"}}
+            </li></a>
+			{{/hiddenmodules}}
+			
+			{{#hiddenmodules session.access_rights.events.view session.admin_access}}
+			<a href="/events/eventlist"><li class="dropdown-item"><i class="fa fa-calendar-o" aria-hidden="true"></i>{{__ "Events"}}
+            </li></a>	
+			{{/hiddenmodules}}
+			
+			{{#hiddenmodules session.access_rights.rulesandregulation.view session.admin_access}}
+			<a href="/rule/rules"><li class="dropdown-item"><i class="fa fa-clipboard" aria-hidden="true"></i>
+			{{__ "Rules and Regulations"}}
+            </li></a>
+			{{/hiddenmodules}}
+			
+			</ul>
+		</li>
+		{{/ifConditionfive}}
+		{{/ifCond}}
+		{{#ifCond session.admin_access "==" 1}}
+		<li data-menu="dropdown" class="dropdown nav-item mr-1"><a href="/generalsetting" data-toggle="dropdown" class="dropdown-toggle nav-link"><i class="fa fa-wrench custom_height_width_icons"></i><span>{{__ "Services"}} <span class="fa fa-angle-down d-none d-md-inline"></span></span></a>
+			<ul class="dropdown-menu">
+			
+			{{#hiddenmodules session.access_rights.service.view session.admin_access}}
+            <a href="/service/servicelist"><li class="dropdown-item"><i class="fa fa-cog" aria-hidden="true"></i>{{__ "Service List"}}
+            </li></a>
+			{{/hiddenmodules}}
+			
+			{{#hiddenmodules session.access_rights.category.view session.admin_access}}
+			<a href="/category/categorylist"><li class="dropdown-item"><i class="fa fa-list-ul" aria-hidden="true"></i>{{__ "Category List"}}
+            </li></a>
+			{{/hiddenmodules}}
+			
+			{{#hiddenmodules session.access_rights.events.view session.admin_access}}
+			<a href="/events/eventlist"><li class="dropdown-item"><i class="fa fa-calendar-o" aria-hidden="true"></i>{{__ "Events"}}
+            </li></a>	
+			{{/hiddenmodules}}
+			
+			{{#hiddenmodules session.access_rights.rulesandregulation.view session.admin_access}}
+			<a href="/rule/rules"><li class="dropdown-item"><i class="fa fa-clipboard" aria-hidden="true"></i>
+			{{__ "Rules and Regulations"}}
+            </li></a>
+			{{/hiddenmodules}}
+			
+			</ul>
+		</li>
+		{{/ifCond}}
+		{{#ifCond session.admin_access "==" 0}}
+		{{#ifConditionfive session.access_rights.notification.view "||" session.access_rights.reminder.view "||" session.access_rights.customfield.view "||" session.access_rights.notes.view "||" session.access_rights.activitylog.view}}
+		
+		<li data-menu="dropdown" class="dropdown nav-item mr-1"><a href="/generalsetting" data-toggle="dropdown" class="dropdown-toggle nav-link"><i class="fa ft-list custom_height_width_icons"></i><span>{{__ "Others"}} <span class="fa fa-angle-down d-none d-md-inline"></span></span></a>
+			<ul class="dropdown-menu">
+			
+			{{#hiddenmodules session.access_rights.notification.view session.admin_access}}
+				<a href="/notification/notificationtemplate"><li class="dropdown-item"><i class="fa fa-envelope-o custom_height_width_icons"></i>{{__ "Notification Template"}}
+				</li></a>	
+			{{/hiddenmodules}}
+			
+			{{#hiddenmodules session.access_rights.reminder.view session.admin_access}}
+			<li class="dropdown-item"><a href="/reminder/reminderslist"><i class="fa fa-clock-o custom_height_width_icons"></i>{{__ "Reminders"}}</a>
+            </li>
+			{{/hiddenmodules}}
+			
+			{{#hiddenmodules session.access_rights.notes.view session.admin_access}}
+			<a href="/notes/notelist"><li class="dropdown-item"><i class="fa fa-commenting-o" aria-hidden="true"></i>{{__ "Notes"}}
+            </li></a>
+			{{/hiddenmodules}}
+			
+			{{#hiddenmodules session.access_rights.activitylog.view session.admin_access}}
+			<a href="/activitylog/activitylog"><li class="dropdown-item"><i class="fa fa-history" aria-hidden="true"></i>{{__ "Activity Log"}}
+            </li></a>
+			{{/hiddenmodules}}
+			</ul>
+		</li>
+		{{/ifConditionfive}}
+		{{/ifCond}}
+		{{#ifCond session.admin_access "==" 1}}
+		<li data-menu="dropdown" class="dropdown nav-item mr-1"><a href="/generalsetting" data-toggle="dropdown" class="dropdown-toggle nav-link"><i class="fa ft-list custom_height_width_icons"></i><span>{{__ "Others"}} <span class="fa fa-angle-down d-none d-md-inline"></span></span></a>
+			<ul class="dropdown-menu">
+			
+			{{#hiddenmodules session.access_rights.notification.view session.admin_access}}
+				<a href="/notification/notificationtemplate"><li class="dropdown-item"><i class="fa fa-envelope-o custom_height_width_icons"></i>{{__ "Notification Template"}}
+				</li></a>	
+			{{/hiddenmodules}}
+			
+			{{#hiddenmodules session.access_rights.reminder.view session.admin_access}}
+			<li class="dropdown-item"><a href="/reminder/reminders"><i class="fa fa-clock-o custom_height_width_icons"></i>{{__ "Reminders"}}</a>
+            </li>
+			{{/hiddenmodules}}
+			
+			{{#hiddenmodules session.access_rights.notes.view session.admin_access}}
+			<a href="/notes/notelist"><li class="dropdown-item"><i class="fa fa-commenting-o" aria-hidden="true"></i>{{__ "Notes"}}
+            </li></a>
+			{{/hiddenmodules}}
+			
+			{{#hiddenmodules session.access_rights.activitylog.view session.admin_access}}
+			<a href="/activitylog/activitylog"><li class="dropdown-item"><i class="fa fa-history" aria-hidden="true"></i>{{__ "Activity Log"}}
+            </li></a>
+			{{/hiddenmodules}}
+			</ul>
+		</li>
+		{{/ifCond}}
+		{{#ifCond session.admin_access "==" 1}}
+        <li data-menu="dropdown" class="setup dropdown nav-item mr-1"><a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link"><i class="fa fa-cogs"></i><span>{{__ "Setup"}} <span class="fa fa-angle-down d-none d-md-inline"></span></span></a>
+          <ul class="dropdown-menu">
+		  
+            <a href="/role/roles"><li class="dropdown-item"><i class="fa fa-child custom_height_width_icons"></i>{{__ "Roles"}}
+            </li></a>
+			
+			<a href="/accessrights/accessright"><li class="dropdown-item"><i class="fa fa-key custom_height_width_icons"></i>{{__ "Access Rights"}}</li></a>
+			
+			<a href="/impersonate/impersonateuser"><li class="dropdown-item"><i class="fa fa-unlock-alt" aria-hidden="true"></i>{{__ "Impersonate"}}</li></a>
+			
+			<a href="/generalsettings/generalsetting/{{session.gen_id}}"><li class="dropdown-item"><i class="fa fa-cogs" aria-hidden="true"></i>{{__ "General Settings"}}
+            </li></a>
+			
+			<a href="/customfields/customfieldlist">
+			<li class="dropdown-item"><i class="fa fa-edit custom_height_width_icons"></i>{{__ "Custom Fields"}}</a>
+            </li>
+			</ul>
+		</li>
+		{{/ifCond}}
+		{{#ifCond session.impersondata "!==" ""}}
+			<li>
+				<a class="blink_impersonate nav-link" id="leaveimpersonate"><span class="draw"><i class="fa fa-unlock-alt custom_height_width_icons"></i>&nbsp;{{__ "Leave Impersonate"}}</span></a>
+			</li>
+		{{/ifCond}}
+    </div>
+    <!-- /horizontal menu content-->
+  </div>
+  
+  <style>
+        /* Page Template for the exported PDF */
+        .page-template {
+          font-family: "Montserrat", Georgia, "Times New Roman", Times, serif;
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+        }
+        .page-template .header {
+          position: absolute;
+          top: 30px;
+          left: 50px;
+          right: 50px;
+		   font-weight: bold;
+          border-bottom: 1px solid #888;
+          color: #888;
+		  font-size:18px;
+        }
+		
+        .page-template .footer {
+          position: absolute;
+          bottom: 30px;
+          left: 30px;
+          right: 30px;
+          border-top: 1px solid #888;
+          text-align: center;
+          color: #888;
+        }
+        .page-template .watermark {
+          font-weight: bold;
+          font-size: 400%;
+          text-align: center;
+          margin-top: 30%;
+          color: #aaaaaa;
+          opacity: 0.1;
+          transform: rotate(-35deg) scale(1.7, 1.5);
+        }
+		
+</style>
+<script>
+
+$(document).ready(function(){
+	$('body').on('click', '#leaveimpersonate', function() {
+		$.ajax({
+			type: "POST",
+			url: '/',
+			data: {'username': "{{session.impersondata.username}}",'password':'{{session.impersondata.password}}'},
+		}).done(function(res) {
+			window.location.reload(); 
+		});
+	});
+});
+</script>
+<script>
+$(document).ready(function(){
+	$('body').on('click', '.clickuploan', function() {
+	
+	var notivalue = $(this).find('#uploanoti').val();
+	
+		$.ajax({
+			type: "GET",
+			url: '/ajxfun/deletenoti',
+			data: {"notivalue" : notivalue}
+		}).done(function(res) {
+			$('.noticount').html(res);
+			window.location.reload(); 
+		});
+	});
+	$('body').on('click', '.clickeloan', function() {
+	
+		var notivalue = $(this).find('#addloanoti').val();
+			$.ajax({
+				type: "GET",
+				url: '/ajxfun/deletenoti',
+				data: {"notivalue" : notivalue}
+			}).done(function(res) {
+			$('.noticount').html(res);
+			window.location.reload(); 
+			});
+		});
+	$('body').on('click', '.onclickevent', function() {
+	
+		var notivalue = $(this).find('#upusernoti').val();
+			$.ajax({
+				type: "GET",
+				url: '/ajxfun/deletenoti',
+				data: {"notivalue" : notivalue}
+			}).done(function(res) {
+			$('.noticount').html(res);
+			window.location.reload(); 
+			});
+		});
+	$('body').on('click', '.clickonevent', function() {
+	
+		var notivalue = $(this).find('#addusernoti').val();
+			$.ajax({
+				type: "GET",
+				url: '/ajxfun/deletenoti',
+				data: {"notivalue" : notivalue}
+			}).done(function(res) {
+			$('.noticount').html(res);
+			window.location.reload(); 
+			});
+		});
+});
+</script>

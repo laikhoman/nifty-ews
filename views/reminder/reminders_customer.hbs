@@ -1,0 +1,42 @@
+{{breadcrums 'Home' 'Reminder List'}}
+
+<div class="app-content center-layout mt-2 mx-md-3 px-1">
+    <div class="content-wrapper">
+	<div class="content-header row card">
+	<div class="col-xl-12 col-lg-12 box-four-view ">
+	<div class="card_boxnf">
+	<div class="card-content">
+	<div class="card-body pl-0 pr-0">
+<div class="row" style="">
+		
+		<div class="col-lg-12 col-md-12 mb-2 remider_list">
+		{{#if alert_data}}
+			{{#each alert_data as |data_emi|}}
+				<div class="bs-callout-info callout-bordered mt-1">
+				  <div class="media align-items-stretch">
+					<div class="media-left media-middle bg-info icon_reminder p-2">
+						<i class="fa fa-bell white font-medium-5"></i>
+					</div>
+					<div class="media-body p-1">
+					  <h4 >Upcoming EMI Payment of {{this.user.firstname}} {{this.user.lastname}}.</h4>
+					  <p>You EMI month {{data_emi.date}}. Your EMI month payment is {{formatNumber data_emi.principal 0 ','','}} for loan No is {{data_emi.loan.loancount}}.</p>
+					</div>
+					<div class="media-right media-middle bg-info p-2">
+						<p><i class="fa fa-calendar white font-medium-5"></i>{{data_emi.date}}</p>
+					</div>
+				  </div>
+				</div>
+			{{/each}}
+		{{else}}
+		<h4 class="mb-1 mt-1 ml-1">No Remiders Found.</h4>
+		{{/if}}
+		</div>
+		
+	</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>

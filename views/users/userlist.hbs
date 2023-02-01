@@ -1,0 +1,517 @@
+{{breadcrums 'Home' 'User List'}}  
+<div class="app-content center-layout mt-2 mx-md-3 px-1">
+    <div class="content-wrapper">
+	<div class="content-header row">
+	<div class="col-xl-12 col-lg-12 box-four-view">
+	<div class="card_boxnf">
+	<div class="card-content">
+	<div class="card-body pl-0 pr-0">
+		<fieldset class="form-group position-relative">
+		<div class="row">
+		<div class="col-lg-3 col-md-6 col-12 pb-1">
+		<div class="controls position-relative has-icon-right">
+			<input type="text" class="form-control square" value="{{__ 'All Users'}}" placeholder="Addon To Right" readonly="readonly">
+			<div class="form-control-position ">
+				<span class="primary">{{this.count}}</span>
+			</div>
+		</div>
+		</div>
+		<div class="col-lg-3 col-md-6 col-12 pb-1">
+			<div class="controls position-relative has-icon-right">
+				<input type="text" class="form-control square" value="{{__ 'Total Users'}}" placeholder="Addon To Right" readonly="readonly">
+				<div class="form-control-position">
+					<span class="text-warning">
+						<a href="userlist" style="text-decoration: underline !important;">{{this.count}}</a>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-3 col-md-6 col-12 pb-1">
+			<div class="controls position-relative has-icon-right">
+				<input type="text" class="form-control square" value="{{__ 'Active Users'}}" placeholder="Addon To Right" readonly="readonly">
+					<div class="form-control-position">
+						<span class="red">
+							<a href="userlist" style="text-decoration: underline !important;">{{this.activecount}}</a>
+						</span>
+					</div>
+			</div>
+		</div>
+		<div class="col-lg-3 col-md-6 col-12 pb-1">
+			<div class="controls position-relative has-icon-right">
+				<input type="text" class="form-control square" value="{{__ 'Deactivated users'}}" placeholder="Addon To Right" readonly="readonly">
+				<div class="form-control-position">
+					<span class="success">
+						<a href="deactivateuser" style="text-decoration: underline !important;">{{this.deactivecount}}</a>	
+					</span>
+				</div>
+			</div>
+		</div>
+		</div>
+		</fieldset>
+		<div class="row" style="">
+		<!-- <div class="col-lg-2 col-md-2 mb-2 custom_select"> -->
+		<!-- <span class="select2 select2-container select2-container--default" dir="ltr" style="width: 181.156px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-jzyt-container"><span class="select2-selection__rendered" id="select2-jzyt-container" title="Customer"> {{__ "Customer"}}</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span> -->
+		<!-- </div> -->
+		<!-- <div class="col-lg-2 col-md-2 mb-2"> -->
+			<!-- <div class="btn-group mr-1"> -->
+				<!-- <button type="button" id="btn-go" class="border border-light round mr-1 go">{{__ "GO"}}</button> -->
+			<!-- </div> -->
+		<!-- </div> -->
+		<div class=" col-lg-12 col-md-12 mb-1 pr-2 heading-elements p-0 text-right" >
+		<a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+				<div class="heading-elements ews-heading">
+			<ul class="list-inline mb-0">
+			<li id="export">
+				<select class="select2 form-control export">
+					<option value="">{{__ "Export"}}</option>
+					<option value="csv">{{__ "XLSX"}}</option>
+					<option value="pdf">{{__ "PDF"}}</option>
+				</select>
+			</li>	
+			</ul>
+		</div>
+		</div>
+		</div>
+		</div>
+		</div>
+		</div>
+		</div>
+		</div>
+	<div class="row">
+	<div class="col-md-12">
+	<div class="card">
+	 
+	<div class="card-content collpase show">
+			{{#if messages.error  }}
+				<script>
+					toastr.error("{{messages.error}}","{{__ 'Error!'}}", {"showMethod": "fadeIn", "hideMethod": "fadeOut", timeOut: 5000});
+				</script>
+			{{/if}}
+			{{#if messages.success }}
+				<script>
+					toastr.success("{{messages.success}}","{{__ 'Success!'}}", {"showMethod": "fadeIn", "hideMethod": "fadeOut", timeOut: 5000});
+				</script>
+			{{/if}}
+		<!-- Zero configuration table -->
+		<section id="configuration">
+        <div class="row">
+            <div class="col-12">
+             <div class="card">
+                
+                <div class="card-content collapse show">
+                <div class="card-body card-dashboard card-design">
+					
+					<section id="horizontal">
+						<div class="row">
+						<div class="col-12">
+						<div class="card">
+							<div class="card-content collapse show" id="NF-datatable">
+							<div class="card-body">
+								<div id="grid"></div>
+								<div id="window"></div>
+								
+							</div>
+						</div>
+							
+							<div class="card-content collapse show">
+							<div class="card-body card-dashboard">
+							
+
+							<script type="x/kendo-template" id="page-template">
+							
+								 <div class="page-template">
+									<div class="header" style="float: left;width:100%">
+									User List 
+									  <div style="float: right; margin-right:70px;">Page #: pageNum # of #: totalPages #</div>
+									 
+									</div>
+									<div class="footer">
+									 
+									</div>
+								</div>
+							</script>
+							<script type="text/x-kendo-template" id="windowTemplate">
+								<div class="swal-modal">
+									<span class="swal-icon--warning__body">
+										<span class="swal-icon--warning__dot"></span>
+									</span>
+								</div>
+								<div class="swal-title"> {{{__ "Delete !"}}} </div>
+								<div class="swal-text">{{{__ "Are You sure wan't to delete this User ?"}}}</div>
+								<div class="swal-footer">
+								<div class="swal-button-container nobutton">
+									<button class="swal-button swal-button--confirm btn btn-secondary" id="noButton">{{{__ "NO"}}}</button>
+								</div>
+								<div class="swal-button-container yesbutton">
+									<button class="swal-button swal-button--cancel btn" id="yesButton">{{{__ "YES"}}}</button>
+								</div>
+								</div>  
+								
+								
+							</script>
+							<script id="row-tpl" type="text/x-kendo-template">
+								<td>{{getcountrybyid this.country}}</td>
+							</script>
+							<!-- <script id="row-tpl1" type="text/x-kendo-template"> -->
+								<!-- <td>{{getstatebyid}}</td> -->
+							<!-- </script> -->
+							<!-- <script id="row-tpl2" type="text/x-kendo-template"> -->
+								<!-- <td>{{getcitybyid}}</td> -->
+							<!-- </script> -->
+						 
+    <script>
+       jQuery(document).ready(function() {
+			var windowTemplate = kendo.template($("#windowTemplate").html());//for delete popup
+			var contry = kendo.template($("#row-tpl").html());
+			//for country name
+			<!-- var state = kendo.template($("#row-tpl1").html());//for state name -->
+			<!-- var city = kendo.template($("#row-tpl2").html());//for city name -->
+				$('body').on('change', '.export', function() {
+				var value = $(this).val();
+				if(value == 'csv')
+				{
+					$("#grid").getKendoGrid().saveAsExcel();
+				}else if(value == 'pdf')
+				{
+					$("#grid").getKendoGrid().saveAsPDF();
+				}
+			});
+		
+		
+		 var window1 = $("#window").kendoWindow({
+            title: "{{__ 'Warning !'}}",
+			resizable: false,
+            visible: false, //the window will not appear before its .open method is called
+           
+        }).data("kendoWindow");
+		
+		var element=$("#grid").kendoGrid({
+			//var path='{{path}}';	
+		pdf: {
+		 headerBackground: "#567",
+         headerColor: "#fff",
+         evenBackground: "#eee",		
+		allPages: true,
+		template: $("#page-template").html(),
+		avoidLinks: true,
+		fileName: "User-list.pdf",// Bug 277	
+		paperSize: "A4",
+		
+		margin: { top: "2cm", left: "1cm", right: "1cm", bottom: "1cm" },
+		landscape: true,
+		repeatHeaders: true,
+		scale: 0.8,
+		 
+		},
+		excel: {
+		fileName: "User-list.xlsx",// Bug 277
+		allPages:true
+		},
+		scrollable: true,
+		pdfExport: function(e) {
+                  var grid = $("#grid").data("kendoGrid");
+					grid.hideColumn(11);
+                  e.promise
+                  .done(function() {
+                     grid.showColumn(11);
+                  });
+                },
+				
+				dataSource: {
+				serverPaging: false,
+			serverSorting: false,
+				 transport: {
+				  read:{
+					url: '/ajxfun',
+					dataType: "json",
+				  },
+					destroy:{
+							url: '/ajxfun/delete/',
+							dataType: "json",
+							type:'get',
+							complete: function(e) {
+								$("#grid").data("kendoGrid").dataSource.read(); 
+								console.log(e.responseText);
+								if(e.responseText=="true"){
+									
+									toastr.success("{{__ "Deleted! User deleted successfully!"}}", {"showMethod": "fadeIn", "hideMethod": "fadeOut", timeOut: 5000}); 
+									
+								}else{
+									
+									 toastr.error("{{__ " Error! User can not be deleted!"}}", {"showMethod": "fadeIn", "hideMethod": "fadeOut", timeOut: 5000}); 
+									 
+								}
+							}
+						},
+					
+				 }, 
+				schema: {
+                        model: {
+							id: "_id",
+                            fields: {
+                                _id: { validation: { required: true } },
+                                firstname: { validation: { required: true } },
+                                middlename: { validation: { required: true } },
+                                lastname: { validation: { required: true } },
+                                email: { validation: { required: true } },
+                            }
+                        }
+                    },
+                    pageSize: 10,
+					batch: false,
+					requestEnd: function (e) {
+								if (e.type == "create" && e.response) {
+									enablefilter();
+							}
+						}
+                }, 
+                sortable: true,
+                reorderable: true,
+                groupable: true,
+                resizable: true,
+                filterable: {
+					mode: "row"
+				},
+                columnMenu: true,
+				pageable: {
+					input: true,
+					numeric: false,
+					pageSize: 10,
+					pageSizes: [10, 20, 25, 50, 100]
+				},
+				
+				noRecords: true,
+                columns: [
+				 
+					{
+                        field: "firstname" ,
+                        title: "{{__ 'Username'}}",
+						template:"<left>" + "<div class='customer-photo'" + 
+						"style='background-image:url(/images/upload/#=photo #);'></div> " + "#= firstname # #= middlename # #= lastname #",
+                        width: 220
+                    }, 
+					{
+                        field: "email",
+                         title: "{{__ 'Email Address'}}",
+                        width: 220
+                    }, 
+					{
+                        field: "role_nm.role_nm",
+                         title: "{{__ 'Role'}}",
+                        width: 100
+                    },
+					{
+                        field: "birthdate",
+                         title: "{{__ 'Birth Date'}}",
+						 width: 140
+                    },
+					{
+                        field: "occupation",
+                         title: "{{__ 'Occupation'}}",
+						 hidden: true,
+                        width: 150
+                    },
+					{
+                        field: "mobile",
+                         title: "{{__ 'Contact'}}",
+                        width: 140
+                    },
+					{
+                        field: "address",
+                         title: "{{__ 'Address'}}",
+						 hidden: true,
+                        width: 400
+                    },
+					{
+                        field: "country",
+                         title: "{{__ 'Country'}}",
+						<!-- template: contry, -->
+	                   hidden: true,
+                        width: 100
+                    },
+					{
+                        field: "state",
+                         title: "{{__ 'State'}}",
+                        <!-- template: state, -->
+						 hidden: true,
+                        width: 100
+                    },
+					{
+                        field: "city",
+                         title: "{{__ 'City'}}",
+						 <!-- template: city, -->
+						 hidden: true,
+                        width: 100
+                    },
+					{
+                        field: "pincode",
+                         title: "{{__ 'Pincode'}}",
+						 hidden: true,
+                        width: 100
+                    },
+					{{#ifCond session.admin_access "==" 0}}
+					{{#ifCondition accessrightdata.view "||" accessrightdata.delete "||" accessrightdata.update}}
+					{
+						width: "200px",
+					
+						command:
+						[
+							{
+								template : "<center>"
+							},
+							
+							{{#if accessrightdata.view }}
+							{ 	
+								name: "pageview", text:"", className: "btn btn-icon color-navy btn-outline-light",iconClass:"fa fa-eye",
+								click:function(e) 
+								{
+								  var clickedRow = this.dataItem($(e.currentTarget).closest("tr"));
+								 
+								  var id = clickedRow._id;
+								  window.location.href = "viewuser/"+id;
+								  return false;
+								} 
+							},
+							{{/if}}
+							{template : "&nbsp;" },
+							/* Edit action start */
+							{{#if accessrightdata.update }}
+							{ 
+								name: "pageEdit", text:"", className: "btn btn-icon color-blue btn-outline-light",iconClass:"fa fa-pencil",
+								click:function(e) 
+								{
+								  var clickedRow = this.dataItem($(e.currentTarget).closest("tr"));
+								 
+								  var id = clickedRow._id;
+								  window.location.href = "adduser/"+id;
+								  return false;
+								} 
+							},
+							{{/if}}
+							{template : "&nbsp;" },
+							{{#if accessrightdata.delete }}		
+							{ 
+								name: "Delete", text:"", className: "btn btn-icon color-red delete_role btn-outline-light ",iconClass:"fa fa-trash",
+								click: function(e){  //add a click event listener on the delete button
+									e.preventDefault(); //prevent page scroll reset
+									var tr = $(e.target).closest("tr"); //get the row for deletion
+									var data = this.dataItem(tr); //get the row data so it can be referred later
+									window1.content(windowTemplate(data)); //send the row data object to the template and render it
+									window1.center().open();
+									var clickedRow = this.dataItem($(e.currentTarget).closest("tr"));
+									$("#yesButton").click(function(){
+										var grid = $("#grid").data("kendoGrid");
+										grid.dataSource.remove(data)  //prepare a "destroy" request
+										grid.dataSource.sync();  //actually send the request (might be ommited if the autoSync option is enabled in the dataSource)
+										<!-- alert('Delete'); -->
+										window1.close();
+									})
+									$("#noButton").click(function(){
+										window1.close();
+									})
+								}	
+							},
+							{{/if}} 
+							/* Delete action end */
+							
+							{template : "</center>" }, 
+							],
+							{{#if accessrightdata.view}}	
+							title: "{{__ "Action"}}", 
+							{{#if accessrightdata.add}}	
+							headerTemplate: "<center><b><a href='javascript:void(0)' class='enable_filter'>&nbsp;&nbsp;</i></a></b><a href='adduser'><button type='button' class='btn addnew btn-sm'><i class='fa fa-plus'></i> New</button></a></center>"
+							{{/if}}
+							{{/if}}
+					}
+					{{/ifCondition}}
+					{{else}}
+						{
+						width: "200px",
+					
+						command:
+						[
+							{
+								template : "<center>"
+							},
+							{ 	
+								name: "pageview", text:"", className: "btn btn-icon color-navy btn-outline-light",iconClass:"fa fa-eye",
+								click:function(e) 
+								{
+								  var clickedRow = this.dataItem($(e.currentTarget).closest("tr"));
+								 
+								  var id = clickedRow._id;
+								  window.location.href = "viewuser/"+id;
+								  return false;
+								} 
+							},
+							{template : "&nbsp;" },
+							/* Edit action start */
+							{ 
+								name: "pageEdit", text:"", className: "btn btn-icon color-blue btn-outline-light",iconClass:"fa fa-pencil",
+								click:function(e) 
+								{
+								  var clickedRow = this.dataItem($(e.currentTarget).closest("tr"));
+								 
+								  var id = clickedRow._id;
+								  window.location.href = "adduser/"+id;
+								  return false;
+								} 
+							},
+							{template : "&nbsp;" },		
+							{ 
+								name: "Delete", text:"", className: "btn btn-icon color-red delete_role btn-outline-light ",iconClass:"fa fa-trash",
+								click: function(e){  //add a click event listener on the delete button
+									e.preventDefault(); //prevent page scroll reset
+									var tr = $(e.target).closest("tr"); //get the row for deletion
+									var data = this.dataItem(tr); //get the row data so it can be referred later
+									window1.content(windowTemplate(data)); //send the row data object to the template and render it
+									window1.center().open();
+									var clickedRow = this.dataItem($(e.currentTarget).closest("tr"));
+									$("#yesButton").click(function(){
+										var grid = $("#grid").data("kendoGrid");
+										grid.dataSource.remove(data)  //prepare a "destroy" request
+										grid.dataSource.sync();  //actually send the request (might be ommited if the autoSync option is enabled in the dataSource)
+										<!-- alert('Delete'); -->
+										window1.close();
+									})
+									$("#noButton").click(function(){
+										window1.close();
+									})
+								}	
+							}, 
+							/* Delete action end */
+							
+							{template : "</center>" }, 
+							],	
+							title: "{{__ "Action"}}", 
+							headerTemplate: "<center><b><a href='javascript:void(0)' class='enable_filter'>&nbsp;&nbsp;</i></a></b><a href='adduser'><button type='button' class='btn addnew btn-sm'><i class='fa fa-plus'></i> New</button></a></center>"
+					}
+					{{/ifCond}}
+                ],
+				editable: {
+                mode: "inline"
+				}
+            }); 
+        });
+		 
+        </script>
+		
+			 
+							</div>
+							</div>
+						</div>
+						</div>
+						</div>
+					</section>
+				</div>
+				</div>
+			</div>
+			</div>
+		</div>
+		</section>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>

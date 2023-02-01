@@ -1,0 +1,1726 @@
+{ 
+  "countries": [
+    {
+      "id": 1,
+      "sortname": "AF",
+      "name": "Afghanistan",
+      "phoneCode": 93,
+	  "currency_code":"AFN"  
+    },
+    {
+      "id": 2,
+      "sortname": "AL",
+      "name": "Albania",
+      "phoneCode": 355,
+	  "currency_code":"ALL"
+    },
+    {
+      "id": 3,
+      "sortname": "DZ",
+      "name": "Algeria",
+      "phoneCode": 213,
+	  "currency_code":"DZD"
+    },
+    {
+      "id": 4,
+      "sortname": "AS",
+      "name": "American Samoa",
+      "phoneCode": 1684,
+	  "currency_code":"USD"
+    },
+    {
+      "id": 5,
+      "sortname": "AD",
+      "name": "Andorra",
+      "phoneCode": 376,
+	  "currency_code":"EUR"
+    },
+    {
+      "id": 6,
+      "sortname": "AO",
+      "name": "Angola",
+      "phoneCode": 244,
+	  "currency_code":"AOA"
+    },
+    {
+      "id": 7,
+      "sortname": "AI",
+      "name": "Anguilla",
+      "phoneCode": 1264,
+	  "currency_code":"XCD"
+    },
+    {
+      "id": 8,
+      "sortname": "AQ",
+      "name": "Antarctica",
+      "phoneCode": 0,
+	  "currency_code":"XCD"
+    },
+    {
+      "id": 9,
+      "sortname": "AG",
+      "name": "Antigua And Barbuda",
+      "phoneCode": 1268,
+	  "currency_code":"XCD"
+    },
+    {
+      "id": 10,
+      "sortname": "AR",
+      "name": "Argentina",
+      "phoneCode": 54,
+	  "currency_code":"ARS"
+    },
+    {
+      "id": 11,
+      "sortname": "AM",
+      "name": "Armenia",
+      "phoneCode": 374,
+	  "currency_code":"AMD"
+    },
+    {
+      "id": 12,
+      "sortname": "AW",
+      "name": "Aruba",
+      "phoneCode": 297,
+	  "currency_code":"AWG"
+    },
+    {
+      "id": 13,
+      "sortname": "AU",
+      "name": "Australia",
+      "phoneCode": 61,
+	  "currency_code":"AUD"
+    },
+    {
+      "id": 14,
+      "sortname": "AT",
+      "name": "Austria",
+      "phoneCode": 43,
+	  "currency_code":"EUR"
+    },
+    {
+      "id": 15,
+      "sortname": "AZ",
+      "name": "Azerbaijan",
+      "phoneCode": 994,
+	  "currency_code":"AZN"
+    },
+    {
+      "id": 16,
+      "sortname": "BS",
+      "name": "Bahamas The",
+      "phoneCode": 1242,
+	  "currency_code":"BSD"
+    },
+    {
+      "id": 17,
+      "sortname": "BH",
+      "name": "Bahrain",
+      "phoneCode": 973,
+	  "currency_code":"BHD"
+    },
+    {
+      "id": 18,
+      "sortname": "BD",
+      "name": "Bangladesh",
+      "phoneCode": 880,
+	  "currency_code":"BDT"
+    },
+    {
+      "id": 19,
+      "sortname": "BB",
+      "name": "Barbados",
+      "phoneCode": 1246,
+	  "currency_code":"BBD"
+    },
+    {
+      "id": 20,
+      "sortname": "BY",
+      "name": "Belarus",
+      "phoneCode": 375,
+	  "currency_code":"BYR"
+    },
+    {
+      "id": 21,
+      "sortname": "BE",
+      "name": "Belgium",
+      "phoneCode": 32,
+	  "currency_code":"EUR"
+    },
+    {
+      "id": 22,
+      "sortname": "BZ",
+      "name": "Belize",
+      "phoneCode": 501,
+	  "currency_code":"BZD"
+    },
+    {
+      "id": 23,
+      "sortname": "BJ",
+      "name": "Benin",
+      "phoneCode": 229,
+	  "currency_code":"XOF"
+    },
+    {
+      "id": 24,
+      "sortname": "BM",
+      "name": "Bermuda",
+      "phoneCode": 1441,
+	  "currency_code":"BMD"
+    },
+    {
+      "id": 25,
+      "sortname": "BT",
+      "name": "Bhutan",
+      "phoneCode": 975,
+	  "currency_code":"BTN"
+    },
+    {
+      "id": 26,
+      "sortname": "BO",
+      "name": "Bolivia",
+      "phoneCode": 591,
+	  "currency_code":"BOB"
+    },
+    {
+      "id": 27,
+      "sortname": "BA",
+      "name": "Bosnia and Herzegovina",
+      "phoneCode": 387,
+	  "currency_code":"BAM"
+    },
+    {
+      "id": 28,
+      "sortname": "BW",
+      "name": "Botswana",
+      "phoneCode": 267,
+	  "currency_code":"BWP"
+    },
+    {
+      "id": 29,
+      "sortname": "BV",
+      "name": "Bouvet Island",
+      "phoneCode": 0,
+	  "currency_code":"NOK"
+    },
+    {
+      "id": 30,
+      "sortname": "BR",
+      "name": "Brazil",
+      "phoneCode": 55,
+	  "currency_code":"BRL"
+    },
+    {
+      "id": 31,
+      "sortname": "IO",
+      "name": "British Indian Ocean Territory",
+      "phoneCode": 246,
+	  "currency_code":"USD"
+    },
+    {
+      "id": 32,
+      "sortname": "BN",
+      "name": "Brunei",
+      "phoneCode": 673,
+	  "currency_code":"BND"
+    },
+    {
+      "id": 33,
+      "sortname": "BG",
+      "name": "Bulgaria",
+      "phoneCode": 359,
+	  "currency_code":"BGN"
+    },
+    {
+      "id": 34,
+      "sortname": "BF",
+      "name": "Burkina Faso",
+      "phoneCode": 226,
+	  "currency_code":"XOF"
+    },
+    {
+      "id": 35,
+      "sortname": "BI",
+      "name": "Burundi",
+      "phoneCode": 257,
+	  "currency_code":"BIF"
+    },
+    {
+      "id": 36,
+      "sortname": "KH",
+      "name": "Cambodia",
+      "phoneCode": 855,
+	  "currency_code":"KHR"
+    },
+    {
+      "id": 37,
+      "sortname": "CM",
+      "name": "Cameroon",
+      "phoneCode": 237,
+	  "currency_code":"XAF"
+    },
+    {
+      "id": 38,
+      "sortname": "CA",
+      "name": "Canada",
+      "phoneCode": 1,
+	  "currency_code":"CAD"
+    },
+    {
+      "id": 39,
+      "sortname": "CV",
+      "name": "Cape Verde",
+      "phoneCode": 238,
+	  "currency_code":"CVE"
+    },
+    {
+      "id": 40,
+      "sortname": "KY",
+      "name": "Cayman Islands",
+      "phoneCode": 1345,
+	  "currency_code":"KYD"
+    },
+    {
+      "id": 41,
+      "sortname": "CF",
+      "name": "Central African Republic",
+      "phoneCode": 236,
+	  "currency_code":"XAF"
+    },
+    {
+      "id": 42,
+      "sortname": "TD",
+      "name": "Chad",
+      "phoneCode": 235,
+	  "currency_code":"XAF"
+    },
+    {
+      "id": 43,
+      "sortname": "CL",
+      "name": "Chile",
+      "phoneCode": 56,
+	  "currency_code":"CLP"
+    },
+    {
+      "id": 44,
+      "sortname": "CN",
+      "name": "China",
+      "phoneCode": 86,
+	  "currency_code":"CNY"
+    },
+    {
+      "id": 45,
+      "sortname": "CX",
+      "name": "Christmas Island",
+      "phoneCode": 61,
+	  "currency_code":"AUD"
+    },
+    {
+      "id": 46,
+      "sortname": "CC",
+      "name": "Cocos (Keeling) Islands",
+      "phoneCode": 672,
+	  "currency_code":"AUD"
+    },
+    {
+      "id": 47,
+      "sortname": "CO",
+      "name": "Colombia",
+      "phoneCode": 57,
+	  "currency_code":"COP"
+    },
+    {
+      "id": 48,
+      "sortname": "KM",
+      "name": "Comoros",
+      "phoneCode": 269,
+	  "currency_code":"KMF"
+    },
+    {
+      "id": 49,
+      "sortname": "CG",
+      "name": "Republic Of The Congo",
+      "phoneCode": 242,
+	  "currency_code":"XAF"
+    },
+    {
+      "id": 50,
+      "sortname": "CD",
+      "name": "Democratic Republic Of The Congo",
+      "phoneCode": 242,
+	  "currency_code":"CDF"
+    },
+    {
+      "id": 51,
+      "sortname": "CK",
+      "name": "Cook Islands",
+      "phoneCode": 682,
+	  "currency_code":"NZD"
+    },
+    {
+      "id": 52,
+      "sortname": "CR",
+      "name": "Costa Rica",
+      "phoneCode": 506,
+	  "currency_code":"CRC"
+    },
+    {
+      "id": 53,
+      "sortname": "CI",
+      "name": "Cote D''Ivoire (Ivory Coast)",
+      "phoneCode": 225,
+	  "currency_code":"XOF"
+    },
+    {
+      "id": 54,
+      "sortname": "HR",
+      "name": "Croatia (Hrvatska)",
+      "phoneCode": 385,
+	  "currency_code":"HRK"
+    },
+    {
+      "id": 55,
+      "sortname": "CU",
+      "name": "Cuba",
+      "phoneCode": 53,
+	  "currency_code":"CUP"
+    },
+    {
+      "id": 56,
+      "sortname": "CY",
+      "name": "Cyprus",
+      "phoneCode": 357,
+	  "currency_code":"EUR"
+    },
+    {
+      "id": 57,
+      "sortname": "CZ",
+      "name": "Czech Republic",
+      "phoneCode": 420,
+	  "currency_code":"CZK"
+    },
+    {
+      "id": 58,
+      "sortname": "DK",
+      "name": "Denmark",
+      "phoneCode": 45,
+	  "currency_code":"DKK"
+    },
+    {
+      "id": 59,
+      "sortname": "DJ",
+      "name": "Djibouti",
+      "phoneCode": 253,
+	  "currency_code":"DJF"
+    },
+    {
+      "id": 60,
+      "sortname": "DM",
+      "name": "Dominica",
+      "phoneCode": 1767,
+	  "currency_code":"XCD"
+    },
+    {
+      "id": 61,
+      "sortname": "DO",
+      "name": "Dominican Republic",
+      "phoneCode": 1809,
+	  "currency_code":"DOP"
+    },
+    {
+      "id": 62,
+      "sortname": "TP",
+      "name": "East Timor",
+      "phoneCode": 670,
+	  "currency_code":"TPE"
+    },
+    {
+      "id": 63,
+      "sortname": "EC",
+      "name": "Ecuador",
+      "phoneCode": 593,
+	  "currency_code":"ECS"
+    },
+    {
+      "id": 64,
+      "sortname": "EG",
+      "name": "Egypt",
+      "phoneCode": 20,
+	  "currency_code":"EGP"
+    },
+    {
+      "id": 65,
+      "sortname": "SV",
+      "name": "El Salvador",
+      "phoneCode": 503,
+	  "currency_code":"SVC"
+    },
+    {
+      "id": 66,
+      "sortname": "GQ",
+      "name": "Equatorial Guinea",
+      "phoneCode": 240,
+	  "currency_code":"XAF"
+    },
+    {
+      "id": 67,
+      "sortname": "ER",
+      "name": "Eritrea",
+      "phoneCode": 291,
+	  "currency_code":"ERN"
+    },
+    {
+      "id": 68,
+      "sortname": "EE",
+      "name": "Estonia",
+      "phoneCode": 372,
+	  "currency_code":"EUR"
+    },
+    {
+      "id": 69,
+      "sortname": "ET",
+      "name": "Ethiopia",
+      "phoneCode": 251,
+	  "currency_code":"ETB"
+    },
+    {
+      "id": 70,
+      "sortname": "XA",
+      "name": "External Territories of Australia",
+      "phoneCode": 61,
+	  "currency_code":"AUD"
+    },
+    {
+      "id": 71,
+      "sortname": "FK",
+      "name": "Falkland Islands",
+      "phoneCode": 500,
+	  "currency_code":"FKP"
+    },
+    {
+      "id": 72,
+      "sortname": "FO",
+      "name": "Faroe Islands",
+      "phoneCode": 298,
+	  "currency_code":"DKK"
+    },
+    {
+      "id": 73,
+      "sortname": "FJ",
+      "name": "Fiji Islands",
+      "phoneCode": 679,
+	  "currency_code":"FJD"
+    },
+    {
+      "id": 74,
+      "sortname": "FI",
+      "name": "Finland",
+      "phoneCode": 358,
+	  "currency_code":"EUR"
+    },
+    {
+      "id": 75,
+      "sortname": "FR",
+      "name": "France",
+      "phoneCode": 33,
+	  "currency_code":"EUR"
+    },
+    {
+      "id": 76,
+      "sortname": "GF",
+      "name": "French Guiana",
+      "phoneCode": 594,
+	  "currency_code":"EUR"
+    },
+    {
+      "id": 77,
+      "sortname": "PF",
+      "name": "French Polynesia",
+      "phoneCode": 689,
+	  "currency_code":"CFP"
+    },
+    {
+      "id": 78,
+      "sortname": "TF",
+      "name": "French Southern Territories",
+      "phoneCode": 0,
+	  "currency_code":"EUR"
+    },
+    {
+      "id": 79,
+      "sortname": "GA",
+      "name": "Gabon",
+      "phoneCode": 241,
+	  "currency_code":"XAF"
+    },
+    {
+      "id": 80,
+      "sortname": "GM",
+      "name": "Gambia The",
+      "phoneCode": 220,
+	  "currency_code":"GMD"
+    },
+    {
+      "id": 81,
+      "sortname": "GE",
+      "name": "Georgia",
+      "phoneCode": 995,
+	  "currency_code":"GEL"
+    },
+    {
+      "id": 82,
+      "sortname": "DE",
+      "name": "Germany",
+      "phoneCode": 49,
+	  "currency_code":"EUR"
+    },
+    {
+      "id": 83,
+      "sortname": "GH",
+      "name": "Ghana",
+      "phoneCode": 233,
+	  "currency_code":"GHS"
+    },
+    {
+      "id": 84,
+      "sortname": "GI",
+      "name": "Gibraltar",
+      "phoneCode": 350,
+	  "currency_code":"GIP"
+    },
+    {
+      "id": 85,
+      "sortname": "GR",
+      "name": "Greece",
+      "phoneCode": 30,
+	  "currency_code":"EUR"
+    },
+    {
+      "id": 86,
+      "sortname": "GL",
+      "name": "Greenland",
+      "phoneCode": 299,
+	  "currency_code":"DKK"
+    },
+    {
+      "id": 87,
+      "sortname": "GD",
+      "name": "Grenada",
+      "phoneCode": 1473,
+	  "currency_code":"XCD"
+    },
+    {
+      "id": 88,
+      "sortname": "GP",
+      "name": "Guadeloupe",
+      "phoneCode": 590,
+	  "currency_code":"EUR"
+    },
+    {
+      "id": 89,
+      "sortname": "GU",
+      "name": "Guam",
+      "phoneCode": 1671,
+	  "currency_code":"EUR"
+    },
+    {
+      "id": 90,
+      "sortname": "GT",
+      "name": "Guatemala",
+      "phoneCode": 502,
+	  "currency_code":"QTQ"
+    },
+    {
+      "id": 91,
+      "sortname": "XU",
+      "name": "Guernsey and Alderney",
+      "phoneCode": 44,
+	  "currency_code":"GGP"
+    },
+    {
+      "id": 92,
+      "sortname": "GN",
+      "name": "Guinea",
+      "phoneCode": 224,
+	  "currency_code":"GNF"
+    },
+    {
+      "id": 93,
+      "sortname": "GW",
+      "name": "Guinea-Bissau",
+      "phoneCode": 245,
+	  "currency_code":"GWP"
+    },
+    {
+      "id": 94,
+      "sortname": "GY",
+      "name": "Guyana",
+      "phoneCode": 592,
+	  "currency_code":"GYD"
+    },
+    {
+      "id": 95,
+      "sortname": "HT",
+      "name": "Haiti",
+      "phoneCode": 509,
+	  "currency_code":"HTG"
+    },
+    {
+      "id": 96,
+      "sortname": "HM",
+      "name": "Heard and McDonald Islands",
+      "phoneCode": 0,
+	  "currency_code":"AUD"
+    },
+    {
+      "id": 97,
+      "sortname": "HN",
+      "name": "Honduras",
+      "phoneCode": 504,
+	  "currency_code":"HNL"
+    },
+    {
+      "id": 98,
+      "sortname": "HK",
+      "name": "Hong Kong S.A.R.",
+      "phoneCode": 852,
+	  "currency_code":"HNL"
+    },
+    {
+      "id": 99,
+      "sortname": "HU",
+      "name": "Hungary",
+      "phoneCode": 36,
+	  "currency_code":"HUF"
+    },
+    {
+      "id": 100,
+      "sortname": "IS",
+      "name": "Iceland",
+      "phoneCode": 354,
+	  "currency_code":"ISK"
+    },
+    {
+      "id": 101,
+      "sortname": "IN",
+      "name": "India",
+      "phoneCode": 91,
+	  "currency_code":"INR"
+    },
+    {
+      "id": 102,
+      "sortname": "ID",
+      "name": "Indonesia",
+      "phoneCode": 62,
+	  "currency_code":"IDR"
+    },
+    {
+      "id": 103,
+      "sortname": "IR",
+      "name": "Iran",
+      "phoneCode": 98,
+	  "currency_code":"IRR"
+    },
+    {
+      "id": 104,
+      "sortname": "IQ",
+      "name": "Iraq",
+      "phoneCode": 964,
+	  "currency_code":"IQD"
+    },
+    {
+      "id": 105,
+      "sortname": "IE",
+      "name": "Ireland",
+      "phoneCode": 353,
+	  "currency_code":"EUR"
+    },
+    {
+      "id": 106,
+      "sortname": "IL",
+      "name": "Israel",
+      "phoneCode": 972,
+	  "currency_code":"ILS"
+    },
+    {
+      "id": 107,
+      "sortname": "IT",
+      "name": "Italy",
+      "phoneCode": 39,
+	  "currency_code":"EUR"
+    },
+    {
+      "id": 108,
+      "sortname": "JM",
+      "name": "Jamaica",
+      "phoneCode": 1876,
+	  "currency_code":"JMD"
+    },
+    {
+      "id": 109,
+      "sortname": "JP",
+      "name": "Japan",
+      "phoneCode": 81,
+	  "currency_code":"JPY"
+    },
+    {
+      "id": 110,
+      "sortname": "XJ",
+      "name": "Jersey",
+      "phoneCode": 44,
+	  "currency_code":"GBP"
+    },
+    {
+      "id": 111,
+      "sortname": "JO",
+      "name": "Jordan",
+      "phoneCode": 962,
+	  "currency_code":"JOD"
+    },
+    {
+      "id": 112,
+      "sortname": "KZ",
+      "name": "Kazakhstan",
+      "phoneCode": 7,
+	  "currency_code":"KZT"
+    },
+    {
+      "id": 113,
+      "sortname": "KE",
+      "name": "Kenya",
+      "phoneCode": 254,
+	  "currency_code":"KES"
+    },
+    {
+      "id": 114,
+      "sortname": "KI",
+      "name": "Kiribati",
+      "phoneCode": 686,
+	  "currency_code":"AUD"
+    },
+    {
+      "id": 115,
+      "sortname": "KP",
+      "name": "Korea North",
+      "phoneCode": 850,
+	  "currency_code":"KPW"
+    },
+    {
+      "id": 116,
+      "sortname": "KR",
+      "name": "Korea South",
+      "phoneCode": 82,
+	  "currency_code":"KRW"
+    },
+    {
+      "id": 117,
+      "sortname": "KW",
+      "name": "Kuwait",
+      "phoneCode": 965,
+	  "currency_code":"KWD"
+    },
+    {
+      "id": 118,
+      "sortname": "KG",
+      "name": "Kyrgyzstan",
+      "phoneCode": 996,
+	  "currency_code":"KGS"
+    },
+    {
+      "id": 119,
+      "sortname": "LA",
+      "name": "Laos",
+      "phoneCode": 856,
+	  "currency_code":"LAK"
+    },
+    {
+      "id": 120,
+      "sortname": "LV",
+      "name": "Latvia",
+      "phoneCode": 371,
+	  "currency_code":"LVL"
+    },
+    {
+      "id": 121,
+      "sortname": "LB",
+      "name": "Lebanon",
+      "phoneCode": 961,
+	  "currency_code":"LBP"
+    },
+    {
+      "id": 122,
+      "sortname": "LS",
+      "name": "Lesotho",
+      "phoneCode": 266,
+	  "currency_code":"LSL"
+    },
+    {
+      "id": 123,
+      "sortname": "LR",
+      "name": "Liberia",
+      "phoneCode": 231,
+	  "currency_code":"LRD"
+    },
+    {
+      "id": 124,
+      "sortname": "LY",
+      "name": "Libya",
+      "phoneCode": 218,
+	  "currency_code":"LYD"
+    },
+    {
+      "id": 125,
+      "sortname": "LI",
+      "name": "Liechtenstein",
+      "phoneCode": 423,
+	  "currency_code":"CHF"
+    },
+    {
+      "id": 126,
+      "sortname": "LT",
+      "name": "Lithuania",
+      "phoneCode": 370,
+	  "currency_code":"LTL"
+    },
+    {
+      "id": 127,
+      "sortname": "LU",
+      "name": "Luxembourg",
+      "phoneCode": 352,
+	  "currency_code":"EUR"
+    },
+    {
+      "id": 128,
+      "sortname": "MO",
+      "name": "Macau S.A.R.",
+      "phoneCode": 853,
+	  "currency_code":"MOP"
+    },
+    {
+      "id": 129,
+      "sortname": "MK",
+      "name": "Macedonia",
+      "phoneCode": 389,
+	  "currency_code":"MKD"
+    },
+    {
+      "id": 130,
+      "sortname": "MG",
+      "name": "Madagascar",
+      "phoneCode": 261,
+	  "currency_code":"MGF"
+    },
+    {
+      "id": 131,
+      "sortname": "MW",
+      "name": "Malawi",
+      "phoneCode": 265,
+	  "currency_code":"MWK"
+    },
+    {
+      "id": 132,
+      "sortname": "MY",
+      "name": "Malaysia",
+      "phoneCode": 60,
+	  "currency_code":"MYR"
+    },
+    {
+      "id": 133,
+      "sortname": "MV",
+      "name": "Maldives",
+      "phoneCode": 960,
+	  "currency_code":"MVR"
+    },
+    {
+      "id": 134,
+      "sortname": "ML",
+      "name": "Mali",
+      "phoneCode": 223,
+	  "currency_code":"XOF"
+    },
+    {
+      "id": 135,
+      "sortname": "MT",
+      "name": "Malta",
+      "phoneCode": 356,
+	  "currency_code":"EUR"
+    },
+    {
+      "id": 136,
+      "sortname": "XM",
+      "name": "Man (Isle of)",
+      "phoneCode": 44,
+	  "currency_code":"GBP"
+    },
+    {
+      "id": 137,
+      "sortname": "MH",
+      "name": "Marshall Islands",
+      "phoneCode": 692,
+	  "currency_code":"USD"
+    },
+    {
+      "id": 138,
+      "sortname": "MQ",
+      "name": "Martinique",
+      "phoneCode": 596,
+	  "currency_code":"EUR"
+    },
+    {
+      "id": 139,
+      "sortname": "MR",
+      "name": "Mauritania",
+      "phoneCode": 222,
+	  "currency_code":"MRO"
+    },
+    {
+      "id": 140,
+      "sortname": "MU",
+      "name": "Mauritius",
+      "phoneCode": 230,
+	  "currency_code":"MUR"
+    },
+    {
+      "id": 141,
+      "sortname": "YT",
+      "name": "Mayotte",
+      "phoneCode": 269,
+	  "currency_code":"EUR"
+    },
+    {
+      "id": 142,
+      "sortname": "MX",
+      "name": "Mexico",
+      "phoneCode": 52,
+	  "currency_code":"MXN"
+    },
+    {
+      "id": 143,
+      "sortname": "FM",
+      "name": "Micronesia",
+      "phoneCode": 691,
+	  "currency_code":"USD"
+    },
+    {
+      "id": 144,
+      "sortname": "MD",
+      "name": "Moldova",
+      "phoneCode": 373,
+	  "currency_code":"MDL"
+    },
+    {
+      "id": 145,
+      "sortname": "MC",
+      "name": "Monaco",
+      "phoneCode": 377,
+	  "currency_code":"EUR"
+    },
+    {
+      "id": 146,
+      "sortname": "MN",
+      "name": "Mongolia",
+      "phoneCode": 976,
+	  "currency_code":"MNT"
+    },
+    {
+      "id": 147,
+      "sortname": "MS",
+      "name": "Montserrat",
+      "phoneCode": 1664,
+	  "currency_code":"XCD"
+    },
+    {
+      "id": 148,
+      "sortname": "MA",
+      "name": "Morocco",
+      "phoneCode": 212,
+	  "currency_code":"MAD"
+    },
+    {
+      "id": 149,
+      "sortname": "MZ",
+      "name": "Mozambique",
+      "phoneCode": 258,
+	  "currency_code":"MZN"
+    },
+    {
+      "id": 150,
+      "sortname": "MM",
+      "name": "Myanmar",
+      "phoneCode": 95,
+	  "currency_code":"MMK"
+    },
+    {
+      "id": 151,
+      "sortname": "NA",
+      "name": "Namibia",
+      "phoneCode": 264,
+	  "currency_code":"NAD"
+    },
+    {
+      "id": 152,
+      "sortname": "NR",
+      "name": "Nauru",
+      "phoneCode": 674,
+	  "currency_code":"AUD"
+    },
+    {
+      "id": 153,
+      "sortname": "NP",
+      "name": "Nepal",
+      "phoneCode": 977,
+	  "currency_code":"NPR"
+    },
+    {
+      "id": 154,
+      "sortname": "AN",
+      "name": "Netherlands Antilles",
+      "phoneCode": 599,
+	  "currency_code":"ANG"
+    },
+    {
+      "id": 155,
+      "sortname": "NL",
+      "name": "Netherlands The",
+      "phoneCode": 31,
+	  "currency_code":"EUR"
+    },
+    {
+      "id": 156,
+      "sortname": "NC",
+      "name": "New Caledonia",
+      "phoneCode": 687,
+	  "currency_code":"XPF"
+    },
+    {
+      "id": 157,
+      "sortname": "NZ",
+      "name": "New Zealand",
+      "phoneCode": 64,
+	  "currency_code":"NZD"
+    },
+    {
+      "id": 158,
+      "sortname": "NI",
+      "name": "Nicaragua",
+      "phoneCode": 505,
+	  "currency_code":"NIO"
+    },
+    {
+      "id": 159,
+      "sortname": "NE",
+      "name": "Niger",
+      "phoneCode": 227,
+	  "currency_code":"XOF"
+    },
+    {
+      "id": 160,
+      "sortname": "NG",
+      "name": "Nigeria",
+      "phoneCode": 234,
+	  "currency_code":"NGN"
+    },
+    {
+      "id": 161,
+      "sortname": "NU",
+      "name": "Niue",
+      "phoneCode": 683,
+	  "currency_code":"NZD"
+    },
+    {
+      "id": 162,
+      "sortname": "NF",
+      "name": "Norfolk Island",
+      "phoneCode": 672,
+	  "currency_code":"AUD"
+    },
+    {
+      "id": 163,
+      "sortname": "MP",
+      "name": "Northern Mariana Islands",
+      "phoneCode": 1670,
+	  "currency_code":"USD"
+    },
+    {
+      "id": 164,
+      "sortname": "NO",
+      "name": "Norway",
+      "phoneCode": 47,
+	  "currency_code":"NOK"
+    },
+    {
+      "id": 165,
+      "sortname": "OM",
+      "name": "Oman",
+      "phoneCode": 968,
+	  "currency_code":"OMR"
+    },
+    {
+      "id": 166,
+      "sortname": "PK",
+      "name": "Pakistan",
+      "phoneCode": 92,
+	  "currency_code":"PKR"
+    },
+    {
+      "id": 167,
+      "sortname": "PW",
+      "name": "Palau",
+      "phoneCode": 680,
+	  "currency_code":"USD"
+    },
+    {
+      "id": 168,
+      "sortname": "PS",
+      "name": "Palestinian Territory Occupied",
+      "phoneCode": 970,
+	  "currency_code":"PSE"
+    },
+    {
+      "id": 169,
+      "sortname": "PA",
+      "name": "Panama",
+      "phoneCode": 507,
+	  "currency_code":"PAB"
+    },
+    {
+      "id": 170,
+      "sortname": "PG",
+      "name": "Papua new Guinea",
+      "phoneCode": 675,
+	  "currency_code":"PGK"
+    },
+    {
+      "id": 171,
+      "sortname": "PY",
+      "name": "Paraguay",
+      "phoneCode": 595,
+	  "currency_code":"PYG"
+    },
+    {
+      "id": 172,
+      "sortname": "PE",
+      "name": "Peru",
+      "phoneCode": 51,
+	  "currency_code":"PEN"
+    },
+    {
+      "id": 173,
+      "sortname": "PH",
+      "name": "Philippines",
+      "phoneCode": 63,
+	  "currency_code":"PHP"
+    },
+    {
+      "id": 174,
+      "sortname": "PN",
+      "name": "Pitcairn Island",
+      "phoneCode": 0,
+	  "currency_code":"NZD"
+    },
+    {
+      "id": 175,
+      "sortname": "PL",
+      "name": "Poland",
+      "phoneCode": 48,
+	  "currency_code":"PLN"
+    },
+    {
+      "id": 176,
+      "sortname": "PT",
+      "name": "Portugal",
+      "phoneCode": 351,
+	  "currency_code":"EUR"
+    },
+    {
+      "id": 177,
+      "sortname": "PR",
+      "name": "Puerto Rico",
+      "phoneCode": 1787,
+	  "currency_code":"Puerto Rico"
+    },
+    {
+      "id": 178,
+      "sortname": "QA",
+      "name": "Qatar",
+      "phoneCode": 974,
+	  "currency_code":"QAR"
+    },
+    {
+      "id": 179,
+      "sortname": "RE",
+      "name": "Reunion",
+      "phoneCode": 262,
+	  "currency_code":"FRF"
+    },
+    {
+      "id": 180,
+      "sortname": "RO",
+      "name": "Romania",
+      "phoneCode": 40,
+	  "currency_code":"RON"
+    },
+    {
+      "id": 181,
+      "sortname": "RU",
+      "name": "Russia",
+      "phoneCode": 70,
+	  "currency_code":"RUB"
+    },
+    {
+      "id": 182,
+      "sortname": "RW",
+      "name": "Rwanda",
+      "phoneCode": 250,
+	  "currency_code":"RWF"
+    },
+    {
+      "id": 183,
+      "sortname": "SH",
+      "name": "Saint Helena",
+      "phoneCode": 290,
+	  "currency_code":"SHP"
+    },
+    {
+      "id": 184,
+      "sortname": "KN",
+      "name": "Saint Kitts And Nevis",
+      "phoneCode": 1869,
+	  "currency_code":"XCD"
+    },
+    {
+      "id": 185,
+      "sortname": "LC",
+      "name": "Saint Lucia",
+      "phoneCode": 1758,
+	  "currency_code":"XCD"
+    },
+    {
+      "id": 186,
+      "sortname": "PM",
+      "name": "Saint Pierre and Miquelon",
+      "phoneCode": 508,
+	  "currency_code":"EUR"
+    },
+    {
+      "id": 187,
+      "sortname": "VC",
+      "name": "Saint Vincent And The Grenadines",
+      "phoneCode": 1784,
+	  "currency_code":"XCD"
+    },
+    {
+      "id": 188,
+      "sortname": "WS",
+      "name": "Samoa",
+      "phoneCode": 684,
+	  "currency_code":"WST"
+    },
+    {
+      "id": 189,
+      "sortname": "SM",
+      "name": "San Marino",
+      "phoneCode": 378,
+	  "currency_code":"EUR"
+    },
+    {
+      "id": 190,
+      "sortname": "ST",
+      "name": "Sao Tome and Principe",
+      "phoneCode": 239,
+	  "currency_code":"STD"
+    },
+    {
+      "id": 191,
+      "sortname": "SA",
+      "name": "Saudi Arabia",
+      "phoneCode": 966,
+	  "currency_code":"SAR"
+    },
+    {
+      "id": 192,
+      "sortname": "SN",
+      "name": "Senegal",
+      "phoneCode": 221,
+	  "currency_code":"XOF"
+    },
+    {
+      "id": 193,
+      "sortname": "RS",
+      "name": "Serbia",
+      "phoneCode": 381,
+	  "currency_code":"RSD"
+    },
+    {
+      "id": 194,
+      "sortname": "SC",
+      "name": "Seychelles",
+      "phoneCode": 248,
+	  "currency_code":"SCR"
+    },
+    {
+      "id": 195,
+      "sortname": "SL",
+      "name": "Sierra Leone",
+      "phoneCode": 232,
+	  "currency_code":"SLL"
+    },
+    {
+      "id": 196,
+      "sortname": "SG",
+      "name": "Singapore",
+      "phoneCode": 65,
+	  "currency_code":"SGD"
+    },
+    {
+      "id": 197,
+      "sortname": "SK",
+      "name": "Slovakia",
+      "phoneCode": 421,
+	  "currency_code":"EUR"
+    },
+    {
+      "id": 198,
+      "sortname": "SI",
+      "name": "Slovenia",
+      "phoneCode": 386,
+	  "currency_code":"EUR"
+    },
+    {
+      "id": 199,
+      "sortname": "XG",
+      "name": "Smaller Territories of the UK",
+      "phoneCode": 44,
+	  "currency_code":"GBP"
+    },
+    {
+      "id": 200,
+      "sortname": "SB",
+      "name": "Solomon Islands",
+      "phoneCode": 677,
+	  "currency_code":"SBD"
+    },
+    {
+      "id": 201,
+      "sortname": "SO",
+      "name": "Somalia",
+      "phoneCode": 252,
+	  "currency_code":"SOS"
+    },
+    {
+      "id": 202,
+      "sortname": "ZA",
+      "name": "South Africa",
+      "phoneCode": 27,
+	  "currency_code":"ZAR"
+    },
+    {
+      "id": 203,
+      "sortname": "GS",
+      "name": "South Georgia",
+      "phoneCode": 0,
+	  "currency_code":"GBP"
+    },
+    {
+      "id": 204,
+      "sortname": "SS",
+      "name": "South Sudan",
+      "phoneCode": 211,
+	  "currency_code":"SSP"
+    },
+    {
+      "id": 205,
+      "sortname": "ES",
+      "name": "Spain",
+      "phoneCode": 34,
+	  "currency_code":"EUR"
+    },
+    {
+      "id": 206,
+      "sortname": "LK",
+      "name": "Sri Lanka",
+      "phoneCode": 94,
+	  "currency_code":"LKR"
+    },
+    {
+      "id": 207,
+      "sortname": "SD",
+      "name": "Sudan",
+      "phoneCode": 249,
+	  "currency_code":"SDG"
+    },
+    {
+      "id": 208,
+      "sortname": "SR",
+      "name": "Suriname",
+      "phoneCode": 597,
+	  "currency_code":"SRD"
+    },
+    {
+      "id": 209,
+      "sortname": "SJ",
+      "name": "Svalbard And Jan Mayen Islands",
+      "phoneCode": 47,
+	  "currency_code":"NOK"
+    },
+    {
+      "id": 210,
+      "sortname": "SZ",
+      "name": "Swaziland",
+      "phoneCode": 268,
+	  "currency_code":"SZL"
+    },
+    {
+      "id": 211,
+      "sortname": "SE",
+      "name": "Sweden",
+      "phoneCode": 46,
+	  "currency_code":"SEK"
+    },
+    {
+      "id": 212,
+      "sortname": "CH",
+      "name": "Switzerland",
+      "phoneCode": 41,
+	  "currency_code":"CHF"
+    },
+    {
+      "id": 213,
+      "sortname": "SY",
+      "name": "Syria",
+      "phoneCode": 963,
+	  "currency_code":"SYP"
+    },
+    {
+      "id": 214,
+      "sortname": "TW",
+      "name": "Taiwan",
+      "phoneCode": 886,
+	  "currency_code":"TWD"
+    },
+    {
+      "id": 215,
+      "sortname": "TJ",
+      "name": "Tajikistan",
+      "phoneCode": 992,
+	  "currency_code":"TJS"
+    },
+    {
+      "id": 216,
+      "sortname": "TZ",
+      "name": "Tanzania",
+      "phoneCode": 255,
+	  "currency_code":"TZS"
+    },
+    {
+      "id": 217,
+      "sortname": "TH",
+      "name": "Thailand",
+      "phoneCode": 66,
+	  "currency_code":"THB"
+    },
+    {
+      "id": 218,
+      "sortname": "TG",
+      "name": "Togo",
+      "phoneCode": 228,
+	  "currency_code":"XOF"
+    },
+    {
+      "id": 219,
+      "sortname": "TK",
+      "name": "Tokelau",
+      "phoneCode": 690,
+	  "currency_code":"NZD"
+    },
+    {
+      "id": 220,
+      "sortname": "TO",
+      "name": "Tonga",
+      "phoneCode": 676,
+	  "currency_code":"TOP"
+    },
+    {
+      "id": 221,
+      "sortname": "TT",
+      "name": "Trinidad And Tobago",
+      "phoneCode": 1868,
+	  "currency_code":"TTD"
+    },
+    {
+      "id": 222,
+      "sortname": "TN",
+      "name": "Tunisia",
+      "phoneCode": 216,
+	  "currency_code":"TND"
+    },
+    {
+      "id": 223,
+      "sortname": "TR",
+      "name": "Turkey",
+      "phoneCode": 90,
+	  "currency_code":"TRY"
+    },
+    {
+      "id": 224,
+      "sortname": "TM",
+      "name": "Turkmenistan",
+      "phoneCode": 7370,
+	  "currency_code":"TMT"
+    },
+    {
+      "id": 225,
+      "sortname": "TC",
+      "name": "Turks And Caicos Islands",
+      "phoneCode": 1649,
+	  "currency_code":"USD"
+    },
+    {
+      "id": 226,
+      "sortname": "TV",
+      "name": "Tuvalu",
+      "phoneCode": 688,
+	  "currency_code":"AUD"
+    },
+    {
+      "id": 227,
+      "sortname": "UG",
+      "name": "Uganda",
+      "phoneCode": 256,
+	  "currency_code":"UGX"
+    },
+    {
+      "id": 228,
+      "sortname": "UA",
+      "name": "Ukraine",
+      "phoneCode": 380,
+	  "currency_code":"UAH"
+    },
+    {
+      "id": 229,
+      "sortname": "AE",
+      "name": "United Arab Emirates",
+      "phoneCode": 971,
+	  "currency_code":"AED"
+    },
+    {
+      "id": 230,
+      "sortname": "GB",
+      "name": "United Kingdom",
+      "phoneCode": 44,
+	  "currency_code":"GBP"
+    },
+    {
+      "id": 231,
+      "sortname": "US",
+      "name": "United States",
+      "phoneCode": 1,
+	  "currency_code":"USD"
+    },
+    {
+      "id": 232,
+      "sortname": "UM",
+      "name": "United States Minor Outlying Islands",
+      "phoneCode": 1,
+	  "currency_code":"USD"
+    },
+    {
+      "id": 233,
+      "sortname": "UY",
+      "name": "Uruguay",
+      "phoneCode": 598,
+	  "currency_code":"UYU"
+    },
+    {
+      "id": 234,
+      "sortname": "UZ",
+      "name": "Uzbekistan",
+      "phoneCode": 998,
+	  "currency_code":"UZS"
+    },
+    {
+      "id": 235,
+      "sortname": "VU",
+      "name": "Vanuatu",
+      "phoneCode": 678,
+	  "currency_code":"VUV"
+    },
+    {
+      "id": 236,
+      "sortname": "VA",
+      "name": "Vatican City State (Holy See)",
+      "phoneCode": 39,
+	  "currency_code":"EUR"
+    },
+    {
+      "id": 237,
+      "sortname": "VE",
+      "name": "Venezuela",
+      "phoneCode": 58,
+	  "currency_code":"VEF"
+    },
+    {
+      "id": 238,
+      "sortname": "VN",
+      "name": "Vietnam",
+      "phoneCode": 84,
+	  "currency_code":"VND"
+    },
+    {
+      "id": 239,
+      "sortname": "VG",
+      "name": "Virgin Islands (British)",
+      "phoneCode": 1284,
+	  "currency_code":"USD"
+    },
+    {
+      "id": 240,
+      "sortname": "VI",
+      "name": "Virgin Islands (US)",
+      "phoneCode": 1340,
+	  "currency_code":"USD"
+    },
+    {
+      "id": 241,
+      "sortname": "WF",
+      "name": "Wallis And Futuna Islands",
+      "phoneCode": 681,
+	  "currency_code":"XPF"
+    },
+    {
+      "id": 242,
+      "sortname": "EH",
+      "name": "Western Sahara",
+      "phoneCode": 212,
+	  "currency_code":"MAD"
+    },
+    {
+      "id": 243,
+      "sortname": "YE",
+      "name": "Yemen",
+      "phoneCode": 967,
+	  "currency_code":"YER"
+    },
+    {
+      "id": 244,
+      "sortname": "YU",
+      "name": "Yugoslavia",
+      "phoneCode": 38,
+	  "currency_code":"YUN"
+    },
+    {
+      "id": 245,
+      "sortname": "ZM",
+      "name": "Zambia",
+      "phoneCode": 260,
+	  "currency_code":"ZMW"
+    },
+    {
+      "id": 246,
+      "sortname": "ZW",
+      "name": "Zimbabwe",
+      "phoneCode": 26,
+	  "currency_code":"ZWD"
+    }
+  ]
+}
